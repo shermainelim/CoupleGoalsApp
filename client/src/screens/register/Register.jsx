@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { register } from "../redux/appSlice";
+import { register } from "../../redux/appSlice";
+
 
 const Register = () => {
   const [username, setUsernameReg] = useState("");

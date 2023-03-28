@@ -1,18 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-
-import Register from "../screens/Register";
-
-import ChocolateBar from "../assets/chocolatebar.png";
-import Welcome from "../screens/Welcome";
+import Welcome from "../screens/welcome/Welcome";
+import Register from "../screens/register/Register";
 
 const AppNavigator = () => {
   return (
     <Router>
      
-<Welcome/>
+
       <Routes>
-   
+      <Route path="/" element={<Welcome />} />
+      <Route path="/welcome" element={<Welcome />} />
         <Route path="/register" element={<Register />} />
   
       </Routes>

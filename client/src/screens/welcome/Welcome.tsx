@@ -1,10 +1,11 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
-import styles from "./scss/Welcome.scss";
+import styles from "./Welcome.scss";
 
-import CustomButton from "../shared/CustomButton";
-import Couple from "../assets/couple.png"
+
+import Couple from "../../assets/couple.png"
+import CustomButton from "../../shared/CustomButton";
 
 const Welcome = () => {
   const navigate = useNavigate();
