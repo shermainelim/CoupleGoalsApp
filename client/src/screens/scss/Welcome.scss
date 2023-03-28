@@ -1,0 +1,51 @@
+@import "colors";
+
+
+
+
+body, html {
+  height: 100%;
+  background-color: aliceblue;
+}
+
+
+div#root {
+  //height: 100%; /* remove this line to see div.app is no more 100% height */
+  background-color: aliceblue;
+  min-width:auto;
+  
+
+}
+
+div.app {
+  height: 100%;
+  background-color: aliceblue;
+}
+
+.container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+  text-align: center;
+  background-color: aliceblue;
+
+  .imageIcon{
+    width:200px;
+    height:200px;
+  }
+  
+  .title{
+    font-size:45px;
+    margin-top:10px;
+    margin-bottom:30px;
+    font-weight:700;
+    color: "teal";
+  }
+}
+
+
