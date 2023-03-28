@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { register } from "../../redux/appSlice";
+import { register , checkSpaceName} from "../../redux/appSlice";
 import styles from "./Register.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
@@ -64,7 +64,7 @@ const Register = () => {
 
       <div className={cx("input-container")}>
         <div className={cx("input-couple-space-name")}>
-          Your Couple Space's Name
+          Your Unique Couple Space's Name
         </div>
         <input
           className={cx("input-general")}
@@ -107,7 +107,7 @@ const Register = () => {
         <div>
         <input
          className={cx("input-general")}
-          type="text"
+          type="password"
           name="name"
           placeholder="1st Person's Password"
           value={firstPersonPassword}
@@ -145,7 +145,7 @@ const Register = () => {
         
         <div> <input
           className={cx("input-general")}
-          type="text"
+          type="password"
           name="name"
           placeholder="2nd Person's Password"
           value={secondPersonPassword}
@@ -157,6 +157,22 @@ const Register = () => {
 
        
       </div>
+
+      <CustomButton
+        className="resident-btn"
+        testId="resident"
+        content="Check Unique Space Name"
+        clicked={async () => {
+          setFormSubmitted(true);
+
+          if (spaceName.length !== 0
+            ) {
+                dispatch(checkSpaceName({id,spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword }));
+
+              
+          }
+        }}
+      ></CustomButton>
 
 
       <CustomButton
@@ -170,10 +186,16 @@ const Register = () => {
             firstPersonPassword.length !==0 && secondPersonName.length !==0 && secondPersonEmail.length !==0 &&
             secondPersonPassword.length !==0
             ) {
-                console.log("pressed")
+                dispatch(register({id,spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword }));
 
-                console.log("all",id,spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword )
-                
+                setChangeSpaceName("");
+                setChangeFirstPersonName("");
+                setChangeFirstPersonEmail("");
+                setChangeFirstPersonPassword("");
+                setChangeSecondPersonName("");
+                setChangeSecondPersonEmail("");
+                setChangeSecondPersonPassword("");
+                navigate("/");
           }
         }}
       ></CustomButton>

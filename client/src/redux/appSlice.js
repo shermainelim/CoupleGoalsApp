@@ -7,19 +7,18 @@ const initialState = {
   registerLoading: false,
   
   isRegisterCreated: false,
+
+  checkLoading: false,
+  isCheckCreated: false,
 };
 
 const name = "appState";
 
 export const register = createAsyncThunk(
   `${name}/register`,
-  async ({ username, password }) => {
-    console.log("all", username,password)
+  async ({ id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword }) => {
     try {
-      const res = await axios.post("/register", {
-        username,
-        password
-      });
+      const res = await axios.post("/register", {id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword});
 
       if (res.status !== 200) {
         alert("Register failed here.");
@@ -34,12 +33,34 @@ export const register = createAsyncThunk(
   }
 );
 
+
+export const checkSpaceName = createAsyncThunk(
+  `${name}/checkSpaceName`,
+  async ({ spaceName }) => {
+    try {
+      const res = await axios.post("/checkSpaceName", {spaceName});
+
+      if (res.status !== 200) {
+        alert("Check failed here.");
+        return;
+      }
+
+      alert(res.data.message);
+    } catch (err) {
+      alert("Check failed 2.");
+    }
+  }
+);
+
 const appSlice = createSlice({
   name,
   initialState,
   reducers: {
     completeRegister: (state) => {
-      state.isRegisterCreated = initialState.isRegisterCreated;
+      state.isRegisterCreated = initialState.isCheckCreated;
+    },
+    completeCheck: (state) => {
+      state.isCheckCreated = initialState.isCheckCreated;
     },
   },
 
@@ -56,12 +77,26 @@ const appSlice = createSlice({
       state.registerLoading = false;
     });
 
+
+    builder.addCase(checkSpaceName.fulfilled, (state) => {
+      state.isCheckCreated = true;
+
+      state.checkLoading = false;
+    });
+    builder.addCase(checkSpaceName.pending, (state) => {
+      state.checkLoading = true;
+    });
+    builder.addCase(checkSpaceName.rejected, (state) => {
+      state.checkLoading = false;
+    });
+
   },
 });
 
 // each case under reducers becomes an action
 
 export const { completeRegister } = appSlice.actions;
+export const { completeCheck } = appSlice.actions;
 
 export default appSlice.reducer;
 
@@ -69,5 +104,8 @@ export default appSlice.reducer;
 //register complete status
 export const useRegisterCreated = () =>
   useSelector((state) => state.appState.isRegisterCreated);
+
+  export const useCheckCreated = () =>
+  useSelector((state) => state.appState.isCheckCreated);
 
 

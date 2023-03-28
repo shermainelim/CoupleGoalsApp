@@ -19,40 +19,66 @@ const db = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "password",
-  database: "test",
+  database: "couplegoals",
 });
 
-//register new staff
+//register couples
 app.post("/register", (req, res) => {
- 
-  const username = req.body.username;
-  const password = req.body.password;
+  const id = req.body.id;
+  const spaceName = req.body.spaceName;
+  console.log(spaceName);
+  const firstPersonName = req.body.firstPersonName;
+  const firstPersonEmail = req.body.firstPersonEmail;
+  const firstPersonPassword = req.body.firstPersonPassword;
 
-  console.log("user", username)
+  const secondPersonName = req.body.secondPersonName;
+  const secondPersonEmail = req.body.secondPersonEmail;
+  const secondPersonPassword = req.body.secondPersonPassword;
 
   //hash pw
 
-  bcrypt.hash(password, saltRounds, (err, hash) => {
-    if (err) {
-      console.log(err);
-    }
-
-    db.query(
-      "INSERT INTO staffs ( username, password) VALUES (?,?)",
-      [username, hash],
-      (err, result) => {
-        if (err) {
-          res.send({ err: err });
-        }
-        if (result) {
-          res.send(res.statusCode);
-        }
+  db.query(
+    "INSERT INTO space ( id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword) VALUES (?,?,?,?,?,?,?,?)",
+    [
+      id,
+      spaceName,
+      firstPersonName,
+      firstPersonEmail,
+      firstPersonPassword,
+      secondPersonName,
+      secondPersonEmail,
+      secondPersonPassword,
+    ],
+    (err, result) => {
+      if (err) {
+        res.send({ err: err });
       }
-    );
-  });
+      if (result) {
+        res.send(res.statusCode);
+      }
+    }
+  );
 });
 
+//check couple space name
+app.post("/checkSpaceName", (req, res) => {
+  const spaceName = req.body.spaceName;
 
+  db.query(
+    "SELECT * from space WHERE spaceName = ?",
+    [spaceName],
+    (err, result) => {
+      if (err) {
+        res.send({ err: err });
+      }
+      if (result.length > 0) {
+        res.send({ message: "Space name taken" });
+      } else {
+        res.send({ message: "Space name not taken" });
+      }
+    }
+  );
+});
 
 app.listen(process.env.PORT || 3002, () => {
   console.log("Server running on port");
