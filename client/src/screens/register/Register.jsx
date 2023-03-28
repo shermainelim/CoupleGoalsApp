@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { register , checkSpaceName} from "../../redux/appSlice";
+import { register, checkSpaceName } from "../../redux/appSlice";
 import styles from "./Register.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
@@ -74,88 +74,97 @@ const Register = () => {
           value={spaceName}
           onChange={spaceNameHandler}
         />
-  {spaceName.length === 0 && formSubmitted ? (
-              <div className={cx("input-general-error")}>*required</div>
-            ) : null}
+        {spaceName.length === 0 && formSubmitted ? (
+          <div className={cx("input-general-error")}>*required</div>
+        ) : null}
 
         <div className={cx("input-couple-space-name-person")}>1st Person</div>
-       <div><input
-          className={cx("input-general")}
-          type="text"
-          name="name"
-          placeholder="1st Person's Name"
-          value={firstPersonName}
-          onChange={firstPersonNameHandler}
-        /></div> 
-  {firstPersonName.length === 0 && formSubmitted ? (
-              <div className={cx("input-general-error")}>*required</div>
-            ) : null}
-
-
-        <div><input
-          className={cx("input-general")}
-          type="text"
-          name="name"
-          placeholder="1st Person's Email"
-          value={firstPersonEmail}
-          onChange={firstPersonEmailHandler}
-        /></div>
-  {firstPersonEmail.length === 0 && formSubmitted ? (
-              <div className={cx("input-general-error")}>*required</div>
-            ) : null}
+        <div>
+          <input
+            className={cx("input-general")}
+            type="text"
+            name="name"
+            placeholder="1st Person's Name"
+            value={firstPersonName}
+            onChange={firstPersonNameHandler}
+          />
+        </div>
+        {firstPersonName.length === 0 && formSubmitted ? (
+          <div className={cx("input-general-error")}>*required</div>
+        ) : null}
 
         <div>
-        <input
-         className={cx("input-general")}
-          type="password"
-          name="name"
-          placeholder="1st Person's Password"
-          value={firstPersonPassword}
-          onChange={firstPersonPasswordHandler}
-        /></div>
-         {firstPersonPassword.length === 0 && formSubmitted ? (
-              <div className={cx("input-general-error")}>*required</div>
-            ) : null}
+          <input
+            className={cx("input-general")}
+            type="text"
+            name="name"
+            placeholder="1st Person's Email"
+            value={firstPersonEmail}
+            onChange={firstPersonEmailHandler}
+          />
+        </div>
+        {firstPersonEmail.length === 0 && formSubmitted ? (
+          <div className={cx("input-general-error")}>*required</div>
+        ) : null}
+
+        <div>
+          <input
+            className={cx("input-general")}
+            type="password"
+            name="name"
+            placeholder="1st Person's Password"
+            value={firstPersonPassword}
+            onChange={firstPersonPasswordHandler}
+          />
+        </div>
+        {firstPersonPassword.length === 0 && formSubmitted ? (
+          <div className={cx("input-general-error")}>*required</div>
+        ) : null}
 
         <div className={cx("input-couple-space-name-person")}>2nd Person</div>
-        <div><input
-          className={cx("input-general")}
-          type="text"
-          name="name"
-          placeholder="2nd Person's Name"
-          value={secondPersonName}
-          onChange={secondPersonNameHandler}
-        /></div>
-         {secondPersonName.length === 0 && formSubmitted ? (
-              <div className={cx("input-general-error")}>*required</div>
-            ) : null}
+        <div>
+          <input
+            className={cx("input-general")}
+            type="text"
+            name="name"
+            placeholder="2nd Person's Name"
+            value={secondPersonName}
+            onChange={secondPersonNameHandler}
+          />
+        </div>
+        {secondPersonName.length === 0 && formSubmitted ? (
+          <div className={cx("input-general-error")}>*required</div>
+        ) : null}
 
-        <div><input
-          className={cx("input-general")}
-          type="text"
-          name="name"
-          placeholder="2nd Person's Email"
-          value={secondPersonEmail}
-          onChange={secondPersonEmailHandler}
-        /></div>
+        <div>
+          <input
+            className={cx("input-general")}
+            type="text"
+            name="name"
+            placeholder="2nd Person's Email"
+            value={secondPersonEmail}
+            onChange={secondPersonEmailHandler}
+          />
+        </div>
 
-{secondPersonEmail.length === 0 && formSubmitted ? (
-              <div className={cx("input-general-error")}>*required</div>
-            ) : null}
-        
-        <div> <input
-          className={cx("input-general")}
-          type="password"
-          name="name"
-          placeholder="2nd Person's Password"
-          value={secondPersonPassword}
-          onChange={secondPersonPasswordHandler}
-        /></div>
+        {secondPersonEmail.length === 0 && formSubmitted ? (
+          <div className={cx("input-general-error")}>*required</div>
+        ) : null}
+
+        <div>
+          {" "}
+          <input
+            className={cx("input-general")}
+            type="password"
+            name="name"
+            placeholder="2nd Person's Password"
+            value={secondPersonPassword}
+            onChange={secondPersonPasswordHandler}
+          />
+        </div>
         {secondPersonPassword.length === 0 && formSubmitted ? (
-              <div className={cx("input-general-error")}>*required</div>
-            ) : null}
-
-       
+          <div className={cx("input-general-error")}>*required</div>
+        ) : null}
       </div>
 
       <CustomButton
@@ -165,15 +174,15 @@ const Register = () => {
         clicked={async () => {
           setFormSubmitted(true);
 
-          if (spaceName.length !== 0
-            ) {
-                dispatch(checkSpaceName({id,spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword }));
-
-              
+          if (spaceName.length !== 0) {
+            dispatch(
+              checkSpaceName({
+                spaceName,
+              })
+            );
           }
         }}
       ></CustomButton>
-
 
       <CustomButton
         className="resident-btn"
@@ -182,20 +191,36 @@ const Register = () => {
         clicked={async () => {
           setFormSubmitted(true);
 
-          if (spaceName.length !== 0 && firstPersonName.length !== 0 && firstPersonEmail.length !==0 &&
-            firstPersonPassword.length !==0 && secondPersonName.length !==0 && secondPersonEmail.length !==0 &&
-            secondPersonPassword.length !==0
-            ) {
-                dispatch(register({id,spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword }));
+          if (
+            spaceName.length !== 0 &&
+            firstPersonName.length !== 0 &&
+            firstPersonEmail.length !== 0 &&
+            firstPersonPassword.length !== 0 &&
+            secondPersonName.length !== 0 &&
+            secondPersonEmail.length !== 0 &&
+            secondPersonPassword.length !== 0
+          ) {
+            dispatch(
+              register({
+                id,
+                spaceName,
+                firstPersonName,
+                firstPersonEmail,
+                firstPersonPassword,
+                secondPersonName,
+                secondPersonEmail,
+                secondPersonPassword,
+              })
+            );
 
-                setChangeSpaceName("");
-                setChangeFirstPersonName("");
-                setChangeFirstPersonEmail("");
-                setChangeFirstPersonPassword("");
-                setChangeSecondPersonName("");
-                setChangeSecondPersonEmail("");
-                setChangeSecondPersonPassword("");
-                navigate("/");
+            setChangeSpaceName("");
+            setChangeFirstPersonName("");
+            setChangeFirstPersonEmail("");
+            setChangeFirstPersonPassword("");
+            setChangeSecondPersonName("");
+            setChangeSecondPersonEmail("");
+            setChangeSecondPersonPassword("");
+            navigate("/");
           }
         }}
       ></CustomButton>
@@ -204,7 +229,6 @@ const Register = () => {
         className="resident-btn"
         testId="resident"
         content="Back"
-
         clicked={() => {
           navigate("/");
         }}

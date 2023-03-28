@@ -38,7 +38,7 @@ const Welcome = () => {
           testId="resident"
           content="Login to Couple Space"
           clicked={() => {
-            navigate("/register");
+            navigate("/loginOptions");
           }}
 
           // resident={true}
