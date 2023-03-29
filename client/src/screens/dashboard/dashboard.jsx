@@ -190,13 +190,19 @@ const Dashboard = () => {
           description="To save $500 every month till 2028"
           buttonText="Contribute"
           buttonText2="Backtrack"
+          startGoal="500"
+          currentGoal="1000"
+          endGoal="10000"
          
         />
         <Card
           title="Savings for Vacation"
-          description="To save $500 every month till 2028"
+          description="To save $200 every month till 2028"
           buttonText="Contribute"
           buttonText2="Backtrack"
+          startGoal="200"
+          currentGoal="400"
+          endGoal="10000"
     
         />
       </div>

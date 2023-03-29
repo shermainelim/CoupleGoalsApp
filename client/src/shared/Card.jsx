@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import "./Card.scss";
 import ProgressBar from "./ProgressBar";
@@ -10,22 +10,47 @@ export const Card = ({
   buttonText,
   link,
   buttonText2,
+  startGoal,
+  currentGoal,
+  endGoal,
 }) => {
+
+  
+    let currentProgress = (currentGoal/endGoal)*100;
+    let incrementalGoal = (startGoal/endGoal)*100
+    
+
+    const [current, setCurrent]= useState(currentProgress)
+
+    const Contribute =()=>{
+        const res = current+ incrementalGoal;
+        
+        setCurrent(res);
+        console.log("current", current)
+    }
+
+    const Backtrack =()=>{
+        const res = current- incrementalGoal;
+        
+        setCurrent(res);
+        console.log("current", current)
+    }
+
   return (
     <div className="card-container">
      
       {title && <h1 className="card-title">{title}</h1>}
-      <div className="card-progress-bar">{<ProgressBar done="80"/>}</div>
+      <div className="card-progress-bar">{<ProgressBar done={current}/>}</div>
       
       {description && <p className="card-description">{description}</p>}
    
-        <a href={link} className="card-btn-contribute">
+        <div onClick={Contribute} className="card-btn-contribute">
           {buttonText}
-   </a>
+   </div>
 
-        <a href={link} className="card-btn-backtrack">
+        <div onClick={Backtrack} className="card-btn-backtrack">
           {buttonText2}
-        </a>
+        </div>
       
     </div>
   );
