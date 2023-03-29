@@ -195,7 +195,7 @@ const Dashboard = () => {
       <div className="big-card-container-goals">
         <div className="big-card-title">Goal Tracker</div>
 
-
+        <div className="small-card-container-goals">
           {updateData && updateData ? (
             <UpdateForm
               updateData={updateData}
@@ -219,6 +219,7 @@ const Dashboard = () => {
             setUpdateData={setUpdateData}
             deleteTask={deleteTask}
           />
+        </div>
         </div>
       </div>
 
