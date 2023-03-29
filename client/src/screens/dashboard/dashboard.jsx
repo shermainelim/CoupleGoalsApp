@@ -221,6 +221,16 @@ const Dashboard = () => {
           />
         </div>
         </div>
+        <CustomButton
+          className="resident-btn"
+          testId="resident"
+          content="Logout"
+          clicked={() => {
+            navigate("/");
+          }}
+
+          // resident={true}
+        ></CustomButton>
       </div>
 
   );
