@@ -8,6 +8,7 @@ import { Card } from "../../shared/Card";
 import Couple from "../../assets/couple.png"
 import CustomButton from "../../shared/CustomButton";
 import { BigCard } from "../../shared/BigCard";
+import { CardGoal } from "../../shared/CardGoal";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -83,6 +84,24 @@ const yearsTgt = getFormatedStringFromDays(daysTgt);
           link="card2"
         />
         <Card
+          title="Savings for Vacation"
+          description="To save $500 every month till 2028"
+          buttonText="Learn More"
+          link="card2"
+        />
+
+    </div>
+
+
+    <div className="big-card-container-goals">
+        <div className="big-card-title">Goal Tracker</div>
+      <CardGoal
+          title="Savings for BTO"
+          description="To save $500 every month till 2028"
+          buttonText="Learn More"
+          link="card2"
+        />
+        <CardGoal
           title="Savings for Vacation"
           description="To save $500 every month till 2028"
           buttonText="Learn More"
