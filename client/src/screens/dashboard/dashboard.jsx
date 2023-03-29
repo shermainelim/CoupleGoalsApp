@@ -188,14 +188,16 @@ const Dashboard = () => {
         <Card
           title="Savings for BTO"
           description="To save $500 every month till 2028"
-          buttonText="Learn More"
-          link="card2"
+          buttonText="Contribute"
+          buttonText2="Backtrack"
+         
         />
         <Card
           title="Savings for Vacation"
           description="To save $500 every month till 2028"
-          buttonText="Learn More"
-          link="card2"
+          buttonText="Contribute"
+          buttonText2="Backtrack"
+    
         />
       </div>
 

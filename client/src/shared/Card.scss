@@ -29,7 +29,7 @@
     margin-top: 25px;
   }
   
-  .card-btn {
+  .card-btn-contribute {
     text-align: center;
     width: 90%;
     border-radius: 5px;
@@ -37,6 +37,22 @@
     background-color: #2563eb;
     color: white;
     text-decoration: none;
-    margin: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    padding:10px;
+    align-items: center;
+  }
+
+  .card-btn-backtrack {
+    text-align: center;
+    width: 90%;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    background-color: #2563eb;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 20px;
+    padding:10px;
+    margin-left: 20px;
     align-items: center;
   }

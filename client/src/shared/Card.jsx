@@ -9,6 +9,7 @@ export const Card = ({
   description,
   buttonText,
   link,
+  buttonText2,
 }) => {
   return (
     <div className="card-container">
@@ -17,11 +18,15 @@ export const Card = ({
       <div className="card-progress-bar">{<ProgressBar done="80"/>}</div>
       
       {description && <p className="card-description">{description}</p>}
-      {buttonText && link && (
-        <a href={link} className="card-btn">
+   
+        <a href={link} className="card-btn-contribute">
           {buttonText}
+   </a>
+
+        <a href={link} className="card-btn-backtrack">
+          {buttonText2}
         </a>
-      )}
+      
     </div>
   );
 };
