@@ -15,11 +15,14 @@ const Register = () => {
   const [firstPersonName, setChangeFirstPersonName] = useState("");
   const [firstPersonEmail, setChangeFirstPersonEmail] = useState("");
   const [firstPersonPassword, setChangeFirstPersonPassword] = useState("");
+  const [firstPersonBirthday, setChangeFirstPersonBirthday] = useState("");
 
   const [secondPersonName, setChangeSecondPersonName] = useState("");
   const [secondPersonEmail, setChangeSecondPersonEmail] = useState("");
   const [secondPersonPassword, setChangeSecondPersonPassword] = useState("");
+  const [secondPersonBirthday, setChangeSecondPersonBirthday] = useState("");
 
+  const [anniDate, setAnniDate] = useState("");
   function randomIntFromInterval(min, max) {
     // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -46,6 +49,10 @@ const Register = () => {
     setChangeFirstPersonPassword(event.target.value);
   };
 
+  const firstPersonBirthdayHandler = (event) => {
+    setChangeFirstPersonBirthday(event.target.value);
+  };
+
   const secondPersonNameHandler = (event) => {
     setChangeSecondPersonName(event.target.value);
   };
@@ -56,6 +63,14 @@ const Register = () => {
 
   const secondPersonPasswordHandler = (event) => {
     setChangeSecondPersonPassword(event.target.value);
+  };
+
+  const secondPersonBirthdayHandler = (event) => {
+    setChangeSecondPersonBirthday(event.target.value);
+  };
+
+  const anniDateHandler = (event) => {
+    setAnniDate(event.target.value);
   };
 
   return (
@@ -120,6 +135,20 @@ const Register = () => {
         {firstPersonPassword.length === 0 && formSubmitted ? (
           <div className={cx("input-general-error")}>*required</div>
         ) : null}
+<div className={cx("input-couple-anni")}>Enter first person's birthday </div>
+        <div>
+          <input
+            className={cx("input-general")}
+            type="date"
+            name="name"
+            placeholder="1st Person's Birthday"
+            value={firstPersonBirthday}
+            onChange={firstPersonBirthdayHandler}
+          />
+        </div>
+        {firstPersonBirthday.length === 0 && formSubmitted ? (
+          <div className={cx("input-general-error")}>*required</div>
+        ) : null}
 
         <div className={cx("input-couple-space-name-person")}>2nd Person</div>
         <div>
@@ -152,7 +181,6 @@ const Register = () => {
         ) : null}
 
         <div>
-          {" "}
           <input
             className={cx("input-general")}
             type="password"
@@ -165,6 +193,37 @@ const Register = () => {
         {secondPersonPassword.length === 0 && formSubmitted ? (
           <div className={cx("input-general-error")}>*required</div>
         ) : null}
+<div className={cx("input-couple-anni")}>Enter second person's birthday </div>
+        <div>
+          <input
+            className={cx("input-general")}
+            type="date"
+            name="name"
+            placeholder="2nd Person's Birthday"
+            value={secondPersonBirthday}
+            onChange={secondPersonBirthdayHandler}
+          />
+        </div>
+        {secondPersonBirthday.length === 0 && formSubmitted ? (
+          <div className={cx("input-general-error")}>*required</div>
+        ) : null}
+
+<div className={cx("input-couple-anni")}>When did you get together? </div>
+        <div>
+          <input
+            className={cx("input-general")}
+            type="date"
+            name="name"
+            placeholder="Enter date"
+            value={anniDate}
+            onChange={anniDateHandler}
+          />
+        </div>
+        {firstPersonName.length === 0 && formSubmitted ? (
+          <div className={cx("input-general-error")}>*required</div>
+        ) : null}
+
+
       </div>
 
       <CustomButton
@@ -179,9 +238,12 @@ const Register = () => {
             firstPersonName.length !== 0 &&
             firstPersonEmail.length !== 0 &&
             firstPersonPassword.length !== 0 &&
+            firstPersonBirthday.length !==0 &&
             secondPersonName.length !== 0 &&
             secondPersonEmail.length !== 0 &&
-            secondPersonPassword.length !== 0
+            secondPersonPassword.length !== 0 &&
+            secondPersonBirthday.length !==0 &&
+            anniDate.length !==0
           ) {
             dispatch(
               register({
@@ -190,9 +252,12 @@ const Register = () => {
                 firstPersonName,
                 firstPersonEmail,
                 firstPersonPassword,
+                firstPersonBirthday,
                 secondPersonName,
                 secondPersonEmail,
                 secondPersonPassword,
+                secondPersonBirthday,
+                anniDate
               })
             );
 
@@ -203,7 +268,6 @@ const Register = () => {
             setChangeSecondPersonName("");
             setChangeSecondPersonEmail("");
             setChangeSecondPersonPassword("");
-            
           }
         }}
       ></CustomButton>

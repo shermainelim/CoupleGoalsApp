@@ -17,10 +17,15 @@
         color:teal;
     }
 
+   
     .input-container{
         flex-direction: column;
 
-
+        .input-couple-anni{
+            margin-bottom: 10px;
+            margin-right: 30px;
+            font-size: 14px;
+        }
         .input-couple-space-name{
             margin-top: 15px;
             margin-bottom: 10px;

@@ -30,10 +30,13 @@ app.post("/register", (req, res) => {
   const firstPersonName = req.body.firstPersonName;
   const firstPersonEmail = req.body.firstPersonEmail;
   const firstPersonPassword = req.body.firstPersonPassword;
+  const firstPersonBirthday = req.body.firstPersonBirthday;
 
   const secondPersonName = req.body.secondPersonName;
   const secondPersonEmail = req.body.secondPersonEmail;
   const secondPersonPassword = req.body.secondPersonPassword;
+  const secondPersonBirthday = req.body.secondPersonBirthday;
+  const anniDate = req.body.anniDate;
 
   db.query(
     "SELECT * from couplegoals.space WHERE spaceName = ?",
@@ -49,16 +52,9 @@ app.post("/register", (req, res) => {
         //space name not taken
         
     db.query(
-      "INSERT INTO couplegoals.space ( id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword) VALUES (?,?,?,?,?,?,?,?)",
+      "INSERT INTO couplegoals.space ( id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, firstPersonBirthday,secondPersonName, secondPersonEmail, secondPersonPassword , secondPersonBirthday, anniDate) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
       [
-        id,
-        spaceName,
-        firstPersonName,
-        firstPersonEmail,
-        firstPersonPassword,
-        secondPersonName,
-        secondPersonEmail,
-        secondPersonPassword,
+        id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, firstPersonBirthday,secondPersonName, secondPersonEmail, secondPersonPassword , secondPersonBirthday, anniDate
       ]
     );
       }

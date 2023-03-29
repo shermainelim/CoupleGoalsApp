@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { loginFirstPerson } from "../../redux/appSlice";
+import { loginFirstPerson,useIsLoggedInFirstPerson } from "../../redux/appSlice";
 import styles from "./firstPersonLogin.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
 import { useNavigate } from "react-router-dom";
 import ProgressBar from "../../shared/ProgressBar";
+import { Navigate } from "react-router-dom";
 
 const FirstPersonLogin = () => {
   const cx = classNames.bind(styles);
@@ -17,6 +18,17 @@ const FirstPersonLogin = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [firstPersonEmail, setChangeFirstPersonEmail] = useState("");
   const [firstPersonPassword, setChangeFirstPersonPassword] = useState("");
+
+
+
+  const isLoggedInFirstPerson = useIsLoggedInFirstPerson();
+
+
+console.log("isloggedin", isLoggedInFirstPerson);
+
+if (isLoggedInFirstPerson) {
+  return <Navigate to="/dashboard" />;
+}
 
   const spaceNameHandler = (event) => {
     setChangeSpaceName(event.target.value);

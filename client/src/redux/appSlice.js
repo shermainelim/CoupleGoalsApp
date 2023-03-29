@@ -2,12 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../utils/axios";
 import { useSelector } from "react-redux";
 
+
 const initialState = {
   loginLoadingFirstPerson: false,
   firstPersonData: [],
   isLoggedInFirstPerson: false,
   registerLoading: false,
-  
+  isFirstPersonChecked: false,
   isRegisterCreated: false,
 
   checkLoading: false,
@@ -15,6 +16,7 @@ const initialState = {
 };
 
 const name = "appState";
+let results =""
 
 //login first person
 export const loginFirstPerson = createAsyncThunk(
@@ -34,7 +36,10 @@ export const loginFirstPerson = createAsyncThunk(
       }
 
       if(res.data.message !=="User not found"){
+       results=res?.data?.data[0];
         console.log("message",res?.data?.data[0])
+     
+        
       }
      
       alert(res.data.message);
@@ -48,9 +53,9 @@ export const loginFirstPerson = createAsyncThunk(
 
 export const register = createAsyncThunk(
   `${name}/register`,
-  async ({ id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword }) => {
+  async ({ id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, firstPersonBirthday,secondPersonName, secondPersonEmail, secondPersonPassword , secondPersonBirthday, anniDate}) => {
     try {
-      const res = await axios.post("/register", {id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword});
+      const res = await axios.post("/register", {id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, firstPersonBirthday,secondPersonName, secondPersonEmail, secondPersonPassword , secondPersonBirthday, anniDate});
 
       alert(res.data.message);
     } catch (err) {
@@ -71,6 +76,10 @@ const appSlice = createSlice({
     completeCheck: (state) => {
       state.isCheckCreated = initialState.isCheckCreated;
     },
+    logOutFirstPerson: (state) => {
+      state.isLoggedInFirstPerson = initialState.isLoggedInFirstPerson;
+      state.isFirstPersonChecked = initialState.isFirstPersonChecked;
+    },
   },
 
   extraReducers: (builder) => {
@@ -86,19 +95,28 @@ const appSlice = createSlice({
       state.registerLoading = false;
     });
 
-   //login staff
-   builder.addCase(loginFirstPerson.fulfilled, (state, { payload }) => {
-    state.firstPersonData = payload;
-    if (payload) {
-      state.isLoggedInFirstPerson = true;
-    }
+   //login first person
+   builder.addCase(loginFirstPerson.fulfilled, (state) => {
+   state.firstPersonData= results;
+   if(state.firstPersonData){
+    state.isLoggedInFirstPerson = true;
+   }
+ 
+    //console.log("state", action);
+    
+    
+      //state.isLoggedInFirstPerson = true;
+      console.log("hit here")
+    
     state.loginLoadingFirstPerson = false;
   });
   builder.addCase(loginFirstPerson.pending, (state) => {
     state.loginLoadingFirstPerson = true;
+    console.log("hit here2")
   });
   builder.addCase(loginFirstPerson.rejected, (state) => {
     state.loginLoadingFirstPerson = false;
+    console.log("hit here3")
   });
 
   },
@@ -123,3 +141,5 @@ export const useRegisterCreated = () =>
 
   export const useIsLoggedInFirstPerson = () =>
   useSelector((state) => state.appState.isLoggedInFirstPerson);
+
+  export const useFirstPerson = () => useSelector((state) => state.appState.firstPersonData);
