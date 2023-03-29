@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from "./Dashboard.scss";
+import { Card } from "../../shared/Card";
 
 
 import Couple from "../../assets/couple.png"
 import CustomButton from "../../shared/CustomButton";
+import { BigCard } from "../../shared/BigCard";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -72,6 +74,21 @@ const yearsTgt = getFormatedStringFromDays(daysTgt);
       <div className={cx("space-welcome")}>When did you get together? {anniversaryDate}</div>
 
       <div className={cx("space-welcome")}>Been together for {daysTgt} days, which is <br/>{yearsTgt} .</div>
+      <div className="big-card-container">
+        <div className="big-card-title">Finance Tracker</div>
+      <Card
+          title="Savings for BTO"
+          description="To save $500 every month till 2028"
+          buttonText="Learn More"
+          link="card2"
+        />
+        <Card
+          title="Savings for BTO"
+          description="To save $500 every month till 2028"
+          buttonText="Learn More"
+          link="card2"
+        />
+    </div>
     </div>
   );
 };
