@@ -33,15 +33,15 @@ Github Repo: https://github.com/shermainelim/CoupleGoals
 
 Features :
 
-connection between 2 accs in 1 room
-anniversary date
-story
-how many days tgt alr
-birthday of both parties
-other event days like xmas , new year etc
-goal planner (shed weight)
-fitness tracker
-finance tracker (bto, vacation etc)
-Build a event note stick it , with cheer up messages, love messages and picture memories. (feature)
+- connection between 2 accs in 1 room
+- anniversary date
+- story
+- how many days tgt alr
+- birthday of both parties
+- other event days like xmas , new year etc
+- goal planner (shed weight)
+- fitness tracker
+- finance tracker (bto, vacation etc)
+- Build a event note stick it , with cheer up messages, love messages and picture memories. (feature)
 
 Members : Shermaine Wee Kiat
