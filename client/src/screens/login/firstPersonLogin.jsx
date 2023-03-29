@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { register, checkSpaceName } from "../../redux/appSlice";
+import { loginFirstPerson } from "../../redux/appSlice";
 import styles from "./firstPersonLogin.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
@@ -85,7 +85,7 @@ const FirstPersonLogin = () => {
             firstPersonEmail.length !== 0 &&
             firstPersonPassword.length !== 0
           ) {
-            navigate("/dashboard");
+            dispatch(loginFirstPerson({spaceName, firstPersonEmail, firstPersonPassword}))
           }
         }}
       ></CustomButton>

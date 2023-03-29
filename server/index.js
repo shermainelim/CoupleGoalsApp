@@ -22,6 +22,7 @@ const db = mysql.createPool({
   database: "couplegoals",
 });
 
+
 //register couples
 app.post("/register", (req, res) => {
   const id = req.body.id;
@@ -35,7 +36,7 @@ app.post("/register", (req, res) => {
   const secondPersonPassword = req.body.secondPersonPassword;
 
   db.query(
-    "SELECT * from space WHERE spaceName = ?",
+    "SELECT * from couplegoals.space WHERE spaceName = ?",
     [spaceName],
     (err, result) => {
       if (err) {
@@ -48,7 +49,7 @@ app.post("/register", (req, res) => {
         //space name not taken
         
     db.query(
-      "INSERT INTO space ( id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword) VALUES (?,?,?,?,?,?,?,?)",
+      "INSERT INTO couplegoals.space ( id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword) VALUES (?,?,?,?,?,?,?,?)",
       [
         id,
         spaceName,
@@ -66,6 +67,37 @@ app.post("/register", (req, res) => {
 });
 
 
-app.listen(process.env.PORT || 3002, () => {
+//first person login
+app.post("/loginFirstPerson", (req, res) => {
+  const spaceName = req.body.spaceName;
+  const firstPersonEmail = req.body.firstPersonEmail;
+  const firstPersonPassword = req.body.firstPersonPassword;
+
+  db.query(
+    "SELECT * FROM couplegoals.space WHERE spaceName = ? and firstPersonEmail = ? and firstPersonPassword = ?",
+    [spaceName, firstPersonEmail,firstPersonPassword],
+    (err, result) => {
+      if (result.length > 0) {
+       
+        console.log("Results", result)
+        res.send({ data: result, message: "Login is Successful"});
+          // if (response) {
+          //   //send full name
+          //   // const firstPersonName = result[0].firstPersonName;
+          //   // const secondPersonName = result[0].secondPersonName;
+          //   // const staffData = [firstPersonName,secondPersonName];
+
+          //   res.send({ message: "Login Successful"});
+          // } 
+       
+      } else {
+        res.send({ message: "User not found" });
+      }
+    }
+  );
+});
+
+
+app.listen(process.env.PORT || 3003, () => {
   console.log("Server running on port");
 });

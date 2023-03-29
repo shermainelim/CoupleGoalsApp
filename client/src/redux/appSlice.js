@@ -3,7 +3,9 @@ import axios from "../utils/axios";
 import { useSelector } from "react-redux";
 
 const initialState = {
-
+  loginLoadingFirstPerson: false,
+  firstPersonData: [],
+  isLoggedInFirstPerson: false,
   registerLoading: false,
   
   isRegisterCreated: false,
@@ -14,20 +16,43 @@ const initialState = {
 
 const name = "appState";
 
+//login first person
+export const loginFirstPerson = createAsyncThunk(
+  `${name}/loginFirstPerson`,
+  async ({ spaceName, firstPersonEmail, firstPersonPassword }) => {
+    
+
+
+    try {
+      const res = await axios.post("/loginFirstPerson", {
+        spaceName, firstPersonEmail, firstPersonPassword
+      });
+
+      if (res.status !== 200) {
+        alert("Login failed here.");
+        return;
+      }
+
+      console.log("message",res.data.data[0])
+      alert(res.data.message);
+
+    } catch (err) {
+      alert("Login failed");
+    }
+  }
+);
+
+
 export const register = createAsyncThunk(
   `${name}/register`,
   async ({ id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword }) => {
     try {
       const res = await axios.post("/register", {id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword});
 
-      if (res.status !== 200) {
-        alert("Register failed here.");
-        return;
-      }
       alert(res.data.message);
     } catch (err) {
       alert("err", err)
-      alert("Register failed 2.");
+      alert("Register failed.");
     }
   }
 );
@@ -58,6 +83,21 @@ const appSlice = createSlice({
       state.registerLoading = false;
     });
 
+   //login staff
+   builder.addCase(loginFirstPerson.fulfilled, (state, { payload }) => {
+    state.firstPersonData = payload;
+    if (payload) {
+      state.isLoggedInFirstPerson = true;
+    }
+    state.loginLoadingFirstPerson = false;
+  });
+  builder.addCase(loginFirstPerson.pending, (state) => {
+    state.loginLoadingFirstPerson = true;
+  });
+  builder.addCase(loginFirstPerson.rejected, (state) => {
+    state.loginLoadingFirstPerson = false;
+  });
+
   },
 });
 
@@ -65,6 +105,7 @@ const appSlice = createSlice({
 
 export const { completeRegister } = appSlice.actions;
 export const { completeCheck } = appSlice.actions;
+export const { logOutFirstPerson } = appSlice.actions;
 
 export default appSlice.reducer;
 
@@ -77,3 +118,5 @@ export const useRegisterCreated = () =>
   useSelector((state) => state.appState.isCheckCreated);
 
 
+  export const useIsLoggedInFirstPerson = () =>
+  useSelector((state) => state.appState.isLoggedInFirstPerson);
