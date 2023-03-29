@@ -11,6 +11,10 @@ import { CardGoal } from "../../shared/CardGoal";
 import UpdateForm from "../todo/UpdateForm";
 import AddTaskForm from "../todo/AddTaskForm";
 import ToDo from "../todo/ToDo";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faCirclePlus
+  } from '@fortawesome/free-solid-svg-icons'
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -177,7 +181,10 @@ const Dashboard = () => {
         {yearsTgt} .
       </div>
       <div className="big-card-container">
+        <div className="big-card-icon">
         <div className="big-card-title">Finance Tracker</div>
+        <FontAwesomeIcon size="3x" icon={faCirclePlus} />
+        </div>
         <Card
           title="Savings for BTO"
           description="To save $500 every month till 2028"

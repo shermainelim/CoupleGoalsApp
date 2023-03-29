@@ -83,6 +83,13 @@ body, html {
         height: fit-content;
         margin-left: 20px;
         margin-right: 20px;
+
+        .big-card-icon{
+            display:flex;
+            flex-direction: row;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
         
       }
 
@@ -141,7 +148,9 @@ body, html {
         font-weight: 900;
         margin-top: 10px;
         margin-bottom: 10px;
-        color:white
+        color:white;
+       display:"flex";
+       flex-direction: row;
       }
       .container-todo{
         color:black
