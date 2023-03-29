@@ -207,11 +207,7 @@ const yearsTgt = getFormatedStringFromDays(daysTgt);
 
     <div className="big-card-container-goals">
         <div className="big-card-title">Goal Tracker</div>
-        <div className="container-todo">
-
-<br /><br />
-<h2>To Do List App (ReactJS)</h2>
-<br /><br />
+ 
 
 {updateData && updateData ? (
   <UpdateForm 
@@ -240,7 +236,7 @@ const yearsTgt = getFormatedStringFromDays(daysTgt);
 </div>
 
     </div>
-    </div>
+
   );
 }
 
