@@ -84,7 +84,7 @@ const SecondPersonLogin = () => {
             secondPersonEmail.length !== 0 &&
             secondPersonPassword.length !== 0
           ) {
-            console.log("pressed login");
+            navigate("/dashboard");
           }
         }}
       ></CustomButton>
