@@ -5,6 +5,7 @@ import styles from "./firstPersonLogin.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
 import { useNavigate } from "react-router-dom";
+import ProgressBar from "../../shared/ProgressBar";
 
 const FirstPersonLogin = () => {
   const cx = classNames.bind(styles);
@@ -97,6 +98,8 @@ const FirstPersonLogin = () => {
           navigate("/loginOptions");
         }}
       ></CustomButton>
+
+      <ProgressBar done="80"/>
     </div>
   );
 };
