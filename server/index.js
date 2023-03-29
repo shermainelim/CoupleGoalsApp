@@ -37,48 +37,50 @@ app.post("/register", (req, res) => {
 
   //hash pw
 
-  db.query(
-    "INSERT INTO space ( id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword) VALUES (?,?,?,?,?,?,?,?)",
-    [
-      id,
-      spaceName,
-      firstPersonName,
-      firstPersonEmail,
-      firstPersonPassword,
-      secondPersonName,
-      secondPersonEmail,
-      secondPersonPassword,
-    ],
-    (err, result) => {
-      if (err) {
-        res.send({ err: err });
+  const anotherQuery=()=>{
+    console.log("query here")
+    db.query(
+      "INSERT INTO space ( id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, secondPersonName, secondPersonEmail, secondPersonPassword) VALUES (?,?,?,?,?,?,?,?)",
+      [
+        id,
+        spaceName,
+        firstPersonName,
+        firstPersonEmail,
+        firstPersonPassword,
+        secondPersonName,
+        secondPersonEmail,
+        secondPersonPassword,
+      ],
+      (err, result) => {
+        if (err) {
+          res.send({ err: err });
+        }
+        if (result) {
+          res.send(res.statusCode);
+        }
       }
-      if (result) {
-        res.send(res.statusCode);
-      }
-    }
-  );
-});
-
-//check couple space name
-app.post("/checkSpaceName", (req, res) => {
-  const spaceName = req.body.spaceName;
+    );
+  }
 
   db.query(
     "SELECT * from space WHERE spaceName = ?",
     [spaceName],
     (err, result) => {
+      console.log("result", result)
       if (err) {
         res.send({ err: err });
       }
       if (result.length > 0) {
-        res.send({ message: "Space name taken" });
+        res.send({ message: "Space name taken, space not created." });
       } else {
-        res.send({ message: "Space name not taken" });
+        res.send({ message: "Space name is unique, space created successfully" });
+        //space name not taken
+        anotherQuery();
       }
     }
   );
 });
+
 
 app.listen(process.env.PORT || 3002, () => {
   console.log("Server running on port");

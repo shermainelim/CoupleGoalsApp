@@ -24,8 +24,7 @@ export const register = createAsyncThunk(
         alert("Register failed here.");
         return;
       }
-
-      alert("Register successful");
+      alert(res.data.message);
     } catch (err) {
       alert("err", err)
       alert("Register failed 2.");
@@ -33,24 +32,6 @@ export const register = createAsyncThunk(
   }
 );
 
-
-export const checkSpaceName = createAsyncThunk(
-  `${name}/checkSpaceName`,
-  async ({ spaceName }) => {
-    try {
-      const res = await axios.post("/checkSpaceName", {spaceName});
-
-      if (res.status !== 200) {
-        alert("Check failed here.");
-        return;
-      }
-
-      alert(res.data.message);
-    } catch (err) {
-      alert("Check failed 2.");
-    }
-  }
-);
 
 const appSlice = createSlice({
   name,
@@ -75,19 +56,6 @@ const appSlice = createSlice({
     });
     builder.addCase(register.rejected, (state) => {
       state.registerLoading = false;
-    });
-
-
-    builder.addCase(checkSpaceName.fulfilled, (state) => {
-      state.isCheckCreated = true;
-
-      state.checkLoading = false;
-    });
-    builder.addCase(checkSpaceName.pending, (state) => {
-      state.checkLoading = true;
-    });
-    builder.addCase(checkSpaceName.rejected, (state) => {
-      state.checkLoading = false;
     });
 
   },

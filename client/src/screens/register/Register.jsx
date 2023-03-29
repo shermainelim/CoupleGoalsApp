@@ -170,23 +170,6 @@ const Register = () => {
       <CustomButton
         className="resident-btn"
         testId="resident"
-        content="Check Unique Space Name"
-        clicked={async () => {
-          setFormSubmitted(true);
-
-          if (spaceName.length !== 0) {
-            dispatch(
-              checkSpaceName({
-                spaceName,
-              })
-            );
-          }
-        }}
-      ></CustomButton>
-
-      <CustomButton
-        className="resident-btn"
-        testId="resident"
         content="Register"
         clicked={async () => {
           setFormSubmitted(true);
@@ -220,7 +203,7 @@ const Register = () => {
             setChangeSecondPersonName("");
             setChangeSecondPersonEmail("");
             setChangeSecondPersonPassword("");
-            navigate("/");
+            
           }
         }}
       ></CustomButton>
