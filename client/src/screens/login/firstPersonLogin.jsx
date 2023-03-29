@@ -85,7 +85,7 @@ const FirstPersonLogin = () => {
             firstPersonEmail.length !== 0 &&
             firstPersonPassword.length !== 0
           ) {
-            console.log("pressed login");
+            navigate("/dashboard");
           }
         }}
       ></CustomButton>
@@ -99,7 +99,6 @@ const FirstPersonLogin = () => {
         }}
       ></CustomButton>
 
-      <ProgressBar done="80"/>
     </div>
   );
 };

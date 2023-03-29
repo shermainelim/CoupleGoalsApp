@@ -5,6 +5,7 @@ import Register from "../screens/register/Register";
 import LoginOptions from "../screens/login/loginOptions";
 import FirstPersonLogin from "../screens/login/firstPersonLogin";
 import SecondPersonLogin from "../screens/login/secondPersonLogin";
+import Dashboard from "../screens/dashboard/Dashboard";
 
 const AppNavigator = () => {
   return (
@@ -18,6 +19,7 @@ const AppNavigator = () => {
       <Route path="/loginOptions" element={<LoginOptions/>} />
       <Route path="/firstPersonLogin" element={<FirstPersonLogin/>} />
       <Route path="/secondPersonLogin" element={<SecondPersonLogin/>} />
+      <Route path="/dashboard" element={<Dashboard/>} />
   
       </Routes>
     </Router>

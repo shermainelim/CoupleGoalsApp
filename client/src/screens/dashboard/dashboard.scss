@@ -1,0 +1,75 @@
+
+body, html {
+    height: 100%;
+    background-color: aliceblue;
+  }
+  
+  
+  div#root {
+    //height: 100%; /* remove this line to see div.app is no more 100% height */
+    background-color: aliceblue;
+    min-width:auto;
+    
+  
+  }
+  
+  div.app {
+    height: 100%;
+    background-color: aliceblue;
+  }
+  
+  .space-container{
+    margin-top:100px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    text-align: center;
+    background-color: aliceblue;
+    
+  
+    .imageIcon{
+      width:200px;
+      height:200px;
+    }
+    
+    .space-title{
+      font-size:45px;
+      margin-top:10px;
+      margin-bottom:30px;
+      font-weight:700;
+      color:teal;
+      font-size: 30px;
+      padding-left: 20px;
+      padding-right: 20px;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    .space-name{
+      margin-top:10px;
+      margin-bottom:30px;
+      font-weight:700;
+      font-size:25px;
+      color: rgb(29, 73, 73);
+      font-size: 20px;
+      text-align: left;
+      padding-left: 20px;
+      padding-right: 20px;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    .space-welcome{
+        text-align: left;
+        padding-left: 20px;
+        padding-right: 20px;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+  }
+  
+  
+  
