@@ -42,6 +42,8 @@ Features :
 - goal planner (shed weight)
 - fitness tracker
 - finance tracker (bto, vacation etc)
+
 - Build a event note stick it , with cheer up messages, love messages and picture memories. (feature)
+- adding color variation for cards
 
 Members : Shermaine Wee Kiat
