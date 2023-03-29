@@ -11,6 +11,13 @@
     margin-right: 20px;
     margin-bottom: 20px;
   }
+
+  .card-mini-container{
+    display:flex;
+    flex-direction: row;
+    margin-top: 20px;
+    justify-content: space-evenly;
+  }
   .card-progress-bar{
     margin-left: 70px;
     margin-right: 70px;

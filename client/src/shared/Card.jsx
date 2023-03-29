@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 
 import "./Card.scss";
 import ProgressBar from "./ProgressBar";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+    faCirclePlus,faTrashCan
+  } from '@fortawesome/free-solid-svg-icons'
 
 export const Card = ({
 
@@ -38,8 +42,9 @@ export const Card = ({
 
   return (
     <div className="card-container">
-     
+     <div className="card-mini-container">
       {title && <h1 className="card-title">{title}</h1>}
+      <FontAwesomeIcon size="xl" icon={faTrashCan} /></div>
       <div className="card-progress-bar">{<ProgressBar done={current}/>}</div>
       
       {description && <p className="card-description">{description}</p>}
