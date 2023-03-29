@@ -33,7 +33,10 @@ export const loginFirstPerson = createAsyncThunk(
         return;
       }
 
-      console.log("message",res.data.data[0])
+      if(res.data.message !=="User not found"){
+        console.log("message",res?.data?.data[0])
+      }
+     
       alert(res.data.message);
 
     } catch (err) {

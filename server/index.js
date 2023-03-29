@@ -79,7 +79,6 @@ app.post("/loginFirstPerson", (req, res) => {
     (err, result) => {
       if (result.length > 0) {
        
-        console.log("Results", result)
         res.send({ data: result, message: "Login is Successful"});
           // if (response) {
           //   //send full name
