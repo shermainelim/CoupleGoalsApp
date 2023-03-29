@@ -83,11 +83,12 @@ const yearsTgt = getFormatedStringFromDays(daysTgt);
           link="card2"
         />
         <Card
-          title="Savings for BTO"
+          title="Savings for Vacation"
           description="To save $500 every month till 2028"
           buttonText="Learn More"
           link="card2"
         />
+
     </div>
     </div>
   );

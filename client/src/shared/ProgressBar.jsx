@@ -20,7 +20,11 @@ const ProgressBar = ({done}) => {
 			<div className={cx("progress-done")} style={style}>
 				{done}%
 			</div>
-		</div>
+            <div className={cx("progress-start-end")}>
+            <div className={cx("progress-start")}>$500</div>
+            <div className={cx("progress-end")}>$10,000</div>
+            </div>
+        </div>
 	)
 }
 
