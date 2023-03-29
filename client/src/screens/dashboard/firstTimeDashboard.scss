@@ -1,0 +1,226 @@
+
+body, html {
+    height: 100%;
+    background-color: aliceblue;
+  }
+  
+  
+  div#root {
+    //height: 100%; /* remove this line to see div.app is no more 100% height */
+    background-color: aliceblue;
+    min-width:auto;
+    
+  
+  }
+  
+  div.app {
+    height: 100%;
+    background-color: aliceblue;
+  }
+  
+  .space-container{
+    margin-top:100px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    text-align: center;
+    background-color: aliceblue;
+    margin-bottom: 100px;
+    
+  
+    .imageIcon{
+      width:200px;
+      height:200px;
+    }
+    
+    .space-title{
+      font-size:45px;
+      margin-top:10px;
+      margin-bottom:30px;
+      font-weight:700;
+      color:teal;
+      font-size: 30px;
+      padding-left: 20px;
+      padding-right: 20px;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    .space-name{
+      margin-top:10px;
+      margin-bottom:30px;
+      font-weight:700;
+      font-size:25px;
+      color: rgb(29, 73, 73);
+      font-size: 20px;
+      text-align: center;
+      padding-left: 20px;
+      padding-right: 20px;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    .space-welcome{
+        text-align: center;
+        padding-left: 20px;
+        padding-right: 20px;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .big-card-container {
+        width: 90%;
+        border-radius: 1rem;
+        box-shadow: 0px 10px 8px #999;
+        display: flex;
+        flex-direction: column;
+        margin: 0.5rem;
+        color:white;
+        background-color: rgb(71, 9, 133);
+        height: fit-content;
+        margin-left: 20px;
+        margin-right: 20px;
+        
+      }
+
+      .big-card-container-goals {
+        width: 90%;
+        border-radius: 1rem;
+        box-shadow: 0px 10px 8px #999;
+        display: flex;
+        flex-direction: column;
+        margin: 0.5rem;
+        color:black;
+        background-color: darkslategrey;
+        height: fit-content;
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 20px;
+
+        .small-card-container-goals {
+            width: 100%;
+            border-radius: 1rem;
+            box-shadow: 0px 10px 8px #999;
+            display: flex;
+            flex-direction: column;
+            margin: 0.5rem;
+            color:black;
+            background-color: #999;
+            height: fit-content;
+            margin-left: 2px;
+            margin-right: 20px;
+            padding: 20px;
+    
+          }
+      }
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btn {
+    background-color: #21ab7d;
+    color: white;
+}
+
+.taskText {
+    flex: 1 1;
+    color: white;
+    /* background-color: green; */
+}
+
+.taskBg {
+    background-color: grey;
+}
+      .big-card-title{
+        font-size: 20px;
+        font-weight: 900;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color:white
+      }
+      .container-todo{
+        color:black
+      }
+
+
+      body {
+        background-color: #333;
+        color: #fff;
+      }
+      
+      .App {
+        text-align: center;
+      }
+      
+      .taskBg {
+        background-color: #555;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        padding: 10px 140px 10px 15px;
+        text-align: left;
+        font-size: 22px;
+        position: relative;
+      }
+      
+      .taskBg div {
+        display: flex;
+        align-items: center;
+      }
+      
+      .taskNumber {
+        color: #999;
+        border: 1px solid #999;
+        border-radius: 50%;
+        width: 26px;
+        height: 26px;
+        display: flex;
+        text-align: center;
+        font-size: 14px;
+        margin-right: 8px;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .taskBg .taskText {
+        flex: 1;
+        font-size: 14px;
+      }
+      
+      .taskBg .done .taskText {
+        text-decoration: line-through;
+        opacity: 0.3;
+      }
+      
+      .taskBg .iconsWrap {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 15px;
+        width: auto;
+        display: inline-block;
+      }
+      
+      .taskBg .iconsWrap span {
+        display: inline-block;
+        margin: 0px 10px 0 10px;
+        cursor: pointer;
+        color: #00ff89;
+      }
+      
+      .taskBg .iconsWrap span:hover {
+      
+      }
+      
+      .mr-20 {
+        margin-right: 20px;
+      }
+      
+  }
+  
+  
+  
