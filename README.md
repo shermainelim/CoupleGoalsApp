@@ -55,6 +55,7 @@ Features :
 - [ ] Implement UI for Story/Event Stick it notes
 - [ ] CRUD Story/Event Stick it notes
 - [ ] Call Birthday/Anni Date data from db to Dashboard UI
+- [ ] Implement manual refresh icon and logic on dashboard
 
 - [x] Establish connection between 2 accounts in 1 room lobby/couple space
 - [x] Implement Login and Logout for First Person
