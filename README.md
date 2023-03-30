@@ -57,6 +57,7 @@ Features :
 - [ ] Call Birthday/Anni Date data from db to Dashboard UI
 - [ ] Implement manual refresh icon and logic on dashboard
 - [ ] Implement SMTP email for CRUD register , forget password and change password and delete couple space
+- [ ] Create custom alert messages with toast or custom component
 
 - [x] Establish connection between 2 accounts in 1 room lobby/couple space
 - [x] Implement Login and Logout for First Person
