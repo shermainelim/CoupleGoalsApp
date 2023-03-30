@@ -46,4 +46,27 @@ Features :
 - Build a event note stick it , with cheer up messages, love messages and picture memories. (feature)
 - adding color variation for cards
 
+
+# Todo List
+- [ ] CRUD Finance Tracker
+- [ ] CRUD Goal Tracker 
+- [ ] Save and call data from mysql backend for Finance Tracker
+- [ ] Save and call data from mysql backend for Goal Tracker
+- [ ] Implement UI for Story/Event Stick it notes
+- [ ] CRUD Story/Event Stick it notes
+- [ ] Call Birthday/Anni Date data from db to Dashboard UI
+
+- [x] Establish connection between 2 accounts in 1 room lobby/couple space
+- [x] Implement Login and Logout for First Person
+- [x] Implement Login and Logout for Second Person
+- [x] Implement Registration and validation logic
+- [x] Setup Redux Toolkit state management for frontend
+- [x] Setup backend db and nodejs connection to frontend
+- [x] Implement UI screens for Welcome, Register, Login and Dashboard    
+
+
+
+
+
+
 Members : Shermaine Wee Kiat
