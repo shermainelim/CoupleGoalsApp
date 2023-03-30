@@ -83,13 +83,15 @@ const Dashboard = () => {
 
   let fetchGoalData = useGoalFetch();
 
+ 
 
 
 
   function processNow(){
-    if(fetchGoalData===null | undefined){
+    if(fetchGoalData=== undefined){
       return;
     }else{
+      console.log("Fetch", fetchGoalData);
       let onlyGoalsTable = fetchGoalData[1];
 
     const objCopy = [onlyGoalsTable];
