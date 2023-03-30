@@ -82,14 +82,38 @@ app.post("/loginFirstPerson", (req, res) => {
         console.log("data firstperson", firstPersonData);
 
         res.send({ data: firstPersonData, message: "Login is Successful"});
-          // if (response) {
-          //   //send full name
-          //   // const firstPersonName = result[0].firstPersonName;
-          //   // const secondPersonName = result[0].secondPersonName;
-          //   // const staffData = [firstPersonName,secondPersonName];
+       
+      } else {
+        console.log("user not found");
+        res.send({ message: "User not found" });
+      }
+    }
+  );
+});
 
-          //   res.send({ message: "Login Successful"});
-          // } 
+
+//second person login
+app.post("/loginSecondPerson", (req, res) => {
+  const spaceName = req.body.spaceName;
+  const secondPersonEmail = req.body.secondPersonEmail;
+  const secondPersonPassword = req.body.secondPersonPassword;
+
+console.log("second", secondPersonEmail, secondPersonPassword)
+
+  db.query(
+    "SELECT * FROM couplegoals.space WHERE spaceName = ? and secondPersonEmail = ? and secondPersonPassword = ?",
+    [spaceName, secondPersonEmail,secondPersonPassword],
+    (err, result) => {
+      console.log("result",result)
+      if (result.length > 0) {
+       
+        console.log("user found");
+        const name = result[0].secondPersonName;
+        const secondPersonData = [name]
+
+        console.log("data firstperson", secondPersonData);
+
+        res.send({ data: secondPersonData, message: "Login is Successful"});
        
       } else {
         console.log("user not found");

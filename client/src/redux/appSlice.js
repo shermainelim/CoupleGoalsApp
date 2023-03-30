@@ -7,6 +7,9 @@ const initialState = {
   loginLoadingFirstPerson: false,
   firstPersonData: [],
   isLoggedInFirstPerson: false,
+  loginLoadingSecondPerson: false,
+  secondPersonData: [],
+  isLoggedInSecondPerson: false,
   registerLoading: false,
   isFirstPersonChecked: false,
   isRegisterCreated: false,
@@ -22,12 +25,39 @@ let results =""
 export const loginFirstPerson = createAsyncThunk(
   `${name}/loginFirstPerson`,
   async ({ spaceName, firstPersonEmail, firstPersonPassword }) => {
-    
-
-
     try {
       const res = await axios.post("/loginFirstPerson", {
         spaceName, firstPersonEmail, firstPersonPassword
+      });
+
+      if (res.status !== 200) {
+        alert("Login failed here.");
+        return ;
+      }
+
+      if(res.data.message !=="User not found"){
+       results=res?.data?.data[0];
+        console.log("connected message", results)
+     
+        return results;
+      }
+     
+      alert(res.data.message);
+
+    } catch (err) {
+      alert("Login failed");
+    }
+  }
+);
+
+
+//login second person
+export const loginSecondPerson = createAsyncThunk(
+  `${name}/loginSecondPerson`,
+  async ({ spaceName, secondPersonEmail, secondPersonPassword }) => {
+    try {
+      const res = await axios.post("/loginSecondPerson", {
+        spaceName, secondPersonEmail, secondPersonPassword
       });
 
       if (res.status !== 200) {
@@ -78,10 +108,15 @@ const appSlice = createSlice({
     },
     logOutFirstPerson: (state) => {
 
-      console.log("logout firstPersonData", state.firstPersonData);
       state.firstPersonData= initialState.firstPersonData;
       state.isLoggedInFirstPerson = initialState.isLoggedInFirstPerson;
       state.isFirstPersonChecked = initialState.isFirstPersonChecked;
+    },
+    logOutSecondPerson: (state) => {
+
+      state.secondPersonData= initialState.secondPersonData;
+      state.isLoggedInSecondPerson = initialState.isLoggedInSecondPerson;
+      state.isSecondPersonChecked = initialState.isSecondPersonChecked;
     },
   },
 
@@ -108,7 +143,6 @@ const appSlice = createSlice({
    if(payload){
     state.isLoggedInFirstPerson = true;
    }
- 
       console.log("hit here")
     
     state.loginLoadingFirstPerson = false;
@@ -122,6 +156,23 @@ const appSlice = createSlice({
     console.log("hit here3")
   });
 
+ //second person login
+   builder.addCase(loginSecondPerson.fulfilled, (state , { payload }) => {
+    state.secondPersonData= payload;
+
+ 
+    if(payload){
+     state.isLoggedInSecondPerson = true;
+    }     
+     state.loginLoadingSecondPerson = false;
+   });
+   builder.addCase(loginSecondPerson.pending, (state) => {
+     state.loginLoadingSecondPerson = true;
+
+   });
+   builder.addCase(loginSecondPerson.rejected, (state) => {
+     state.loginLoadingSecondPerson = false;
+   });
   },
 });
 
@@ -130,6 +181,7 @@ const appSlice = createSlice({
 export const { completeRegister } = appSlice.actions;
 export const { completeCheck } = appSlice.actions;
 export const { logOutFirstPerson } = appSlice.actions;
+export const { logOutSecondPerson } = appSlice.actions;
 
 export default appSlice.reducer;
 
@@ -146,3 +198,8 @@ export const useRegisterCreated = () =>
   useSelector((state) => state.appState.isLoggedInFirstPerson);
 
   export const useFirstPerson = () => useSelector((state) => state.appState.firstPersonData);
+
+  export const useIsLoggedInSecondPerson = () =>
+  useSelector((state) => state.appState.isLoggedInSecondPerson);
+
+  export const useSecondPerson = () => useSelector((state) => state.appState.secondPersonData);

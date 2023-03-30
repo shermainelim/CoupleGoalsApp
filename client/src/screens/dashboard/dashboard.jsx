@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCirclePlus
   } from '@fortawesome/free-solid-svg-icons';
-import { logOutFirstPerson } from "../../redux/appSlice";
+import { logOutFirstPerson, logOutSecondPerson } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 const Dashboard = () => {
 
@@ -43,6 +43,7 @@ const Dashboard = () => {
 
   const logoutHandler = async () => {
     dispatch(logOutFirstPerson());
+    dispatch(logOutSecondPerson());
     setLogout(true);
   };
 

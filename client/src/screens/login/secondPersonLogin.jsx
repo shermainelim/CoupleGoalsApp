@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { register, checkSpaceName } from "../../redux/appSlice";
+import { useIsLoggedInSecondPerson,loginSecondPerson } from "../../redux/appSlice";
 import styles from "./secondPersonLogin.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
 import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const SecondPersonLogin = () => {
   const cx = classNames.bind(styles);
@@ -16,6 +17,15 @@ const SecondPersonLogin = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [secondPersonEmail, setChangeSecondPersonEmail] = useState("");
   const [secondPersonPassword, setChangeSecondPersonPassword] = useState("");
+
+  const isLoggedInSecondPerson = useIsLoggedInSecondPerson();
+
+
+console.log("isloggedin", isLoggedInSecondPerson);
+
+if (isLoggedInSecondPerson) {
+  return <Navigate to="/dashboard" />;
+}
 
   const spaceNameHandler = (event) => {
     setChangeSpaceName(event.target.value);
@@ -84,7 +94,10 @@ const SecondPersonLogin = () => {
             secondPersonEmail.length !== 0 &&
             secondPersonPassword.length !== 0
           ) {
-            navigate("/dashboard");
+            dispatch(loginSecondPerson({spaceName, secondPersonEmail, secondPersonPassword}))
+            setChangeSpaceName("");
+            setChangeSecondPersonEmail("");
+            setChangeSecondPersonPassword("");
           }
         }}
       ></CustomButton>
