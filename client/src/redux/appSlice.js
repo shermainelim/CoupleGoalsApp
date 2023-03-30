@@ -4,6 +4,9 @@ import { useSelector } from "react-redux";
 
 
 const initialState = {
+  loginLoadingGoalFetch: false,
+  goalFetchData: [],
+  isLoggedInGoalFetched: false,
   loginLoadingFirstPerson: false,
   firstPersonData: [],
   isLoggedInFirstPerson: false,
@@ -11,15 +14,46 @@ const initialState = {
   secondPersonData: [],
   isLoggedInSecondPerson: false,
   registerLoading: false,
-  isFirstPersonChecked: false,
   isRegisterCreated: false,
-
   checkLoading: false,
   isCheckCreated: false,
 };
 
 const name = "appState";
 let results =""
+
+
+//Goal Fetch
+export const fetchGoal = createAsyncThunk(
+  `${name}/fetchGoal`,
+  async ({ spaceName }) => {
+    try {
+      const res = await axios.post("/fetchGoal", 
+      {
+        spaceName
+      });
+
+      if (res.status !== 200) {
+        alert("Goal Fetch failed here.");
+        return ;
+      }
+
+      if(res.data.message !=="Goal Fetch not found"){
+       results=res?.data?.data;
+        console.log("connected Goal Fetch message", results)
+     
+        return results;
+      }
+     
+      alert(res.data.message);
+
+    } catch (err) {
+      alert("Goal Fetch failed");
+    }
+  }
+);
+
+
 
 //login first person
 export const loginFirstPerson = createAsyncThunk(
@@ -106,17 +140,23 @@ const appSlice = createSlice({
     completeCheck: (state) => {
       state.isCheckCreated = initialState.isCheckCreated;
     },
+    logOutGoalFetch: (state) => {
+
+      state.goalFetchData= initialState.goalFetchData;
+      state.isLoggedInGoalFetched = initialState.isLoggedInGoalFetched;
+
+    },
     logOutFirstPerson: (state) => {
 
       state.firstPersonData= initialState.firstPersonData;
       state.isLoggedInFirstPerson = initialState.isLoggedInFirstPerson;
-      state.isFirstPersonChecked = initialState.isFirstPersonChecked;
+
     },
     logOutSecondPerson: (state) => {
 
       state.secondPersonData= initialState.secondPersonData;
       state.isLoggedInSecondPerson = initialState.isLoggedInSecondPerson;
-      state.isSecondPersonChecked = initialState.isSecondPersonChecked;
+      
     },
   },
 
@@ -132,6 +172,28 @@ const appSlice = createSlice({
     builder.addCase(register.rejected, (state) => {
       state.registerLoading = false;
     });
+
+    //login goal fetch
+   builder.addCase(fetchGoal.fulfilled, (state , { payload }) => {
+    state.goalFetchData= payload;
+
+    console.log("fetch goal payload", payload)
+ 
+    if(payload){
+     state.isLoggedInGoalFetched = true;
+    }
+       console.log("hit here")
+     
+     state.isLoggedInGoalFetched = false;
+   });
+   builder.addCase(fetchGoal.pending, (state) => {
+     state.loginLoadingGoalFetch = true;
+     console.log("hit here2")
+   });
+   builder.addCase(fetchGoal.rejected, (state) => {
+     state.loginLoadingGoalFetch = false;
+     console.log("hit here3")
+   });
 
    //login first person
    builder.addCase(loginFirstPerson.fulfilled, (state , { payload }) => {
@@ -159,8 +221,6 @@ const appSlice = createSlice({
  //second person login
    builder.addCase(loginSecondPerson.fulfilled, (state , { payload }) => {
     state.secondPersonData= payload;
-
- 
     if(payload){
      state.isLoggedInSecondPerson = true;
     }     
@@ -182,6 +242,7 @@ export const { completeRegister } = appSlice.actions;
 export const { completeCheck } = appSlice.actions;
 export const { logOutFirstPerson } = appSlice.actions;
 export const { logOutSecondPerson } = appSlice.actions;
+export const { logOutGoalFetch } = appSlice.actions;
 
 export default appSlice.reducer;
 
@@ -193,6 +254,10 @@ export const useRegisterCreated = () =>
   export const useCheckCreated = () =>
   useSelector((state) => state.appState.isCheckCreated);
 
+  export const useIsLoggedInGoalFetch = () =>
+  useSelector((state) => state.appState.isLoggedInGoalFetched);
+
+  export const useGoalFetch = () => useSelector((state) => state.appState.goalFetchData);
 
   export const useIsLoggedInFirstPerson = () =>
   useSelector((state) => state.appState.isLoggedInFirstPerson);

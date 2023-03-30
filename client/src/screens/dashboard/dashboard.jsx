@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import classNames from "classnames/bind";
 import styles from "./Dashboard.scss";
@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCirclePlus
   } from '@fortawesome/free-solid-svg-icons';
-import { logOutFirstPerson, logOutSecondPerson, useFirstPerson } from "../../redux/appSlice";
+import { fetchGoal, logOutFirstPerson, logOutSecondPerson, useFirstPerson, useGoalFetch } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 import moment from 'moment'
 
@@ -22,11 +22,15 @@ const Dashboard = () => {
 
   const [logout, setLogout] = useState(false);
 
-  // Tasks (ToDo List) State
-  const [toDo, setToDo] = useState([
-    { id: 1, title: "Finish Couple Goals", status: false },
-    { id: 2, title: "Get Legendary Rank in ML", status: false },
-  ]);
+  // // Tasks (ToDo List) State
+  // const [toDo, setToDo] = useState([
+  //   { id: 1, title: "Finish Couple Goals", status: false },
+  //   { id: 2, title: "Get Legendary Rank in ML", status: false },
+  // ]);
+
+    // Tasks (ToDo List) State
+    const [toDo, setToDo] = useState([]);
+  
 
   console.log("todoList", toDo);
 
@@ -51,6 +55,52 @@ const Dashboard = () => {
   var shortMonthNameFirstPersonUserBday = moment(firstPersonBirthdayUser).format('DD MMM YYYY')
   var shortMonthNameSecondPersonBday = moment(secondPersonBirthday).format('DD MMM YYYY')
   var shortMonthAnniversaryFirstPersonUser = moment(anniversaryDateFirstPersonUser).format('DD MMM YYYY')
+
+
+  useEffect(()=>{
+    dispatch(fetchGoal({spaceName}))
+  },[])
+
+  let fetchGoalData = useGoalFetch();
+
+  let onlyGoalsTable = fetchGoalData[1];
+
+  const objCopy = [...onlyGoalsTable];
+
+  console.log("obj", objCopy)
+
+  console.log("fetchgoaldata", onlyGoalsTable)
+
+  let newArr = [];
+  function processNow(){
+    objCopy.map(function(element){
+      let newData = {...element}
+    //console.log("element", element.status)
+    if(element.status===0){
+      newData.status = false;
+      newArr.push({newData})
+      console.log("newarr", newArr)
+    }else if(element.status ===1){
+      newData.status = true;
+      newArr.push({newData})
+    }
+   return newData;
+  })
+  }
+  processNow();
+  console.log("todo",newArr);
+  
+  let newArray = newArr.map(function(element){
+    console.log("element",element);
+      return {spaceName:element.newData.spaceName, id: element.newData.id, title:element.newData.title ,status:element.newData.status};
+  })
+
+
+  useEffect(()=>{
+    setToDo(newArray);
+  },[])
+
+  
 
   const logoutHandler = async () => {
     dispatch(logOutFirstPerson());

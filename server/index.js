@@ -22,6 +22,33 @@ const db = mysql.createPool({
   database: "couplegoals",
 });
 
+//dashboard fetch goal tracker todo
+app.post("/fetchGoal", (req, res) => {
+  const spaceName = req.body.spaceName;
+
+  db.query(
+    "SELECT * FROM couplegoals.goals WHERE spaceName = ?",
+    [spaceName],
+    (err, result) => {
+      if (result.length > 0) {
+       
+        console.log("Goal found result", result);
+       
+        const goalsData = [spaceName, result]
+
+        console.log("data firstperson", goalsData);
+
+        res.send({ data: goalsData, message: "Goal Data Fetch is Successful"});
+       
+      } else {
+        console.log("Goal Data Fetch not found");
+        res.send({ message: "Goal Data Fetch not found" });
+      }
+    }
+  );
+});
+
+
 //register couples
 app.post("/register", (req, res) => {
   const id = req.body.id;
