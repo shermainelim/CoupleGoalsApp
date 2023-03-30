@@ -36,7 +36,7 @@ export const loginFirstPerson = createAsyncThunk(
       }
 
       if(res.data.message !=="User not found"){
-       results=res?.data?.data[0];
+       results=res?.data?.data;
         console.log("connected message", results)
      
         return results;

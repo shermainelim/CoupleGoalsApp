@@ -12,8 +12,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCirclePlus
   } from '@fortawesome/free-solid-svg-icons';
-import { logOutFirstPerson, logOutSecondPerson } from "../../redux/appSlice";
+import { logOutFirstPerson, logOutSecondPerson, useFirstPerson } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
+import moment from 'moment'
+
 const Dashboard = () => {
 
   const cx = classNames.bind(styles);
@@ -26,6 +28,8 @@ const Dashboard = () => {
     { id: 2, title: "Get Legendary Rank in ML", status: false },
   ]);
 
+  console.log("todoList", toDo);
+
   // Temp State
   /////////////
   const [newTask, setNewTask] = useState("");
@@ -33,13 +37,20 @@ const Dashboard = () => {
 
   const dispatch = useDispatch();
 
-  const spaceName = "Weekiat & Shermaine";
-  const username = "Shermaine";
-  const firstPersonName = "Shermaine";
-  const secondPersonName = "Wee Kiat";
-  const firstPersonBirthday = "28 Jun 1995";
-  const secondPersonBirthday = "16 Mar 1992";
-  const anniversaryDate = "31 Dec 2023";
+  const firstPersonData = useFirstPerson();
+  console.log("Dashboard first person daat", firstPersonData);
+
+  //first person login
+  const spaceName = firstPersonData[0];
+  const firstPersonNameUser = firstPersonData[1];
+  const firstPersonBirthdayUser = firstPersonData[2];
+  const secondPersonName =firstPersonData[3];
+  const secondPersonBirthday =firstPersonData[4];
+  const anniversaryDateFirstPersonUser = firstPersonData[5];
+
+  var shortMonthNameFirstPersonUserBday = moment(firstPersonBirthdayUser).format('DD MMM YYYY')
+  var shortMonthNameSecondPersonBday = moment(secondPersonBirthday).format('DD MMM YYYY')
+  var shortMonthAnniversaryFirstPersonUser = moment(anniversaryDateFirstPersonUser).format('DD MMM YYYY')
 
   const logoutHandler = async () => {
     dispatch(logOutFirstPerson());
@@ -69,7 +80,7 @@ const Dashboard = () => {
   }
 
   // mm.dd.yyyy
-  let daysTgt = getNumberOfDays("12/31/2021");
+  let daysTgt = getNumberOfDays(anniversaryDateFirstPersonUser);
 
   function getFormatedStringFromDays(numberOfDays) {
     var years = Math.floor(numberOfDays / 365);
@@ -139,17 +150,21 @@ const Dashboard = () => {
       <div className={cx("space-title")}>Couple Goals Dashboard</div>
       <div className={cx("space-name")}>Couple Space of {spaceName}</div>
 
-      <div className={cx("space-welcome")}>Welcome {username}</div>
+      <div className={cx("space-welcome")}>Welcome {firstPersonNameUser}</div>
 
       <div className={cx("space-welcome")}>
-        Your Birthday: {firstPersonBirthday}
-      </div>
-      <div className={cx("space-welcome")}>
-        Your Partner's Birthday: {secondPersonBirthday}
+        Your Birthday: {shortMonthNameFirstPersonUserBday}
       </div>
 
       <div className={cx("space-welcome")}>
-        When did you get together? {anniversaryDate}
+        Your Partner's Name: {secondPersonName}
+      </div>
+      <div className={cx("space-welcome")}>
+        Your Partner's Birthday: {shortMonthNameSecondPersonBday}
+      </div>
+
+      <div className={cx("space-welcome")}>
+        When did you get together? {shortMonthAnniversaryFirstPersonUser}
       </div>
 
       <div className={cx("space-welcome")}>

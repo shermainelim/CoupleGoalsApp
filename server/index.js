@@ -22,7 +22,6 @@ const db = mysql.createPool({
   database: "couplegoals",
 });
 
-
 //register couples
 app.post("/register", (req, res) => {
   const id = req.body.id;
@@ -75,9 +74,16 @@ app.post("/loginFirstPerson", (req, res) => {
     (err, result) => {
       if (result.length > 0) {
        
-        console.log("user found");
-        const name = result[0].firstPersonName;
-        const firstPersonData = [name]
+        console.log("user found result", result);
+        const spaceName = result[0].spaceName;
+        const firstPersonNameUser = result[0].firstPersonName;
+        const firstPersonBirthdayUser = result[0].firstPersonBirthday;
+        const secondPersonName = result[0].secondPersonName;
+        const secondPersonBirthday = result[0].secondPersonBirthday;
+
+        const anniDate = result[0].anniDate;
+
+        const firstPersonData = [spaceName, firstPersonNameUser, firstPersonBirthdayUser, secondPersonName, secondPersonBirthday, anniDate]
 
         console.log("data firstperson", firstPersonData);
 
