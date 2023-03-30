@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCirclePlus
   } from '@fortawesome/free-solid-svg-icons';
-import { fetchGoal, logOutFirstPerson, logOutSecondPerson, useFirstPerson, useGoalFetch } from "../../redux/appSlice";
+import { goalPost, fetchGoal, logOutFirstPerson, logOutSecondPerson, useFirstPerson, useGoalFetch } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 import moment from 'moment'
 
@@ -33,6 +33,30 @@ const Dashboard = () => {
   
 
   console.log("todoList", toDo);
+
+  useEffect(()=>{
+    toDo.map(function(element){
+      const id = element.id;
+      const title = element.title;
+      const status = element.status;
+      console.log("new", element.id,element.title, element.status);
+      console.log("dispatch goal post")
+      dispatch(goalPost({spaceName, id,title, status }))
+    });
+  },[toDo])
+
+  function pushTodo(todo){
+    console.log("todo2",todo);
+    todo.map(function(element){
+      const id = element.id;
+      const title = element.title;
+      const status = element.status;
+      console.log("new", element.id,element.title, element.status);
+      console.log("dispatch goal post")
+      dispatch(goalPost({spaceName, id,title, status }))
+    });
+  }
+  
 
   // Temp State
   /////////////
@@ -63,24 +87,29 @@ const Dashboard = () => {
 
   let fetchGoalData = useGoalFetch();
 
-  let onlyGoalsTable = fetchGoalData[1];
+  console.log("Fetchgoals", fetchGoalData)
 
-  const objCopy = [...onlyGoalsTable];
+  let onlyGoalsTable = fetchGoalData[1];
+  console.log("onlygoals", onlyGoalsTable);
+
+  console.log("onlygoals", onlyGoalsTable)
+
+   const objCopy = [onlyGoalsTable];
 
   console.log("obj", objCopy)
 
-  console.log("fetchgoaldata", onlyGoalsTable)
+  // console.log("fetchgoaldata", onlyGoalsTable)
 
   let newArr = [];
   function processNow(){
     objCopy.map(function(element){
       let newData = {...element}
     //console.log("element", element.status)
-    if(element.status===0){
+    if(element?.status===0){
       newData.status = false;
       newArr.push({newData})
       console.log("newarr", newArr)
-    }else if(element.status ===1){
+    }else if(element?.status ===1){
       newData.status = true;
       newArr.push({newData})
     }
@@ -98,9 +127,10 @@ const Dashboard = () => {
 
   useEffect(()=>{
     setToDo(newArray);
-  },[])
+  },[]);
 
-  
+
+
 
   const logoutHandler = async () => {
     dispatch(logOutFirstPerson());
@@ -155,8 +185,10 @@ const Dashboard = () => {
     if (newTask) {
       let num = toDo.length + 1;
       setToDo([...toDo, { id: num, title: newTask, status: false }]);
-
+      
       setNewTask("");
+      console.log("after add", toDo);
+      pushTodo(toDo);
     }
   };
 
@@ -166,6 +198,7 @@ const Dashboard = () => {
 
     // refactored
     setToDo(toDo.filter((task) => task.id !== id));
+    pushTodo(toDo);
   };
 
   // Mark task as done or completed
@@ -175,6 +208,7 @@ const Dashboard = () => {
         task.id === id ? { ...task, status: !task.status } : task
       )
     );
+    pushTodo(toDo);
   };
 
   // Cancel update
@@ -191,7 +225,7 @@ const Dashboard = () => {
   const updateTask = () => {
     let removeOldRecord = [...toDo].filter((task) => task.id !== updateData.id);
     setToDo([...removeOldRecord, updateData]);
-
+    pushTodo(toDo);
     setUpdateData("");
   };
 

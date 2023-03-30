@@ -15,6 +15,8 @@ const initialState = {
   isLoggedInSecondPerson: false,
   registerLoading: false,
   isRegisterCreated: false,
+  goalPostLoading: false,
+  isGoalPostCreated: false,
   checkLoading: false,
   isCheckCreated: false,
 };
@@ -129,6 +131,20 @@ export const register = createAsyncThunk(
   }
 );
 
+export const goalPost = createAsyncThunk(
+  `${name}/goalPost`,
+  async ({ spaceName, id , title, status}) => {
+    try {
+      const res = await axios.post("/goalPost", {spaceName, id , title, status});
+
+      alert(res.data.message);
+    } catch (err) {
+      alert("err", err)
+      alert("Goal Post failed.");
+    }
+  }
+);
+
 
 const appSlice = createSlice({
   name,
@@ -136,6 +152,9 @@ const appSlice = createSlice({
   reducers: {
     completeRegister: (state) => {
       state.isRegisterCreated = initialState.isCheckCreated;
+    },
+    completeGoalPost: (state) => {
+      state.isGoalPostCreated = initialState.isGoalPostCreated;
     },
     completeCheck: (state) => {
       state.isCheckCreated = initialState.isCheckCreated;
@@ -171,6 +190,19 @@ const appSlice = createSlice({
     });
     builder.addCase(register.rejected, (state) => {
       state.registerLoading = false;
+    });
+
+    //goal post
+    builder.addCase(goalPost.fulfilled, (state) => {
+      state.isGoalPostCreated = true;
+
+      state.goalPostLoading = false;
+    });
+    builder.addCase(goalPost.pending, (state) => {
+      state.goalPostLoading = true;
+    });
+    builder.addCase(goalPost.rejected, (state) => {
+      state.goalPostLoading = false;
     });
 
     //login goal fetch
@@ -239,6 +271,7 @@ const appSlice = createSlice({
 // each case under reducers becomes an action
 
 export const { completeRegister } = appSlice.actions;
+export const { completeGoalPost } = appSlice.actions;
 export const { completeCheck } = appSlice.actions;
 export const { logOutFirstPerson } = appSlice.actions;
 export const { logOutSecondPerson } = appSlice.actions;
@@ -250,6 +283,9 @@ export default appSlice.reducer;
 //register complete status
 export const useRegisterCreated = () =>
   useSelector((state) => state.appState.isRegisterCreated);
+
+  export const useGoalPostedCreated = () =>
+  useSelector((state) => state.appState.isGoalPostCreated);
 
   export const useCheckCreated = () =>
   useSelector((state) => state.appState.isCheckCreated);

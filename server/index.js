@@ -22,6 +22,24 @@ const db = mysql.createPool({
   database: "couplegoals",
 });
 
+
+//dashboard fetch goal tracker todo
+app.post("/goalPost", (req, res) => {
+  const spaceName = req.body.spaceName;
+ const id = req.body.id;
+ const title = req.body.title;
+ const status = req.body.status;
+
+ console.log("goal", spaceName, id, title, status);
+console.log("it reached here");
+  db.query(
+    "INSERT INTO couplegoals.goals ( spaceName, id, title, status) VALUES (?,?,?,?)",
+    [spaceName, id , title, status],
+  
+  );
+});
+
+
 //dashboard fetch goal tracker todo
 app.post("/fetchGoal", (req, res) => {
   const spaceName = req.body.spaceName;
