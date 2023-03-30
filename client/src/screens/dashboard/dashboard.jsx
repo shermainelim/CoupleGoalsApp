@@ -43,20 +43,75 @@ const Dashboard = () => {
       console.log("dispatch goal post")
       dispatch(goalPost({spaceName, id,title, status }))
     });
+  
   },[toDo])
 
-  function pushTodo(todo){
-    console.log("todo2",todo);
-    todo.map(function(element){
-      const id = element.id;
-      const title = element.title;
-      const status = element.status;
-      console.log("new", element.id,element.title, element.status);
-      console.log("dispatch goal post")
-      dispatch(goalPost({spaceName, id,title, status }))
-    });
-  }
+  useEffect(()=>{
+    if(toDo.length ===0){
+      setToDo({ id: 1, title: "This sample always stays, non-removable", status: false });
+    
+      toDo.map(function(element){
+        const id = element.id;
+        const title = element.title;
+        const status = element.status;
+        console.log("new", element.id,element.title, element.status);
+        console.log("dispatch goal post")
+        dispatch(goalPost({spaceName, id,title, status }))
+      });
+    
+    }
+
+
+    //fetch
+
+    dispatch(fetchGoal({spaceName}));
+    processNow();
+  console.log("new todo",newArr);
+  sortedArr();
+  console.log("sortedrr here", finalArr)
+    setToDo(finalArr);
+    console.log("process new here");
+  },[])
+
+
+  let newArr = [];
   
+  // useEffect(()=>{
+
+  // },[])
+
+  let fetchGoalData = useGoalFetch();
+
+
+
+
+  function processNow(){
+    let onlyGoalsTable = fetchGoalData[1];
+
+    const objCopy = [onlyGoalsTable];
+    objCopy[0]?.map(function(element){
+      let newData = {...element}
+    console.log("element", element.status)
+    if(element?.status===0){
+      newData.status = false;
+      newArr.push({newData})
+      console.log("newarr", newArr)
+    }else if(element?.status ===1){
+      newData.status = true;
+      newArr.push({newData})
+    }
+   return newData;
+  })
+  }
+
+  let finalArr=[];
+
+  function sortedArr(){
+   newArr.map(function(element){
+    console.log("element sorted arr",element);
+    finalArr.push({spaceName:element.newData.spaceName, id: element.newData.id, title:element.newData.title ,status:element.newData.status});
+  })
+  };
 
   // Temp State
   /////////////
@@ -79,56 +134,6 @@ const Dashboard = () => {
   var shortMonthNameFirstPersonUserBday = moment(firstPersonBirthdayUser).format('DD MMM YYYY')
   var shortMonthNameSecondPersonBday = moment(secondPersonBirthday).format('DD MMM YYYY')
   var shortMonthAnniversaryFirstPersonUser = moment(anniversaryDateFirstPersonUser).format('DD MMM YYYY')
-
-
-  useEffect(()=>{
-    dispatch(fetchGoal({spaceName}))
-  },[])
-
-  let fetchGoalData = useGoalFetch();
-
-  console.log("Fetchgoals", fetchGoalData)
-
-  let onlyGoalsTable = fetchGoalData[1];
-  console.log("onlygoals", onlyGoalsTable);
-
-  console.log("onlygoals", onlyGoalsTable)
-
-   const objCopy = [onlyGoalsTable];
-
-  console.log("obj", objCopy)
-
-  // console.log("fetchgoaldata", onlyGoalsTable)
-
-  let newArr = [];
-  function processNow(){
-    objCopy.map(function(element){
-      let newData = {...element}
-    //console.log("element", element.status)
-    if(element?.status===0){
-      newData.status = false;
-      newArr.push({newData})
-      console.log("newarr", newArr)
-    }else if(element?.status ===1){
-      newData.status = true;
-      newArr.push({newData})
-    }
-   return newData;
-  })
-  }
-  processNow();
-  console.log("todo",newArr);
-  
-  let newArray = newArr.map(function(element){
-    console.log("element",element);
-      return {spaceName:element.newData.spaceName, id: element.newData.id, title:element.newData.title ,status:element.newData.status};
-  })
-
-
-  useEffect(()=>{
-    setToDo(newArray);
-  },[]);
-
 
 
 
@@ -154,7 +159,6 @@ const Dashboard = () => {
     // Calculating the no. of days between two dates
     const diffInDays = Math.round(diffInTime / oneDay);
 
-    console.log("diff", diffInDays);
 
     return diffInDays;
   }
@@ -188,7 +192,7 @@ const Dashboard = () => {
       
       setNewTask("");
       console.log("after add", toDo);
-      pushTodo(toDo);
+  
     }
   };
 
@@ -198,7 +202,7 @@ const Dashboard = () => {
 
     // refactored
     setToDo(toDo.filter((task) => task.id !== id));
-    pushTodo(toDo);
+
   };
 
   // Mark task as done or completed
@@ -208,7 +212,7 @@ const Dashboard = () => {
         task.id === id ? { ...task, status: !task.status } : task
       )
     );
-    pushTodo(toDo);
+
   };
 
   // Cancel update
@@ -225,7 +229,7 @@ const Dashboard = () => {
   const updateTask = () => {
     let removeOldRecord = [...toDo].filter((task) => task.id !== updateData.id);
     setToDo([...removeOldRecord, updateData]);
-    pushTodo(toDo);
+
     setUpdateData("");
   };
 
