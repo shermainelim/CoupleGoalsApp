@@ -34,33 +34,19 @@ const Dashboard = () => {
 
   console.log("todoList", toDo);
 
-  useEffect(()=>{
-    toDo.map(function(element){
-      const id = element.id;
-      const title = element.title;
-      const status = element.status;
-      console.log("new", element.id,element.title, element.status);
-      console.log("dispatch goal post")
-      dispatch(goalPost({spaceName, id,title, status }))
-    });
+  // useEffect(()=>{
+  //   toDo.map(function(element){
+  //     const id = element.id;
+  //     const title = element.title;
+  //     const status = element.status;
+  //     console.log("new", element.id,element.title, element.status);
+  //     console.log("dispatch goal post")
+  //     dispatch(goalPost({spaceName, id,title, status }))
+  //   });
   
-  },[toDo])
+  // },[toDo])
 
   useEffect(()=>{
-    if(toDo.length ===0){
-      setToDo({ id: 1, title: "This sample always stays, non-removable", status: false });
-    
-      toDo.map(function(element){
-        const id = element.id;
-        const title = element.title;
-        const status = element.status;
-        console.log("new", element.id,element.title, element.status);
-        console.log("dispatch goal post")
-        dispatch(goalPost({spaceName, id,title, status }))
-      });
-    
-    }
-
 
     //fetch
 
@@ -74,6 +60,16 @@ const Dashboard = () => {
     console.log("process new here");
   },[])
 
+  function refresh(){
+    dispatch(fetchGoal({spaceName}));
+    processNow();
+  console.log("new todo",newArr);
+  sortedArr();
+  console.log("sortedrr here", finalArr);
+  
+    setToDo(finalArr);
+    console.log("process new here");
+  }
 
   let newArr = [];
   
@@ -202,6 +198,12 @@ const Dashboard = () => {
       setToDo([...toDo, { id: num, title: newTask, status: false }]);
       
       setNewTask("");
+
+      let id = num;
+      let title = newTask;
+      let status = false;
+      
+      dispatch(goalPost({spaceName, id,title, status }))
       console.log("after add", toDo);
   
     }
@@ -244,6 +246,7 @@ const Dashboard = () => {
     setUpdateData("");
   };
 
+  
   return (
     <div className={cx("space-container")}>
       <div className={cx("space-title")}>Couple Goals Dashboard</div>
@@ -270,6 +273,16 @@ const Dashboard = () => {
         Been together for {daysTgt} days, which is <br />
         {yearsTgt} 
       </div>
+      <CustomButton
+          className="resident-btn"
+          testId="resident"
+          content="Refresh Screen"
+          clicked={
+            refresh
+          }
+
+          // resident={true}
+        ></CustomButton>
       <div className="big-card-container">
         <div className="big-card-icon">
         <div className="big-card-title">Finance Tracker</div>
