@@ -68,7 +68,8 @@ const Dashboard = () => {
     processNow();
   console.log("new todo",newArr);
   sortedArr();
-  console.log("sortedrr here", finalArr)
+  console.log("sortedrr here", finalArr);
+  
     setToDo(finalArr);
     console.log("process new here");
   },[])
@@ -86,7 +87,10 @@ const Dashboard = () => {
 
 
   function processNow(){
-    let onlyGoalsTable = fetchGoalData[1];
+    if(fetchGoalData===null | undefined){
+      return;
+    }else{
+      let onlyGoalsTable = fetchGoalData[1];
 
     const objCopy = [onlyGoalsTable];
     objCopy[0]?.map(function(element){
@@ -102,11 +106,16 @@ const Dashboard = () => {
     }
    return newData;
   })
+    }
+    
   }
 
   let finalArr=[];
 
   function sortedArr(){
+    if(newArr.length===0){
+      return;
+    }
    newArr.map(function(element){
     console.log("element sorted arr",element);
     finalArr.push({spaceName:element.newData.spaceName, id: element.newData.id, title:element.newData.title ,status:element.newData.status});
