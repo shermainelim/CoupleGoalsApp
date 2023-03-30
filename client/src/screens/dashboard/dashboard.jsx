@@ -1,24 +1,37 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import classNames from "classnames/bind";
 import styles from "./Dashboard.scss";
 import { Card } from "../../shared/Card";
-
-import Couple from "../../assets/couple.png";
 import CustomButton from "../../shared/CustomButton";
-import { BigCard } from "../../shared/BigCard";
-import { CardGoal } from "../../shared/CardGoal";
 import UpdateForm from "../todo/UpdateForm";
 import AddTaskForm from "../todo/AddTaskForm";
 import ToDo from "../todo/ToDo";
+import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faCirclePlus,faTrashCan
-  } from '@fortawesome/free-solid-svg-icons'
-
+    faCirclePlus
+  } from '@fortawesome/free-solid-svg-icons';
+import { logOutFirstPerson } from "../../redux/appSlice";
+import { Navigate } from "react-router-dom";
 const Dashboard = () => {
-  const navigate = useNavigate();
+
   const cx = classNames.bind(styles);
+
+  const [logout, setLogout] = useState(false);
+
+  // Tasks (ToDo List) State
+  const [toDo, setToDo] = useState([
+    { id: 1, title: "Finish Couple Goals", status: false },
+    { id: 2, title: "Get Legendary Rank in ML", status: false },
+  ]);
+
+  // Temp State
+  /////////////
+  const [newTask, setNewTask] = useState("");
+  const [updateData, setUpdateData] = useState("");
+
+  const dispatch = useDispatch();
 
   const spaceName = "Weekiat & Shermaine";
   const username = "Shermaine";
@@ -28,12 +41,17 @@ const Dashboard = () => {
   const secondPersonBirthday = "16 Mar 1992";
   const anniversaryDate = "31 Dec 2023";
 
+  const logoutHandler = async () => {
+    dispatch(logOutFirstPerson());
+    setLogout(true);
+  };
+
+  if (logout) {
+    return <Navigate to="/" />;
+  }
   function getNumberOfDays(start) {
     const date1 = new Date(start);
     const date2 = new Date();
-
-    console.log("Date1", date1);
-    console.log("date2", date2);
 
     // One day in milliseconds
     const oneDay = 1000 * 60 * 60 * 24;
@@ -67,16 +85,7 @@ const Dashboard = () => {
 
   const yearsTgt = getFormatedStringFromDays(daysTgt);
 
-  // Tasks (ToDo List) State
-  const [toDo, setToDo] = useState([
-    { id: 1, title: "Finish Couple Goals", status: false },
-    { id: 2, title: "Get Legendary Rank in ML", status: false },
-  ]);
 
-  // Temp State
-  /////////////
-  const [newTask, setNewTask] = useState("");
-  const [updateData, setUpdateData] = useState("");
 
   // Add task
   ///////////
@@ -206,9 +215,9 @@ const Dashboard = () => {
           className="resident-btn"
           testId="resident"
           content="Logout"
-          clicked={() => {
-            navigate("/");
-          }}
+          clicked={
+            logoutHandler
+          }
 
           // resident={true}
         ></CustomButton>

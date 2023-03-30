@@ -75,7 +75,13 @@ app.post("/loginFirstPerson", (req, res) => {
     (err, result) => {
       if (result.length > 0) {
        
-        res.send({ data: result, message: "Login is Successful"});
+        console.log("user found");
+        const name = result[0].firstPersonName;
+        const firstPersonData = [name]
+
+        console.log("data firstperson", firstPersonData);
+
+        res.send({ data: firstPersonData, message: "Login is Successful"});
           // if (response) {
           //   //send full name
           //   // const firstPersonName = result[0].firstPersonName;
@@ -86,6 +92,7 @@ app.post("/loginFirstPerson", (req, res) => {
           // } 
        
       } else {
+        console.log("user not found");
         res.send({ message: "User not found" });
       }
     }

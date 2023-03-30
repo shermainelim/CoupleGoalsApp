@@ -32,14 +32,14 @@ export const loginFirstPerson = createAsyncThunk(
 
       if (res.status !== 200) {
         alert("Login failed here.");
-        return;
+        return ;
       }
 
       if(res.data.message !=="User not found"){
        results=res?.data?.data[0];
-        console.log("message",res?.data?.data[0])
+        console.log("connected message", results)
      
-        
+        return results;
       }
      
       alert(res.data.message);
@@ -77,6 +77,9 @@ const appSlice = createSlice({
       state.isCheckCreated = initialState.isCheckCreated;
     },
     logOutFirstPerson: (state) => {
+
+      console.log("logout firstPersonData", state.firstPersonData);
+      state.firstPersonData= initialState.firstPersonData;
       state.isLoggedInFirstPerson = initialState.isLoggedInFirstPerson;
       state.isFirstPersonChecked = initialState.isFirstPersonChecked;
     },
@@ -96,16 +99,16 @@ const appSlice = createSlice({
     });
 
    //login first person
-   builder.addCase(loginFirstPerson.fulfilled, (state) => {
-   state.firstPersonData= results;
-   if(state.firstPersonData){
+   builder.addCase(loginFirstPerson.fulfilled, (state , { payload }) => {
+   state.firstPersonData= payload;
+
+   //console.log("data", state.firstPersonData.id)
+   console.log("firstPersonData payload", payload)
+
+   if(payload){
     state.isLoggedInFirstPerson = true;
    }
  
-    //console.log("state", action);
-    
-    
-      //state.isLoggedInFirstPerson = true;
       console.log("hit here")
     
     state.loginLoadingFirstPerson = false;
