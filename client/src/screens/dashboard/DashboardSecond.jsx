@@ -15,32 +15,23 @@ import {
   fetchGoal,
   logOutFirstPerson,
   logOutSecondPerson,
-  useFirstPerson,
+  useSecondPerson,
   useGoalFetch,goalDelete, goalDone
 } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 import moment from "moment";
 
-const Dashboard = () => {
+const DashboardSecond = () => {
   const cx = classNames.bind(styles);
 
   const [logout, setLogout] = useState(false);
 
-
-  // // Tasks (ToDo List) State
-  // const [toDo, setToDo] = useState([
-  //   { id: 1, title: "Finish Couple Goals", status: false },
-  //   { id: 2, title: "Get Legendary Rank in ML", status: false },
-  // ]);
-
-  // Tasks (ToDo List) State
   const [toDo, setToDo] = useState([]);
 
 
 
   useEffect(() => {
-
-    //fetch
+ 
   
     dispatch(fetchGoal({ spaceName }));
     processNow();
@@ -126,19 +117,19 @@ const Dashboard = () => {
 
   const dispatch = useDispatch();
 
-  const firstPersonData = useFirstPerson();
+  const secondPersonData = useSecondPerson();
  
-
+console.log("second person data", secondPersonData)
   //first person login
-  const spaceName = firstPersonData[0];
-  const firstPersonNameUser = firstPersonData[1];
-  const firstPersonBirthdayUser = firstPersonData[2];
-  const secondPersonName = firstPersonData[3];
-  const secondPersonBirthday = firstPersonData[4];
-  const anniversaryDateFirstPersonUser = firstPersonData[5];
+  const spaceName = secondPersonData[0];
+  const secondPersonNameUser = secondPersonData[1];
+  const secondPersonBirthdayUser = secondPersonData[2];
+  const secondPersonName = secondPersonData[3];
+  const secondPersonBirthday = secondPersonData[4];
+  const anniversaryDateFirstPersonUser = secondPersonData[5];
 
   var shortMonthNameFirstPersonUserBday = moment(
-    firstPersonBirthdayUser
+    secondPersonBirthdayUser
   ).format("DD MMM YYYY");
   var shortMonthNameSecondPersonBday =
     moment(secondPersonBirthday).format("DD MMM YYYY");
@@ -147,7 +138,7 @@ const Dashboard = () => {
   ).format("DD MMM YYYY");
 
   const logoutHandler = async () => {
-    dispatch(logOutFirstPerson());
+    dispatch(logOutSecondPerson());
     setLogout(true);
   };
 
@@ -274,18 +265,18 @@ const Dashboard = () => {
         </div>
         <div className="main-small-card-container-goals">
           <div className={cx("space-welcome")}>
-            Welcome {firstPersonNameUser}
+            Welcome {secondPersonName}
           </div>
 
           <div className={cx("space-welcome")}>
-            Your Birthday: {shortMonthNameFirstPersonUserBday}
+            Your Birthday: {shortMonthNameSecondPersonBday}
           </div>
 
           <div className={cx("space-welcome")}>
-            Your Partner's Name: {secondPersonName}
+            Your Partner's Name: {secondPersonNameUser}
           </div>
           <div className={cx("space-welcome")}>
-            Your Partner's Birthday: {shortMonthNameSecondPersonBday}
+            Your Partner's Birthday: {shortMonthNameFirstPersonUserBday}
           </div>
 
           <div className={cx("space-welcome")}>
@@ -364,4 +355,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardSecond;

@@ -7,6 +7,7 @@ import FirstPersonLogin from "../screens/login/firstPersonLogin";
 import SecondPersonLogin from "../screens/login/secondPersonLogin";
 import Dashboard from "../screens/dashboard/Dashboard";
 import FirstTimeDashboard from "../screens/dashboard/firstTimeDashboard.jsx";
+import DashboardSecond from "../screens/dashboard/DashboardSecond";
 
 
 const AppNavigator = () => {
@@ -23,6 +24,7 @@ const AppNavigator = () => {
       <Route path="/secondPersonLogin" element={<SecondPersonLogin/>} />
       <Route path="/firstTimeDashboard" element={<FirstTimeDashboard/>} />
       <Route path="/dashboard" element={<Dashboard/>} />
+      <Route path="/dashboardSecond" element={<DashboardSecond/>} />
   
       </Routes>
     </Router>

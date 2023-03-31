@@ -24,7 +24,7 @@ const SecondPersonLogin = () => {
 console.log("isloggedin", isLoggedInSecondPerson);
 
 if (isLoggedInSecondPerson) {
-  return <Navigate to="/dashboard" />;
+  return <Navigate to="/dashboardSecond" />;
 }
 
   const spaceNameHandler = (event) => {
