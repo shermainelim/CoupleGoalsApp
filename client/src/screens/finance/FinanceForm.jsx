@@ -28,7 +28,7 @@ const FinanceForm = () => {
           <div className="small-card-title">Title of Tracker</div>
           <div>
             <input
-              style={{marginTop:"5px", marginBottom:"10px", padding:"10px"}}
+              style={{width: "300px", marginTop:"5px", marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
               placeholder=""
@@ -38,7 +38,7 @@ const FinanceForm = () => {
           <div className="small-card-title">Description</div>
           <div>
             <textarea
-              style={{marginTop:"5px",marginBottom:"10px", padding:"10px"}}
+              style={{width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
               placeholder=""
@@ -49,7 +49,7 @@ const FinanceForm = () => {
           <div className="small-card-title">Start Goal Amount</div>
           <div>
             <input
-              style={{marginTop:"5px",marginBottom:"10px", padding:"10px"}}
+              style={{width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
               placeholder=""
@@ -59,7 +59,7 @@ const FinanceForm = () => {
           <div className="small-card-title">Current Saved Amount</div>
           <div>
             <input
-              style={{marginTop:"5px",marginBottom:"10px", padding:"10px"}}
+              style={{width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
               placeholder=""
@@ -69,7 +69,7 @@ const FinanceForm = () => {
           <div className="small-card-title">End Goal Amount</div>
           <div>
             <input
-              style={{marginTop:"5px",marginBottom:"10px", padding:"10px"}}
+              style={{width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
               placeholder=""
