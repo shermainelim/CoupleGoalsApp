@@ -16,7 +16,9 @@ import {
   logOutFirstPerson,
   logOutSecondPerson,
   useFirstPerson,
-  useGoalFetch,goalDelete, goalDone
+  useGoalFetch,
+  goalDelete,
+  goalDone,
 } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 import moment from "moment";
@@ -26,6 +28,26 @@ const Dashboard = () => {
 
   const [logout, setLogout] = useState(false);
 
+  let data = [
+    {
+      title: "Savings for BTO",
+      description: "To save $500 every month till 2028",
+      startGoal: "500",
+      currentGoal: "1000",
+      endGoal: "10000",
+    },
+    {
+      title: "Savings for Vacation",
+      description: "To save $200 every month",
+      startGoal: "200",
+      currentGoal: "400",
+      endGoal: "2000",
+    },
+  ];
+
+  {data?.map(function (element) {
+    console.log(element.description);
+  })}
 
   // // Tasks (ToDo List) State
   // const [toDo, setToDo] = useState([
@@ -36,64 +58,51 @@ const Dashboard = () => {
   // Tasks (ToDo List) State
   const [toDo, setToDo] = useState([]);
 
-
-
   useEffect(() => {
-
     //fetch
-  
+
     dispatch(fetchGoal({ spaceName }));
     processNow();
     sortedArr();
-    
+
     setToDo(finalArr);
-    newArr=[];
-    finalArr=[];
-   
+    newArr = [];
+    finalArr = [];
   }, []);
 
   function refresh() {
-  
     dispatch(fetchGoal({ spaceName }));
     processNow();
     sortedArr();
     setToDo(finalArr);
 
-    newArr=[];
-    finalArr=[];
-    
-   
+    newArr = [];
+    finalArr = [];
   }
-
-
 
   let newArr = [];
 
   //const fetchGoalData = useSelector(state => state.goalFetchData);
 
-  
- let fetchGoalData = useGoalFetch();
+  let fetchGoalData = useGoalFetch();
 
-//  useEffect(()=>{
-//   refresh();
-//  },[toDo])
+  //  useEffect(()=>{
+  //   refresh();
+  //  },[toDo])
 
   function processNow() {
-
     if (fetchGoalData === undefined) {
       return;
     } else {
-      
       let onlyGoalsTable = fetchGoalData[1];
 
       const objCopy = [onlyGoalsTable];
       objCopy[0]?.map(function (element) {
         let newData = { ...element };
-  
+
         if (element?.status === 0) {
           newData.status = false;
           newArr.push({ newData });
-        
         } else if (element?.status === 1) {
           newData.status = true;
           newArr.push({ newData });
@@ -127,7 +136,6 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   const firstPersonData = useFirstPerson();
- 
 
   //first person login
   const spaceName = firstPersonData[0];
@@ -193,7 +201,6 @@ const Dashboard = () => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-
   // Add task
   ///////////
   const addTask = () => {
@@ -208,7 +215,6 @@ const Dashboard = () => {
       let status = false;
 
       dispatch(goalPost({ spaceName, id, title, status }));
-  
     }
   };
 
@@ -220,24 +226,21 @@ const Dashboard = () => {
 
     let id = tid;
 
-
-
-      dispatch(goalDelete({ spaceName, id }));
- 
+    dispatch(goalDelete({ spaceName, id }));
   };
 
   // Mark task as done or completed
   const markDone = (idt) => {
     let id = idt;
     let status = true;
-   
+
     setToDo(
       toDo.map((task) =>
         task.id === idt ? { ...task, status: !task.status } : task
-        )
+      )
     );
 
-    dispatch(goalDone({ status , spaceName, id,}));
+    dispatch(goalDone({ status, spaceName, id }));
   };
 
   // Cancel update
@@ -303,24 +306,17 @@ const Dashboard = () => {
           <div className="big-card-title">Finance Tracker</div>
           <FontAwesomeIcon size="3x" icon={faCirclePlus} />
         </div>
-        <Card
-          title="Savings for BTO"
-          description="To save $500 every month till 2028"
-          buttonText="Contribute"
-          buttonText2="Backtrack"
-          startGoal="500"
-          currentGoal="1000"
-          endGoal="10000"
-        />
-        <Card
-          title="Savings for Vacation"
-          description="To save $200 every month till 2028"
-          buttonText="Contribute"
-          buttonText2="Backtrack"
-          startGoal="200"
-          currentGoal="400"
-          endGoal="10000"
-        />
+        {data.map((element)=> 
+          <Card
+            title={element.title}
+            description={element.description}
+            buttonText="Contribute"
+            buttonText2="Backtrack"
+            startGoal={element.startGoal}
+            currentGoal={element.currentGoal}
+            endGoal={element.endGoal}
+          />
+        )}
       </div>
 
       <div className="big-card-container-goals">

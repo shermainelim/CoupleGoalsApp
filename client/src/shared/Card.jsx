@@ -19,6 +19,7 @@ export const Card = ({
   endGoal,
 }) => {
 
+  console.log("Card title", title)
   
     let currentProgress = (currentGoal/endGoal)*100;
     let incrementalGoal = (startGoal/endGoal)*100
