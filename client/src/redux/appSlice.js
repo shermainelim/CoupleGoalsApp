@@ -19,6 +19,8 @@ const initialState = {
   isGoalPostCreated: false,
   goalDeleteLoading: false,
   isGoalDeleteCreated: false,
+  goalDoneLoading: false,
+  isGoalDoneCreated: false,
   checkLoading: false,
   isCheckCreated: false,
 };
@@ -134,6 +136,21 @@ export const register = createAsyncThunk(
 );
 
 
+export const goalDone = createAsyncThunk(
+  `${name}/goalDone`,
+  async ({  status ,spaceName, id}) => {
+    try {
+      const res = await axios.post("/goalDone", { status ,spaceName, id});
+
+      alert(res.data.message);
+    } catch (err) {
+    
+      alert("Goal done failed.");
+    }
+  }
+);
+
+
 export const goalDelete = createAsyncThunk(
   `${name}/goalDelete`,
   async ({ spaceName, id }) => {
@@ -211,6 +228,20 @@ const appSlice = createSlice({
     builder.addCase(register.rejected, (state) => {
       state.registerLoading = false;
     });
+
+
+      //goal done
+  builder.addCase(goalDone.fulfilled, (state) => {
+    state.isGoalDoneCreated = true;
+
+    state.goalDoneLoading = false;
+  });
+  builder.addCase(goalDone.pending, (state) => {
+    state.goalDoneLoading = true;
+  });
+  builder.addCase(goalDone.rejected, (state) => {
+    state.goalDoneLoading = false;
+  });
 
   //goal delete
   builder.addCase(goalDelete.fulfilled, (state) => {
@@ -305,6 +336,7 @@ const appSlice = createSlice({
 // each case under reducers becomes an action
 
 export const { completeRegister } = appSlice.actions;
+export const { completeGoalDone } = appSlice.actions;
 export const { completeGoalDelete } = appSlice.actions;
 export const { completeGoalPost } = appSlice.actions;
 export const { completeCheck } = appSlice.actions;
@@ -318,6 +350,9 @@ export default appSlice.reducer;
 //register complete status
 export const useRegisterCreated = () =>
   useSelector((state) => state.appState.isRegisterCreated);
+
+  export const useGoalDoneCeated = () =>
+  useSelector((state) => state.appState.isGoalDeleteCreated);
 
   export const useGoalDeleteCreated = () =>
   useSelector((state) => state.appState.isGoalDeleteCreated);

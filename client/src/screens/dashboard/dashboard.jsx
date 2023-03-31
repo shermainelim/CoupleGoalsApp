@@ -16,7 +16,7 @@ import {
   logOutFirstPerson,
   logOutSecondPerson,
   useFirstPerson,
-  useGoalFetch,goalDelete
+  useGoalFetch,goalDelete, goalDone
 } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 import moment from "moment";
@@ -27,7 +27,7 @@ const Dashboard = () => {
 
   const [logout, setLogout] = useState(false);
 
-
+const [status, setStatus] = useState(false);
   // // Tasks (ToDo List) State
   // const [toDo, setToDo] = useState([
   //   { id: 1, title: "Finish Couple Goals", status: false },
@@ -76,9 +76,9 @@ const Dashboard = () => {
   
  let fetchGoalData = useGoalFetch();
 
- useEffect(()=>{
-  refresh();
- },[toDo])
+//  useEffect(()=>{
+//   refresh();
+//  },[toDo])
 
   function processNow() {
 
@@ -230,12 +230,17 @@ const Dashboard = () => {
   };
 
   // Mark task as done or completed
-  const markDone = (id) => {
+  const markDone = (idt) => {
+    let id = idt;
+    let status = true;
+   
     setToDo(
       toDo.map((task) =>
-        task.id === id ? { ...task, status: !task.status } : task
-      )
+        task.id === idt ? { ...task, status: !task.status } : task
+        )
     );
+
+    dispatch(goalDone({ status , spaceName, id,}));
   };
 
   // Cancel update

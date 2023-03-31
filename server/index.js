@@ -23,12 +23,26 @@ const db = mysql.createPool({
 });
 
 
+//dashboard done goal tracker todo
+app.post("/goalDone", (req, res) => {
+  const spaceName = req.body.spaceName;
+ const id = req.body.id;
+ const status = req.body.status;
+
+ console.log("goal done", spaceName, id, status);
+
+  db.query(
+    "UPDATE couplegoals.goals SET status = ? WHERE spaceName = ? AND id = ?",
+    [status, spaceName, id],
+  );
+});
+
+
 //dashboard delete goal tracker todo
 app.post("/goalDelete", (req, res) => {
   const spaceName = req.body.spaceName;
  const id = req.body.id;
 
- console.log("goal dete", spaceName, id);
 
   db.query(
     "DELETE FROM couplegoals.goals WHERE spaceName = ? AND id = ?",
@@ -61,8 +75,6 @@ app.post("/fetchGoal", (req, res) => {
     (err, result) => {
       
         const goalsData = [spaceName, result]
-
-        console.log("fetch goal data", goalsData);
         res.send({ data: goalsData, message: "Goal Data Fetch is Successful"});
       
     }
@@ -122,7 +134,7 @@ app.post("/loginFirstPerson", (req, res) => {
     (err, result) => {
       if (result.length > 0) {
        
-        console.log("user found result", result);
+      
         const spaceName = result[0].spaceName;
         const firstPersonNameUser = result[0].firstPersonName;
         const firstPersonBirthdayUser = result[0].firstPersonBirthday;
@@ -133,12 +145,12 @@ app.post("/loginFirstPerson", (req, res) => {
 
         const firstPersonData = [spaceName, firstPersonNameUser, firstPersonBirthdayUser, secondPersonName, secondPersonBirthday, anniDate]
 
-        console.log("data firstperson", firstPersonData);
+     
 
         res.send({ data: firstPersonData, message: "Login is Successful"});
        
       } else {
-        console.log("user not found");
+       
         res.send({ message: "User not found" });
       }
     }
@@ -152,20 +164,19 @@ app.post("/loginSecondPerson", (req, res) => {
   const secondPersonEmail = req.body.secondPersonEmail;
   const secondPersonPassword = req.body.secondPersonPassword;
 
-console.log("second", secondPersonEmail, secondPersonPassword)
 
   db.query(
     "SELECT * FROM couplegoals.space WHERE spaceName = ? and secondPersonEmail = ? and secondPersonPassword = ?",
     [spaceName, secondPersonEmail,secondPersonPassword],
     (err, result) => {
-      console.log("result",result)
+   
       if (result.length > 0) {
        
         console.log("user found");
         const name = result[0].secondPersonName;
         const secondPersonData = [name]
 
-        console.log("data firstperson", secondPersonData);
+       
 
         res.send({ data: secondPersonData, message: "Login is Successful"});
        

@@ -21,16 +21,9 @@ const ToDo = ({ toDo, markDone, setUpdateData, deleteTask }) => {
                 <span title="Completed / Not Completed"
                   onClick={ (e) => markDone(task.id) }
                 >
-                  <FontAwesomeIcon icon={faCircleCheck} />
+                 {task.status ? null :<FontAwesomeIcon icon={faCircleCheck} />}
+                  
                 </span>
-
-                {task.status ? null : (
-                  <span title="Edit"
-                    onClick={ () => setUpdateData(task) }
-                  >
-                    <FontAwesomeIcon icon={faPen} />
-                  </span>
-                )}
 
                 <span title="Delete"
                   onClick={() => deleteTask(task.id)}
