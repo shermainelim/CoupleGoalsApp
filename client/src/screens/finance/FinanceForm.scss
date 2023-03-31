@@ -1,0 +1,83 @@
+
+body, html {
+    height: 100%;
+    background-color: aliceblue;
+  }
+  
+  
+  div#root {
+    //height: 100%; /* remove this line to see div.app is no more 100% height */
+    background-color: aliceblue;
+    min-width:auto;
+    
+  
+  }
+  
+  div.app {
+    height: 100%;
+    background-color: aliceblue;
+  }
+  
+  .space-container{
+    margin-top:180px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    text-align: center;
+    background-color: aliceblue;
+    margin-bottom: 100px;
+
+    .big-card-container {
+        width: 90%;
+        border-radius: 1rem;
+        box-shadow: 0px 10px 8px #999;
+        display: flex;
+        flex-direction: column;
+        margin: 0.5rem;
+        color:white;
+        background-color: rgb(71, 9, 133);
+        height: fit-content;
+        margin-left: 20px;
+        margin-right: 20px;
+
+        .big-card-title{
+            font-size: 20px;
+            font-weight: 900;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color:white;
+           display:"flex";
+           flex-direction: row;
+          }
+
+        .small-card-container-goals {
+            width: 95%;
+            border-radius: 1rem;
+            box-shadow: 0px 10px 8px #8c70ab;
+            display: flex;
+            flex-direction: column;
+            margin: 0.5rem;
+            color:black;
+            background-color: #7f4fb1;
+            height: fit-content;
+            margin-left: 12px;
+            margin-bottom: 30px;
+            margin-right: 20px;
+            padding: 20px;
+    
+          }
+        .small-card-title{
+            color:white;
+            font-size: 20px;
+
+            .input-general{
+                margin-bottom: 20px;
+            }
+        }
+      }
+    
+  }
