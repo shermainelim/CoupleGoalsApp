@@ -9,15 +9,19 @@ import AddTaskForm from "../todo/AddTaskForm";
 import ToDo from "../todo/ToDo";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import {
-    faCirclePlus
-  } from '@fortawesome/free-solid-svg-icons';
-import { goalPost, fetchGoal, logOutFirstPerson, logOutSecondPerson, useFirstPerson, useGoalFetch } from "../../redux/appSlice";
+  goalPost,
+  fetchGoal,
+  logOutFirstPerson,
+  logOutSecondPerson,
+  useFirstPerson,
+  useGoalFetch,
+} from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
-import moment from 'moment'
+import moment from "moment";
 
 const Dashboard = () => {
-
   const cx = classNames.bind(styles);
 
   const [logout, setLogout] = useState(false);
@@ -28,9 +32,8 @@ const Dashboard = () => {
   //   { id: 2, title: "Get Legendary Rank in ML", status: false },
   // ]);
 
-    // Tasks (ToDo List) State
-    const [toDo, setToDo] = useState([]);
-  
+  // Tasks (ToDo List) State
+  const [toDo, setToDo] = useState([]);
 
   console.log("todoList", toDo);
 
@@ -43,82 +46,81 @@ const Dashboard = () => {
   //     console.log("dispatch goal post")
   //     dispatch(goalPost({spaceName, id,title, status }))
   //   });
-  
+
   // },[toDo])
 
-  useEffect(()=>{
-
+  useEffect(() => {
     //fetch
 
-    dispatch(fetchGoal({spaceName}));
+    dispatch(fetchGoal({ spaceName }));
     processNow();
-  console.log("new todo",newArr);
-  sortedArr();
-  console.log("sortedrr here", finalArr);
-  
+    console.log("new todo", newArr);
+    sortedArr();
+    console.log("sortedrr here", finalArr);
+
     setToDo(finalArr);
     console.log("process new here");
-  },[])
+  }, []);
 
-  function refresh(){
-    dispatch(fetchGoal({spaceName}));
+  function refresh() {
+    dispatch(fetchGoal({ spaceName }));
     processNow();
-  console.log("new todo",newArr);
-  sortedArr();
-  console.log("sortedrr here", finalArr);
-  
+    console.log("new todo", newArr);
+    sortedArr();
+    console.log("sortedrr here", finalArr);
+
     setToDo(finalArr);
     console.log("process new here");
   }
 
   let newArr = [];
-  
+
   // useEffect(()=>{
 
   // },[])
 
   let fetchGoalData = useGoalFetch();
 
- 
-
-
-
-  function processNow(){
-    if(fetchGoalData=== undefined){
+  function processNow() {
+    if (fetchGoalData === undefined) {
       return;
-    }else{
+    } else {
       console.log("Fetch", fetchGoalData);
       let onlyGoalsTable = fetchGoalData[1];
 
-    const objCopy = [onlyGoalsTable];
-    objCopy[0]?.map(function(element){
-      let newData = {...element}
-    console.log("element", element.status)
-    if(element?.status===0){
-      newData.status = false;
-      newArr.push({newData})
-      console.log("newarr", newArr)
-    }else if(element?.status ===1){
-      newData.status = true;
-      newArr.push({newData})
+      const objCopy = [onlyGoalsTable];
+      objCopy[0]?.map(function (element) {
+        let newData = { ...element };
+        console.log("element", element.status);
+        if (element?.status === 0) {
+          newData.status = false;
+          newArr.push({ newData });
+          console.log("newarr", newArr);
+        } else if (element?.status === 1) {
+          newData.status = true;
+          newArr.push({ newData });
+        }
+        return newData;
+      });
     }
-   return newData;
-  })
-    }
-    
   }
 
-  let finalArr=[];
+  let finalArr = [];
 
-  function sortedArr(){
-    if(newArr.length===0){
+  function sortedArr() {
+    if (newArr.length === 0) {
       return;
     }
-   newArr.map(function(element){
-    console.log("element sorted arr",element);
-    finalArr.push({spaceName:element.newData.spaceName, id: element.newData.id, title:element.newData.title ,status:element.newData.status});
-  })
-  };
+    newArr.map(function (element) {
+      console.log("element sorted arr", element);
+      finalArr.push({
+        spaceName: element.newData.spaceName,
+        id: element.newData.id,
+        title: element.newData.title,
+        status: element.newData.status,
+      });
+    });
+  }
 
   // Temp State
   /////////////
@@ -134,15 +136,18 @@ const Dashboard = () => {
   const spaceName = firstPersonData[0];
   const firstPersonNameUser = firstPersonData[1];
   const firstPersonBirthdayUser = firstPersonData[2];
-  const secondPersonName =firstPersonData[3];
-  const secondPersonBirthday =firstPersonData[4];
+  const secondPersonName = firstPersonData[3];
+  const secondPersonBirthday = firstPersonData[4];
   const anniversaryDateFirstPersonUser = firstPersonData[5];
 
-  var shortMonthNameFirstPersonUserBday = moment(firstPersonBirthdayUser).format('DD MMM YYYY')
-  var shortMonthNameSecondPersonBday = moment(secondPersonBirthday).format('DD MMM YYYY')
-  var shortMonthAnniversaryFirstPersonUser = moment(anniversaryDateFirstPersonUser).format('DD MMM YYYY')
-
-
+  var shortMonthNameFirstPersonUserBday = moment(
+    firstPersonBirthdayUser
+  ).format("DD MMM YYYY");
+  var shortMonthNameSecondPersonBday =
+    moment(secondPersonBirthday).format("DD MMM YYYY");
+  var shortMonthAnniversaryFirstPersonUser = moment(
+    anniversaryDateFirstPersonUser
+  ).format("DD MMM YYYY");
 
   const logoutHandler = async () => {
     dispatch(logOutFirstPerson());
@@ -166,7 +171,6 @@ const Dashboard = () => {
     // Calculating the no. of days between two dates
     const diffInDays = Math.round(diffInTime / oneDay);
 
-
     return diffInDays;
   }
 
@@ -188,34 +192,29 @@ const Dashboard = () => {
 
   const yearsTgt = getFormatedStringFromDays(daysTgt);
 
-
-
   // Add task
   ///////////
   const addTask = () => {
     if (newTask) {
       let num = toDo.length + 1;
       setToDo([...toDo, { id: num, title: newTask, status: false }]);
-      
+
       setNewTask("");
 
       let id = num;
       let title = newTask;
       let status = false;
-      
-      dispatch(goalPost({spaceName, id,title, status }))
+
+      dispatch(goalPost({ spaceName, id, title, status }));
       console.log("after add", toDo);
-  
     }
   };
 
   // Delete task
   //////////////
   const deleteTask = (id) => {
-
     // refactored
     setToDo(toDo.filter((task) => task.id !== id));
-
   };
 
   // Mark task as done or completed
@@ -225,7 +224,6 @@ const Dashboard = () => {
         task.id === id ? { ...task, status: !task.status } : task
       )
     );
-
   };
 
   // Cancel update
@@ -246,47 +244,50 @@ const Dashboard = () => {
     setUpdateData("");
   };
 
-  
   return (
     <div className={cx("space-container")}>
-      <div className={cx("space-title")}>Couple Goals Dashboard</div>
-      <div className={cx("space-name")}>Couple Space of {spaceName}</div>
-
-      <div className={cx("space-welcome")}>Welcome {firstPersonNameUser}</div>
-
-      <div className={cx("space-welcome")}>
-        Your Birthday: {shortMonthNameFirstPersonUserBday}
+      <div className={cx("space-refresh")}>
+        <div className={cx("space-title")}>Couple Goals Dashboard</div>
+        <span title="Delete" onClick={refresh}>
+          <FontAwesomeIcon size={"3x"} icon={faRefresh} />
+        </span>
       </div>
+      <div className="main-big-card-container">
+        <div>
+          <div className={cx("space-name-new")}>
+            Couple Space of {spaceName}
+          </div>
+        </div>
+        <div className="main-small-card-container-goals">
+          <div className={cx("space-welcome")}>
+            Welcome {firstPersonNameUser}
+          </div>
 
-      <div className={cx("space-welcome")}>
-        Your Partner's Name: {secondPersonName}
-      </div>
-      <div className={cx("space-welcome")}>
-        Your Partner's Birthday: {shortMonthNameSecondPersonBday}
-      </div>
+          <div className={cx("space-welcome")}>
+            Your Birthday: {shortMonthNameFirstPersonUserBday}
+          </div>
 
-      <div className={cx("space-welcome")}>
-        When did you get together? {shortMonthAnniversaryFirstPersonUser}
-      </div>
+          <div className={cx("space-welcome")}>
+            Your Partner's Name: {secondPersonName}
+          </div>
+          <div className={cx("space-welcome")}>
+            Your Partner's Birthday: {shortMonthNameSecondPersonBday}
+          </div>
 
-      <div className={cx("space-welcome")}>
-        Been together for {daysTgt} days, which is <br />
-        {yearsTgt} 
-      </div>
-      <CustomButton
-          className="resident-btn"
-          testId="resident"
-          content="Refresh Screen"
-          clicked={
-            refresh
-          }
+          <div className={cx("space-welcome")}>
+            When did you get together? {shortMonthAnniversaryFirstPersonUser}
+          </div>
 
-          // resident={true}
-        ></CustomButton>
+          <div className={cx("space-welcome")}>
+            Been together for {daysTgt} days, which is <br />
+            {yearsTgt}
+          </div>
+        </div>
+      </div>
       <div className="big-card-container">
         <div className="big-card-icon">
-        <div className="big-card-title">Finance Tracker</div>
-        <FontAwesomeIcon size="3x" icon={faCirclePlus} />
+          <div className="big-card-title">Finance Tracker</div>
+          <FontAwesomeIcon size="3x" icon={faCirclePlus} />
         </div>
         <Card
           title="Savings for BTO"
@@ -296,7 +297,6 @@ const Dashboard = () => {
           startGoal="500"
           currentGoal="1000"
           endGoal="10000"
-         
         />
         <Card
           title="Savings for Vacation"
@@ -306,7 +306,6 @@ const Dashboard = () => {
           startGoal="200"
           currentGoal="400"
           endGoal="10000"
-    
         />
       </div>
 
@@ -338,19 +337,16 @@ const Dashboard = () => {
             deleteTask={deleteTask}
           />
         </div>
-        </div>
-        <CustomButton
-          className="resident-btn"
-          testId="resident"
-          content="Logout"
-          clicked={
-            logoutHandler
-          }
-
-          // resident={true}
-        ></CustomButton>
       </div>
+      <CustomButton
+        className="resident-btn"
+        testId="resident"
+        content="Logout"
+        clicked={logoutHandler}
 
+        // resident={true}
+      ></CustomButton>
+    </div>
   );
 };
 
