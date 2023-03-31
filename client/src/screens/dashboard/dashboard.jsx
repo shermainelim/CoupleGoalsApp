@@ -22,10 +22,11 @@ import {
 } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const cx = classNames.bind(styles);
-
+  const navigate = useNavigate();
   const [logout, setLogout] = useState(false);
 
   let data = [
@@ -45,9 +46,7 @@ const Dashboard = () => {
     },
   ];
 
-  {data?.map(function (element) {
-    console.log(element.description);
-  })}
+
 
   // // Tasks (ToDo List) State
   // const [toDo, setToDo] = useState([
@@ -162,6 +161,8 @@ const Dashboard = () => {
   if (logout) {
     return <Navigate to="/" />;
   }
+
+ 
   function getNumberOfDays(start) {
     const date1 = new Date(start);
     const date2 = new Date();
@@ -304,7 +305,8 @@ const Dashboard = () => {
       <div className="big-card-container">
         <div className="big-card-icon">
           <div className="big-card-title">Finance Tracker</div>
-          <FontAwesomeIcon size="3x" icon={faCirclePlus} />
+          <div onClick={() => {
+          navigate("/financeForm")}}><FontAwesomeIcon size="3x" icon={faCirclePlus} /></div>
         </div>
         {data.map((element)=> 
           <Card
