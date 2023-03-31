@@ -7,7 +7,7 @@ import CustomButton from "../../shared/CustomButton";
 import UpdateForm from "../todo/UpdateForm";
 import AddTaskForm from "../todo/AddTaskForm";
 import ToDo from "../todo/ToDo";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -16,15 +16,17 @@ import {
   logOutFirstPerson,
   logOutSecondPerson,
   useFirstPerson,
-  useGoalFetch,
+  useGoalFetch,goalDelete
 } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 import moment from "moment";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 const Dashboard = () => {
   const cx = classNames.bind(styles);
 
   const [logout, setLogout] = useState(false);
+
 
   // // Tasks (ToDo List) State
   // const [toDo, setToDo] = useState([
@@ -37,65 +39,63 @@ const Dashboard = () => {
 
   console.log("todoList", toDo);
 
-  // useEffect(()=>{
-  //   toDo.map(function(element){
-  //     const id = element.id;
-  //     const title = element.title;
-  //     const status = element.status;
-  //     console.log("new", element.id,element.title, element.status);
-  //     console.log("dispatch goal post")
-  //     dispatch(goalPost({spaceName, id,title, status }))
-  //   });
-
-  // },[toDo])
 
   useEffect(() => {
+    console.log("useEffect fetch")
     //fetch
-
+  
     dispatch(fetchGoal({ spaceName }));
     processNow();
-    console.log("new todo", newArr);
     sortedArr();
-    console.log("sortedrr here", finalArr);
-
+    
     setToDo(finalArr);
-    console.log("process new here");
+    newArr=[];
+    finalArr=[];
+   
   }, []);
 
   function refresh() {
+  
     dispatch(fetchGoal({ spaceName }));
     processNow();
-    console.log("new todo", newArr);
     sortedArr();
-    console.log("sortedrr here", finalArr);
-
     setToDo(finalArr);
-    console.log("process new here");
+
+    newArr=[];
+    finalArr=[];
+    
+   
   }
+
+
 
   let newArr = [];
 
-  // useEffect(()=>{
+  //const fetchGoalData = useSelector(state => state.goalFetchData);
 
-  // },[])
+  
+ let fetchGoalData = useGoalFetch();
 
-  let fetchGoalData = useGoalFetch();
+ useEffect(()=>{
+  refresh();
+ },[toDo])
 
   function processNow() {
+
     if (fetchGoalData === undefined) {
       return;
     } else {
-      console.log("Fetch", fetchGoalData);
+      
       let onlyGoalsTable = fetchGoalData[1];
 
       const objCopy = [onlyGoalsTable];
       objCopy[0]?.map(function (element) {
         let newData = { ...element };
-        console.log("element", element.status);
+  
         if (element?.status === 0) {
           newData.status = false;
           newArr.push({ newData });
-          console.log("newarr", newArr);
+        
         } else if (element?.status === 1) {
           newData.status = true;
           newArr.push({ newData });
@@ -112,7 +112,6 @@ const Dashboard = () => {
       return;
     }
     newArr.map(function (element) {
-      console.log("element sorted arr", element);
       finalArr.push({
         spaceName: element.newData.spaceName,
         id: element.newData.id,
@@ -130,7 +129,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   const firstPersonData = useFirstPerson();
-  console.log("Dashboard first person daat", firstPersonData);
+ 
 
   //first person login
   const spaceName = firstPersonData[0];
@@ -192,11 +191,17 @@ const Dashboard = () => {
 
   const yearsTgt = getFormatedStringFromDays(daysTgt);
 
+  function randomIntFromInterval(min, max) {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+
   // Add task
   ///////////
   const addTask = () => {
     if (newTask) {
-      let num = toDo.length + 1;
+      let num = randomIntFromInterval(1, 10000000);
       setToDo([...toDo, { id: num, title: newTask, status: false }]);
 
       setNewTask("");
@@ -206,15 +211,22 @@ const Dashboard = () => {
       let status = false;
 
       dispatch(goalPost({ spaceName, id, title, status }));
-      console.log("after add", toDo);
+  
     }
   };
 
   // Delete task
   //////////////
-  const deleteTask = (id) => {
+  const deleteTask = (tid) => {
     // refactored
-    setToDo(toDo.filter((task) => task.id !== id));
+    setToDo(toDo.filter((task) => task.id !== tid));
+
+    let id = tid;
+
+
+
+      dispatch(goalDelete({ spaceName, id }));
+ 
   };
 
   // Mark task as done or completed
@@ -248,7 +260,7 @@ const Dashboard = () => {
     <div className={cx("space-container")}>
       <div className={cx("space-refresh")}>
         <div className={cx("space-title")}>Couple Goals Dashboard</div>
-        <span title="Delete" onClick={refresh}>
+        <span title="refresh" onClick={refresh}>
           <FontAwesomeIcon size={"3x"} icon={faRefresh} />
         </span>
       </div>

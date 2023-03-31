@@ -23,19 +23,30 @@ const db = mysql.createPool({
 });
 
 
-//dashboard fetch goal tracker todo
+//dashboard delete goal tracker todo
+app.post("/goalDelete", (req, res) => {
+  const spaceName = req.body.spaceName;
+ const id = req.body.id;
+
+ console.log("goal dete", spaceName, id);
+
+  db.query(
+    "DELETE FROM couplegoals.goals WHERE spaceName = ? AND id = ?",
+    [spaceName, id ],
+  );
+});
+
+
+//dashboard post goal tracker todo
 app.post("/goalPost", (req, res) => {
   const spaceName = req.body.spaceName;
  const id = req.body.id;
  const title = req.body.title;
  const status = req.body.status;
 
- console.log("goal", spaceName, id, title, status);
-console.log("it reached here");
   db.query(
     "INSERT INTO couplegoals.goals ( spaceName, id, title, status) VALUES (?,?,?,?)",
     [spaceName, id , title, status],
-  
   );
 });
 
@@ -48,20 +59,12 @@ app.post("/fetchGoal", (req, res) => {
     "SELECT * FROM couplegoals.goals WHERE spaceName = ?",
     [spaceName],
     (err, result) => {
-      if (result.length > 0) {
-       
-        console.log("Goal found result", result);
-       
+      
         const goalsData = [spaceName, result]
 
-        console.log("data firstperson", goalsData);
-
+        console.log("fetch goal data", goalsData);
         res.send({ data: goalsData, message: "Goal Data Fetch is Successful"});
-       
-      } else {
-        console.log("Goal Data Fetch not found");
-        res.send({ message: "Goal Data Fetch not found" });
-      }
+      
     }
   );
 });

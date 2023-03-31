@@ -17,6 +17,8 @@ const initialState = {
   isRegisterCreated: false,
   goalPostLoading: false,
   isGoalPostCreated: false,
+  goalDeleteLoading: false,
+  isGoalDeleteCreated: false,
   checkLoading: false,
   isCheckCreated: false,
 };
@@ -50,7 +52,7 @@ export const fetchGoal = createAsyncThunk(
       alert(res.data.message);
 
     } catch (err) {
-      alert("Goal Fetch failed");
+      //alert("Goal Fetch failed");
     }
   }
 );
@@ -131,6 +133,21 @@ export const register = createAsyncThunk(
   }
 );
 
+
+export const goalDelete = createAsyncThunk(
+  `${name}/goalDelete`,
+  async ({ spaceName, id }) => {
+    try {
+      const res = await axios.post("/goalDelete", {spaceName, id});
+
+      alert(res.data.message);
+    } catch (err) {
+    
+      alert("Goal Delete failed.");
+    }
+  }
+);
+
 export const goalPost = createAsyncThunk(
   `${name}/goalPost`,
   async ({ spaceName, id , title, status}) => {
@@ -139,7 +156,7 @@ export const goalPost = createAsyncThunk(
 
       alert(res.data.message);
     } catch (err) {
-      alert("err", err)
+     
       alert("Goal Post failed.");
     }
   }
@@ -152,6 +169,9 @@ const appSlice = createSlice({
   reducers: {
     completeRegister: (state) => {
       state.isRegisterCreated = initialState.isCheckCreated;
+    },
+    completeDeletePost: (state) => {
+      state.isGoalDeleteCreated = initialState.isGoalDeleteCreated;
     },
     completeGoalPost: (state) => {
       state.isGoalPostCreated = initialState.isGoalPostCreated;
@@ -191,6 +211,20 @@ const appSlice = createSlice({
     builder.addCase(register.rejected, (state) => {
       state.registerLoading = false;
     });
+
+  //goal delete
+  builder.addCase(goalDelete.fulfilled, (state) => {
+    state.isGoalDeleteCreated = true;
+
+    state.goalDeleteLoading = false;
+  });
+  builder.addCase(goalDelete.pending, (state) => {
+    state.goalDeleteLoading = true;
+  });
+  builder.addCase(goalDelete.rejected, (state) => {
+    state.goalDeleteLoading = false;
+  });
+
 
     //goal post
     builder.addCase(goalPost.fulfilled, (state) => {
@@ -271,6 +305,7 @@ const appSlice = createSlice({
 // each case under reducers becomes an action
 
 export const { completeRegister } = appSlice.actions;
+export const { completeGoalDelete } = appSlice.actions;
 export const { completeGoalPost } = appSlice.actions;
 export const { completeCheck } = appSlice.actions;
 export const { logOutFirstPerson } = appSlice.actions;
@@ -283,6 +318,9 @@ export default appSlice.reducer;
 //register complete status
 export const useRegisterCreated = () =>
   useSelector((state) => state.appState.isRegisterCreated);
+
+  export const useGoalDeleteCreated = () =>
+  useSelector((state) => state.appState.isGoalDeleteCreated);
 
   export const useGoalPostedCreated = () =>
   useSelector((state) => state.appState.isGoalPostCreated);
