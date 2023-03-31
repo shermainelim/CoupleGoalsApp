@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { loginFirstPerson,useIsLoggedInFirstPerson } from "../../redux/appSlice";
+import { loginFirstPerson,useIsLoggedInFirstPerson,fetchGoal } from "../../redux/appSlice";
 import styles from "./firstPersonLogin.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
@@ -22,7 +22,6 @@ const FirstPersonLogin = () => {
   const navigate = useNavigate();
 
   const isLoggedInFirstPerson = useIsLoggedInFirstPerson();
-
 
 console.log("isloggedin", isLoggedInFirstPerson);
 

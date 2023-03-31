@@ -56,38 +56,49 @@ const Dashboard = () => {
 
   // Tasks (ToDo List) State
   const [toDo, setToDo] = useState([]);
+  const [finalArr , setFinalArr] = useState([])
+  const [newArr, setNewArr] = useState([])
+
 
   useEffect(() => {
     //fetch
-
     dispatch(fetchGoal({ spaceName }));
+    
+    
+  }, []);
+
+  let fetchGoalData = useGoalFetch();
+
+useEffect(()=>{
+  if(typeof fetchGoalData !== "undefined"){
     processNow();
     sortedArr();
-
+console.log("newArr", newArr)
+    console.log("finalArrUseeffect", finalArr);
     setToDo(finalArr);
-    newArr = [];
-    finalArr = [];
-  }, []);
+    console.log("todoListhere", toDo);
+  
+    setNewArr([]);
+    setFinalArr([]);
+  }
+  
+  //console.log("fetchdata use effect", fetchGoalData);
+},[fetchGoalData])
+
 
   function refresh() {
     dispatch(fetchGoal({ spaceName }));
     processNow();
     sortedArr();
     setToDo(finalArr);
-
-    newArr = [];
-    finalArr = [];
+    setNewArr([]);
+    setFinalArr([]);
   }
 
-  let newArr = [];
+
 
   //const fetchGoalData = useSelector(state => state.goalFetchData);
 
-  let fetchGoalData = useGoalFetch();
-
-  //  useEffect(()=>{
-  //   refresh();
-  //  },[toDo])
 
   function processNow() {
     if (fetchGoalData === undefined) {
@@ -102,6 +113,7 @@ const Dashboard = () => {
         if (element?.status === 0) {
           newData.status = false;
           newArr.push({ newData });
+          console.log('after set', newArr);
         } else if (element?.status === 1) {
           newData.status = true;
           newArr.push({ newData });
@@ -111,7 +123,7 @@ const Dashboard = () => {
     }
   }
 
-  let finalArr = [];
+ 
 
   function sortedArr() {
     if (newArr.length === 0) {
