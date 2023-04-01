@@ -29,6 +29,22 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [logout, setLogout] = useState(false);
 
+  // Temp State
+  /////////////
+  const [newTask, setNewTask] = useState("");
+  const [updateData, setUpdateData] = useState("");
+
+  const dispatch = useDispatch();
+
+  const firstPersonData = useFirstPerson();
+
+  const spaceName = firstPersonData[0];
+  const firstPersonNameUser = firstPersonData[1];
+  const firstPersonBirthdayUser = firstPersonData[2];
+  const secondPersonName = firstPersonData[3];
+  const secondPersonBirthday = firstPersonData[4];
+  const anniversaryDateFirstPersonUser = firstPersonData[5];
+
   let data = [
     {
       title: "Savings for BTO",
@@ -56,6 +72,7 @@ const Dashboard = () => {
 
   // Tasks (ToDo List) State
   const [toDo, setToDo] = useState([]);
+  const [toDoFinance, setToDoFinance] = useState([]);
   const [finalArr , setFinalArr] = useState([])
   const [newArr, setNewArr] = useState([])
 
@@ -73,11 +90,7 @@ useEffect(()=>{
   if(typeof fetchGoalData !== "undefined"){
     processNow();
     sortedArr();
-console.log("newArr", newArr)
-    console.log("finalArrUseeffect", finalArr);
     setToDo(finalArr);
-    console.log("todoListhere", toDo);
-  
     setNewArr([]);
     setFinalArr([]);
   }
@@ -139,22 +152,10 @@ console.log("newArr", newArr)
     });
   }
 
-  // Temp State
-  /////////////
-  const [newTask, setNewTask] = useState("");
-  const [updateData, setUpdateData] = useState("");
 
-  const dispatch = useDispatch();
-
-  const firstPersonData = useFirstPerson();
 
   //first person login
-  const spaceName = firstPersonData[0];
-  const firstPersonNameUser = firstPersonData[1];
-  const firstPersonBirthdayUser = firstPersonData[2];
-  const secondPersonName = firstPersonData[3];
-  const secondPersonBirthday = firstPersonData[4];
-  const anniversaryDateFirstPersonUser = firstPersonData[5];
+  
 
   var shortMonthNameFirstPersonUserBday = moment(
     firstPersonBirthdayUser

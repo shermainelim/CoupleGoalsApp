@@ -15,6 +15,8 @@ const initialState = {
   isLoggedInSecondPerson: false,
   registerLoading: false,
   isRegisterCreated: false,
+  financePostLoading: false,
+  isFinancePostCreated: false,
   goalPostLoading: false,
   isGoalPostCreated: false,
   goalDeleteLoading: false,
@@ -165,6 +167,24 @@ export const goalDelete = createAsyncThunk(
   }
 );
 
+export const financePost = createAsyncThunk(
+  `${name}/financePost`,
+  async ({ spaceName, id , title, desc, startGoal, currentSaved, endGoal}) => {
+   console.log("finance post" , spaceName, id , title, desc, startGoal, currentSaved, endGoal)
+    try {
+      //const res = await axios.post("/financePost", {spaceName, id , title, desc, startGoal, currentSaved, endGoal});
+      //alert(res.data.message);
+     
+    const res = await axios.post("/financePost", {spaceName, id , title, desc, startGoal, currentSaved, endGoal});
+    alert(res.data.message);
+
+    } catch (err) {
+     
+      alert("Finance Post failed.");
+    }
+  }
+);
+
 export const goalPost = createAsyncThunk(
   `${name}/goalPost`,
   async ({ spaceName, id , title, status}) => {
@@ -189,6 +209,9 @@ const appSlice = createSlice({
     },
     completeDeletePost: (state) => {
       state.isGoalDeleteCreated = initialState.isGoalDeleteCreated;
+    },
+    completeFinancePost: (state) => {
+      state.isFinancePostCreated = initialState.isFinancePostCreated;
     },
     completeGoalPost: (state) => {
       state.isGoalPostCreated = initialState.isGoalPostCreated;
@@ -256,6 +279,18 @@ const appSlice = createSlice({
     state.goalDeleteLoading = false;
   });
 
+  //finance post
+  builder.addCase(financePost.fulfilled, (state) => {
+    state.isFinancePostCreated = true;
+
+    state.financePostLoading = false;
+  });
+  builder.addCase(financePost.pending, (state) => {
+    state.financePostLoading = true;
+  });
+  builder.addCase(financePost.rejected, (state) => {
+    state.financePostLoading = false;
+  });
 
     //goal post
     builder.addCase(goalPost.fulfilled, (state) => {

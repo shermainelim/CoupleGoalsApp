@@ -13,22 +13,30 @@ import {
   useGoalFetch,
   goalDelete,
   goalDone,
+  financePost,
 } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
 
 const FinanceForm = () => {
   const cx = classNames.bind(styles);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [startGoal, setStartGoal] = useState("");
-  const [currentGoal, setCurrentGoal] = useState("");
+  const [currentSaved, setCurrentSaved] = useState("");
   const [endGoal, setEndGoal] = useState("");
+
+
+  const firstPersonData = useFirstPerson();
+
+  const spaceName = firstPersonData[0];
+
 
   const titleHandler = (event) => {
     setTitle(event.target.value);
@@ -43,12 +51,19 @@ const FinanceForm = () => {
   };
 
   const currentGoalHandler = (event) => {
-    setCurrentGoal(event.target.value);
+    setCurrentSaved(event.target.value);
    };
 
    const endGoalHandler = (event) => {
     setEndGoal(event.target.value);
    };
+
+   function randomIntFromInterval(min, max) {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  let id = randomIntFromInterval(1, 10000000);
 
   return (
     <div className={cx("finance-space-container")}>
@@ -104,10 +119,10 @@ const FinanceForm = () => {
               style={{fontSize:"18px",width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
-              value={currentGoal}
+              value={currentSaved}
               onChange={currentGoalHandler}
             />
-            {currentGoal.length === 0 && formSubmitted ? (
+            {currentSaved.length === 0 && formSubmitted ? (
           <div className={cx("input-general-error")}>*required</div>
         ) : null}
           </div>
@@ -136,15 +151,15 @@ const FinanceForm = () => {
             title.length !== 0 &&
             desc.length !== 0 &&
             startGoal.length !== 0 &&
-            currentGoal.length !== 0 &&
+            currentSaved.length !== 0 &&
             endGoal.length !==0
           ) 
-            console.log("done")
+          dispatch(financePost({ spaceName, id , title, desc, startGoal, currentSaved, endGoal }));
           
             setTitle("");
             setDesc("");
             setStartGoal("");
-            setCurrentGoal("");
+            setCurrentSaved("");
             setEndGoal("");
         }}
           ></CustomButton>

@@ -51,6 +51,28 @@ app.post("/goalDelete", (req, res) => {
 });
 
 
+//finance post 
+app.post("/financePost", (req, res) => {
+  const spaceName = req.body.spaceName;
+ const id = req.body.id;
+ const title = req.body.title;
+ const desc = req.body.desc;
+
+ const startGoal = req.body.startGoal;
+ const currentSaved = req.body.currentSaved;
+ const endGoal = req.body.endGoal;
+
+ console.log("hit here finance post")
+
+
+  db.query(
+    "INSERT INTO couplegoals.finance ( spaceName, id , title, description, startGoal, currentSaved, endGoal) VALUES (?,?,?,?,?,?,?)",
+    [spaceName, id , title, desc, startGoal, currentSaved, endGoal],
+  );
+  res.send({message: "Finance tracker posted"});
+});
+
+
 //dashboard post goal tracker todo
 app.post("/goalPost", (req, res) => {
   const spaceName = req.body.spaceName;
