@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./ProgressBar.scss";
 
-const ProgressBar = ({done}) => {
+const ProgressBar = ({done, startGoal,endGoal}) => {
     const cx = classNames.bind(styles);
 	const [style, setStyle] = useState({});
 	
@@ -21,8 +21,8 @@ const ProgressBar = ({done}) => {
 				{done}%
 			</div>
             <div className={cx("progress-start-end")}>
-            <div className={cx("progress-start")}>$500</div>
-            <div className={cx("progress-end")}>$10,000</div>
+            <div className={cx("progress-start")}>{startGoal}</div>
+            <div className={cx("progress-end")}>{endGoal}</div>
             </div>
         </div>
 	)

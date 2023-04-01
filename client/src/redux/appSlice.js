@@ -4,6 +4,9 @@ import { useSelector } from "react-redux";
 
 
 const initialState = {
+  loginLoadingFinanceFetch: false,
+  financeFetchData: [],
+  isLoggedInFinanceFetched: false,
   loginLoadingGoalFetch: false,
   goalFetchData: [],
   isLoggedInGoalFetched: false,
@@ -30,6 +33,36 @@ const initialState = {
 const name = "appState";
 let results =""
 
+
+//Finance Fetch
+export const fetchFinance = createAsyncThunk(
+  `${name}/fetchFinance`,
+  async ({ spaceName }) => {
+    try {
+      const res = await axios.post("/fetchFinance", 
+      {
+        spaceName
+      });
+
+      if (res.status !== 200) {
+        alert("Finance Fetch failed here.");
+        return ;
+      }
+
+      if(res.data.message !=="Finance Fetch not found"){
+       results=res?.data?.data;
+        console.log("connected Finance Fetch message", results)
+     
+        return results;
+      }
+     
+      alert(res.data.message);
+
+    } catch (err) {
+      //alert("Goal Fetch failed");
+    }
+  }
+);
 
 //Goal Fetch
 export const fetchGoal = createAsyncThunk(
@@ -219,6 +252,12 @@ const appSlice = createSlice({
     completeCheck: (state) => {
       state.isCheckCreated = initialState.isCheckCreated;
     },
+    logOutFinanceFetch: (state) => {
+
+      state.financeFetchData= initialState.financeFetchData;
+      state.isLoggedInFinanceFetched = initialState.isLoggedInFinanceFetched;
+
+    },
     logOutGoalFetch: (state) => {
 
       state.goalFetchData= initialState.goalFetchData;
@@ -305,6 +344,30 @@ const appSlice = createSlice({
       state.goalPostLoading = false;
     });
 
+  //login finance fetch
+  builder.addCase(fetchFinance.fulfilled, (state , { payload }) => {
+   
+    state.financeFetchData= payload;
+
+    console.log("fetch finance payload", payload)
+ 
+    if(payload){
+      console.log("fetch finance payload true");
+     state.isLoggedInFinanceFetched = true;
+    }
+       console.log("hit here")
+     
+     state.isLoggedInFinanceFetched = false;
+   });
+   builder.addCase(fetchFinance.pending, (state) => {
+     state.loginLoadingFinanceFetch = true;
+     console.log("hit here2")
+   });
+   builder.addCase(fetchFinance.rejected, (state) => {
+     state.loginLoadingFinanceFetch = false;
+     console.log("hit here3")
+   });
+
     //login goal fetch
    builder.addCase(fetchGoal.fulfilled, (state , { payload }) => {
     state.goalFetchData= payload;
@@ -373,11 +436,13 @@ const appSlice = createSlice({
 export const { completeRegister } = appSlice.actions;
 export const { completeGoalDone } = appSlice.actions;
 export const { completeGoalDelete } = appSlice.actions;
+export const { completeFinancePost } = appSlice.actions;
 export const { completeGoalPost } = appSlice.actions;
 export const { completeCheck } = appSlice.actions;
 export const { logOutFirstPerson } = appSlice.actions;
 export const { logOutSecondPerson } = appSlice.actions;
 export const { logOutGoalFetch } = appSlice.actions;
+export const { logOutFinanceFetch } = appSlice.actions;
 
 export default appSlice.reducer;
 
@@ -401,7 +466,12 @@ export const useRegisterCreated = () =>
   export const useIsLoggedInGoalFetch = () =>
   useSelector((state) => state.appState.isLoggedInGoalFetched);
 
+  export const useIsLoggedInFinanceFetch = () =>
+  useSelector((state) => state.appState.isLoggedInFinanceFetched);
+  
   export const useGoalFetch = () => useSelector((state) => state.appState.goalFetchData);
+
+  export const useFinanceFetch = () => useSelector((state) => state.appState.financeFetchData);
 
   export const useIsLoggedInFirstPerson = () =>
   useSelector((state) => state.appState.isLoggedInFirstPerson);

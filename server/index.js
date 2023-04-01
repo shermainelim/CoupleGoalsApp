@@ -87,6 +87,24 @@ app.post("/goalPost", (req, res) => {
 });
 
 
+//dashboard fetch finance tracker 
+app.post("/fetchFinance", (req, res) => {
+  const spaceName = req.body.spaceName;
+
+  db.query(
+    "SELECT title, description, startGoal, currentSaved, endGoal FROM couplegoals.finance WHERE spaceName = ?",
+    [spaceName],
+    (err, result) => {
+      
+      console.log("index goalData", result);
+        const goalsData = [result]
+        res.send({ data: goalsData, message: "Finance Data Fetch is Successful"});
+      
+    }
+  );
+});
+
+
 //dashboard fetch goal tracker todo
 app.post("/fetchGoal", (req, res) => {
   const spaceName = req.body.spaceName;

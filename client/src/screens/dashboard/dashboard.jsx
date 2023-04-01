@@ -17,8 +17,10 @@ import {
   logOutSecondPerson,
   useFirstPerson,
   useGoalFetch,
+  useFinanceFetch,
   goalDelete,
   goalDone,
+  fetchFinance,
 } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 import moment from "moment";
@@ -82,11 +84,15 @@ const Dashboard = () => {
   useEffect(() => {
     //fetch
     dispatch(fetchGoal({ spaceName }));
-    
+    dispatch(fetchFinance({ spaceName }));
     
   }, []);
 
   let fetchGoalData = useGoalFetch();
+  let fetchFinanceData = useFinanceFetch();
+
+ 
+ 
 
 useEffect(()=>{
   if(typeof fetchGoalData !== "undefined"){
@@ -100,14 +106,31 @@ useEffect(()=>{
   //console.log("fetchdata use effect", fetchGoalData);
 },[fetchGoalData])
 
+useEffect(()=>{
+  if(typeof fetchFinanceData !== "undefined"){
+ 
+    let fetchFinanceDataProcessed = fetchFinanceData[0];
+    setToDoFinance(fetchFinanceDataProcessed);
+
+    console.log("res useEffect", fetchFinanceDataProcessed)
+  }
+  
+  //console.log("fetchdata use effect", fetchGoalData);
+},[fetchFinanceData])
+
 
   function refresh() {
     dispatch(fetchGoal({ spaceName }));
-    processNow();
-    sortedArr();
-    setToDo(finalArr);
-    setNewArr([]);
-    setFinalArr([]);
+    dispatch(fetchFinance({ spaceName }));
+    // processNow();
+    // sortedArr();
+    // setToDo(finalArr);
+    let fetchFinanceDataProcessed = fetchFinanceData[0];
+    setToDoFinance(fetchFinanceDataProcessed);
+
+    console.log("res useEffect", fetchFinanceDataProcessed);
+    // setNewArr([]);
+    // setFinalArr([]);
   }
 
 
@@ -320,14 +343,14 @@ useEffect(()=>{
           <div onClick={() => {
           navigate("/financeForm")}}><FontAwesomeIcon size="3x" icon={faCirclePlus} /></div>
         </div>
-        {data.map((element)=> 
+        {toDoFinance?.map((element)=> 
           <Card
             title={element.title}
             description={element.description}
             buttonText="Contribute"
             buttonText2="Backtrack"
             startGoal={element.startGoal}
-            currentGoal={element.currentGoal}
+            currentGoal={element.currentSaved}
             endGoal={element.endGoal}
           />
         )}

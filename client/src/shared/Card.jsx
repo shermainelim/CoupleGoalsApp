@@ -7,6 +7,7 @@ import {
     faCirclePlus,faTrashCan
   } from '@fortawesome/free-solid-svg-icons'
 
+
 export const Card = ({
 
   title,
@@ -19,13 +20,25 @@ export const Card = ({
   endGoal,
 }) => {
 
-  console.log("Card title", title)
+  console.log("Card title", title);
+  console.log("Card start", startGoal);
+  console.log("Card cuyrrent", currentGoal);
+  console.log("Card end", endGoal);
   
-    let currentProgress = (currentGoal/endGoal)*100;
-    let incrementalGoal = (startGoal/endGoal)*100
+    
     
 
-    const [current, setCurrent]= useState(currentProgress)
+    const [current, setCurrent]= useState(currentGoal);
+    let currentProgress = (currentGoal/endGoal)*100;
+    let incrementalGoal = (startGoal/endGoal)*100;
+
+    useEffect(()=>{
+      setCurrent(currentProgress);
+    },[currentProgress])
+   
+
+
+    console.log("current finance progress" , current);
 
     const Contribute =()=>{
         const res = current+ incrementalGoal;
@@ -46,7 +59,7 @@ export const Card = ({
      <div className="card-mini-container">
       {title && <h1 className="card-title">{title}</h1>}
       <FontAwesomeIcon size="xl" icon={faTrashCan} /></div>
-      <div className="card-progress-bar">{<ProgressBar done={current}/>}</div>
+      <div className="card-progress-bar">{<ProgressBar done={current} startGoal={startGoal} endGoal={endGoal}/>}</div>
       
       {description && <p className="card-description">{description}</p>}
    
