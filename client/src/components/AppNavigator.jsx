@@ -6,7 +6,6 @@ import LoginOptions from "../screens/login/loginOptions";
 import FirstPersonLogin from "../screens/login/firstPersonLogin";
 import SecondPersonLogin from "../screens/login/secondPersonLogin";
 import Dashboard from "../screens/dashboard/Dashboard";
-import FirstTimeDashboard from "../screens/dashboard/firstTimeDashboard.jsx";
 import DashboardSecond from "../screens/dashboard/DashboardSecond";
 import FinanceForm from "../screens/finance/FinanceForm";
 
@@ -24,7 +23,6 @@ const AppNavigator = () => {
       <Route path="/loginOptions" element={<LoginOptions/>} />
       <Route path="/firstPersonLogin" element={<FirstPersonLogin/>} />
       <Route path="/secondPersonLogin" element={<SecondPersonLogin/>} />
-      <Route path="/firstTimeDashboard" element={<FirstTimeDashboard/>} />
       <Route path="/dashboard" element={<Dashboard/>} />
       <Route path="/dashboardSecond" element={<DashboardSecond/>} />
       <Route path="/financeForm" element={<FinanceForm/>} />

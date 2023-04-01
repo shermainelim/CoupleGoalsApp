@@ -16,19 +16,22 @@ import {
 } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
+
 
 const FinanceForm = () => {
   const cx = classNames.bind(styles);
+  const navigate = useNavigate();
 
   return (
-    <div className={cx("space-container")}>
+    <div className={cx("finance-space-container")}>
       <div className="big-card-container">
         <div className="big-card-title">Finance Tracker Form</div>
         <div className="small-card-container-goals">
           <div className="small-card-title">Title of Tracker</div>
           <div>
             <input
-              style={{width: "300px", marginTop:"5px", marginBottom:"10px", padding:"10px"}}
+              style={{fontSize:"18px",width: "300px", marginTop:"5px", marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
               placeholder=""
@@ -38,7 +41,7 @@ const FinanceForm = () => {
           <div className="small-card-title">Description</div>
           <div>
             <textarea
-              style={{width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
+              style={{fontSize:"18px",width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
               placeholder=""
@@ -49,7 +52,7 @@ const FinanceForm = () => {
           <div className="small-card-title">Start Goal Amount</div>
           <div>
             <input
-              style={{width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
+              style={{fontSize:"18px",width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
               placeholder=""
@@ -59,7 +62,7 @@ const FinanceForm = () => {
           <div className="small-card-title">Current Saved Amount</div>
           <div>
             <input
-              style={{width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
+              style={{fontSize:"18px",width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
               placeholder=""
@@ -69,7 +72,7 @@ const FinanceForm = () => {
           <div className="small-card-title">End Goal Amount</div>
           <div>
             <input
-              style={{width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
+              style={{fontSize:"18px",width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
               placeholder=""
@@ -88,7 +91,9 @@ const FinanceForm = () => {
             testId="resident"
             content="Back"
 
-            // resident={true}
+            clicked={() => {
+              navigate("/dashboard");
+            }}
           ></CustomButton>
         </div>
       </div>
