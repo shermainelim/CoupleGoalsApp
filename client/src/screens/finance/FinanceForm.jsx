@@ -23,6 +23,33 @@ const FinanceForm = () => {
   const cx = classNames.bind(styles);
   const navigate = useNavigate();
 
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [startGoal, setStartGoal] = useState("");
+  const [currentGoal, setCurrentGoal] = useState("");
+  const [endGoal, setEndGoal] = useState("");
+
+  const titleHandler = (event) => {
+    setTitle(event.target.value);
+  };
+
+  const descHandler = (event) => {
+    setDesc(event.target.value);
+  };
+
+  const startGoalHandler = (event) => {
+   setStartGoal(event.target.value);
+  };
+
+  const currentGoalHandler = (event) => {
+    setCurrentGoal(event.target.value);
+   };
+
+   const endGoalHandler = (event) => {
+    setEndGoal(event.target.value);
+   };
+
   return (
     <div className={cx("finance-space-container")}>
       <div className="big-card-container">
@@ -34,8 +61,12 @@ const FinanceForm = () => {
               style={{fontSize:"18px",width: "300px", marginTop:"5px", marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
-              placeholder=""
+              value={title}
+              onChange={titleHandler}
             />
+                 {title.length === 0 && formSubmitted ? (
+          <div className={cx("input-general-error")}>*required</div>
+        ) : null}
           </div>
 
           <div className="small-card-title">Description</div>
@@ -44,9 +75,13 @@ const FinanceForm = () => {
               style={{fontSize:"18px",width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
-              placeholder=""
               multiline={true}
+              value={desc}
+              onChange={descHandler}
             />
+             {desc.length === 0 && formSubmitted ? (
+          <div className={cx("input-general-error")}>*required</div>
+        ) : null}
           </div>
 
           <div className="small-card-title">Start Goal Amount</div>
@@ -55,8 +90,12 @@ const FinanceForm = () => {
               style={{fontSize:"18px",width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
-              placeholder=""
+              value={startGoal}
+              onChange={startGoalHandler}
             />
+                 {startGoal.length === 0 && formSubmitted ? (
+          <div className={cx("input-general-error")}>*required</div>
+        ) : null}
           </div>
 
           <div className="small-card-title">Current Saved Amount</div>
@@ -65,8 +104,12 @@ const FinanceForm = () => {
               style={{fontSize:"18px",width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
-              placeholder=""
+              value={currentGoal}
+              onChange={currentGoalHandler}
             />
+            {currentGoal.length === 0 && formSubmitted ? (
+          <div className={cx("input-general-error")}>*required</div>
+        ) : null}
           </div>
 
           <div className="small-card-title">End Goal Amount</div>
@@ -75,15 +118,35 @@ const FinanceForm = () => {
               style={{fontSize:"18px",width: "300px",marginTop:"5px",marginBottom:"10px", padding:"10px"}}
               type="text"
               name="name"
-              placeholder=""
+              value={endGoal}
+              onChange={endGoalHandler}
             />
+            {endGoal.length === 0 && formSubmitted ? (
+          <div className={cx("input-general-error")}>*required</div>
+        ) : null}
           </div>
           <CustomButton
             className="resident-btn"
             testId="resident"
             content="Submit"
+            clicked={async () => {
+              setFormSubmitted(true);
 
-            // resident={true}
+          if (
+            title.length !== 0 &&
+            desc.length !== 0 &&
+            startGoal.length !== 0 &&
+            currentGoal.length !== 0 &&
+            endGoal.length !==0
+          ) 
+            console.log("done")
+          
+            setTitle("");
+            setDesc("");
+            setStartGoal("");
+            setCurrentGoal("");
+            setEndGoal("");
+        }}
           ></CustomButton>
 
           <CustomButton
