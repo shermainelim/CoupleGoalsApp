@@ -21,6 +21,7 @@ import {
   goalDelete,
   goalDone,
   fetchFinance,
+  financeDelete,
 } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 import moment from "moment";
@@ -264,6 +265,14 @@ useEffect(()=>{
     setUpdateData("");
   };
 
+
+  const trashCanHandler = (tid)=>{
+
+    setToDoFinance(toDoFinance.filter((task) => task.id !== tid));
+    let id = tid;
+    dispatch(financeDelete({ spaceName, id }));
+  }
+
   return (
     <div className={cx("space-container")}>
       <div className={cx("space-refresh")}>
@@ -310,19 +319,12 @@ useEffect(()=>{
           <div onClick={() => {
           navigate("/financeForm")}}><FontAwesomeIcon size="3x" icon={faCirclePlus} /></div>
         </div>
-        {toDoFinance?.map((element)=> 
+       
           <Card
-          spaceName={element.spaceName}
-          id={element.id}
-            title={element.title}
-            description={element.description}
-            buttonText="Contribute"
-            buttonText2="Backtrack"
-            startGoal={element.startGoal}
-            currentGoal={element.currentSaved}
-            endGoal={element.endGoal}
+          todoFinance={toDoFinance}
+          deleteFinance={trashCanHandler}
           />
-        )}
+       
       </div>
 
       <div className="big-card-container-goals">

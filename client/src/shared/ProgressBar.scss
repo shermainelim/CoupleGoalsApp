@@ -21,6 +21,33 @@ body {
 	margin: 15px 0;
 	height: 30px;
 	width: 300px;
+	.pro-card-btn-contribute {
+		text-align: center;
+		width: 90%;
+		border-radius: 5px;
+		padding: 0.5rem 1rem;
+		background-color: #2563eb;
+		color: white;
+		text-decoration: none;
+		margin-bottom: 20px;
+		margin-left: 20px;
+		padding:10px;
+		align-items: center;
+	  }
+	
+	  .pro-card-btn-backtrack {
+		text-align: center;
+		width: 90%;
+		border-radius: 5px;
+		padding: 0.5rem 1rem;
+		background-color: #2563eb;
+		color: white;
+		text-decoration: none;
+		margin-bottom: 20px;
+		padding:10px;
+		margin-left: 20px;
+		align-items: center;
+	  }
 }
 
 .progress-done {
@@ -49,3 +76,9 @@ body {
 .progress-end{
 
 }
+
+.pro-card-description {
+    margin-top: 25px;
+  }
+  
+  
