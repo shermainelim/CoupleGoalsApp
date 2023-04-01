@@ -23,6 +23,8 @@ import {
 import { Navigate } from "react-router-dom";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import randomIntFromInterval from "../../utils/cgUtil";
+
 
 const Dashboard = () => {
   const cx = classNames.bind(styles);
@@ -210,10 +212,7 @@ useEffect(()=>{
 
   const yearsTgt = getFormatedStringFromDays(daysTgt);
 
-  function randomIntFromInterval(min, max) {
-    // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
+
 
   // Add task
   ///////////

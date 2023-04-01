@@ -19,6 +19,8 @@ import { Navigate } from "react-router-dom";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import randomIntFromInterval from "../../utils/cgUtil";
+
 
 const FinanceForm = () => {
   const cx = classNames.bind(styles);
@@ -58,10 +60,6 @@ const FinanceForm = () => {
     setEndGoal(event.target.value);
    };
 
-   function randomIntFromInterval(min, max) {
-    // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
 
   let id = randomIntFromInterval(1, 10000000);
 
