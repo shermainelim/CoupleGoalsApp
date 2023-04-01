@@ -23,6 +23,8 @@ const initialState = {
   goalPostLoading: false,
   isGoalPostCreated: false,
   goalDeleteLoading: false,
+  isFinanceDeleteCreated: false,
+  financeDeleteLoading: false,
   isGoalDeleteCreated: false,
   goalDoneLoading: false,
   isGoalDoneCreated: false,
@@ -185,6 +187,20 @@ export const goalDone = createAsyncThunk(
   }
 );
 
+export const financeDelete = createAsyncThunk(
+  `${name}/financeDelete`,
+  async ({ spaceName, id }) => {
+    try {
+      const res = await axios.post("/financeDelete", {spaceName, id});
+
+      alert(res.data.message);
+    } catch (err) {
+    
+      alert("Finance Delete failed.");
+    }
+  }
+);
+
 
 export const goalDelete = createAsyncThunk(
   `${name}/goalDelete`,
@@ -304,6 +320,20 @@ const appSlice = createSlice({
   builder.addCase(goalDone.rejected, (state) => {
     state.goalDoneLoading = false;
   });
+
+    //finance delete
+    builder.addCase(financeDelete.fulfilled, (state) => {
+      state.isFinanceDeleteCreated = true;
+  
+      state.financeDeleteLoading = false;
+    });
+    builder.addCase(financeDelete.pending, (state) => {
+      state.financeDeleteLoading = true;
+    });
+    builder.addCase(financeDelete.rejected, (state) => {
+      state.financeDeleteLoading = false;
+    });
+  
 
   //goal delete
   builder.addCase(goalDelete.fulfilled, (state) => {
@@ -436,6 +466,7 @@ const appSlice = createSlice({
 export const { completeRegister } = appSlice.actions;
 export const { completeGoalDone } = appSlice.actions;
 export const { completeGoalDelete } = appSlice.actions;
+export const { completeFinanceDelete } = appSlice.actions;
 export const { completeFinancePost } = appSlice.actions;
 export const { completeGoalPost } = appSlice.actions;
 export const { completeCheck } = appSlice.actions;
@@ -456,6 +487,9 @@ export const useRegisterCreated = () =>
 
   export const useGoalDeleteCreated = () =>
   useSelector((state) => state.appState.isGoalDeleteCreated);
+
+  export const useFinanceDeleteCreated = () =>
+  useSelector((state) => state.appState.isFinanceDeleteCreated);
 
   export const useGoalPostedCreated = () =>
   useSelector((state) => state.appState.isGoalPostCreated);

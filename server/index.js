@@ -37,6 +37,18 @@ app.post("/goalDone", (req, res) => {
   );
 });
 
+//dashboard delete finance tracker todo
+app.post("/financeDelete", (req, res) => {
+  const spaceName = req.body.spaceName;
+ const id = req.body.id;
+
+
+  db.query(
+    "DELETE FROM couplegoals.finance WHERE spaceName = ? AND id = ?",
+    [spaceName, id ],
+  );
+});
+
 
 //dashboard delete goal tracker todo
 app.post("/goalDelete", (req, res) => {
@@ -92,7 +104,7 @@ app.post("/fetchFinance", (req, res) => {
   const spaceName = req.body.spaceName;
 
   db.query(
-    "SELECT title, description, startGoal, currentSaved, endGoal FROM couplegoals.finance WHERE spaceName = ?",
+    "SELECT spaceName, id, title, description, startGoal, currentSaved, endGoal FROM couplegoals.finance WHERE spaceName = ?",
     [spaceName],
     (err, result) => {
       

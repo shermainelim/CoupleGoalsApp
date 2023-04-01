@@ -49,30 +49,6 @@ const Dashboard = () => {
   const secondPersonBirthday = firstPersonData[4];
   const anniversaryDateFirstPersonUser = firstPersonData[5];
 
-  let data = [
-    {
-      title: "Savings for BTO",
-      description: "To save $500 every month till 2028",
-      startGoal: "500",
-      currentGoal: "1000",
-      endGoal: "10000",
-    },
-    {
-      title: "Savings for Vacation",
-      description: "To save $200 every month",
-      startGoal: "200",
-      currentGoal: "400",
-      endGoal: "2000",
-    },
-  ];
-
-
-
-  // // Tasks (ToDo List) State
-  // const [toDo, setToDo] = useState([
-  //   { id: 1, title: "Finish Couple Goals", status: false },
-  //   { id: 2, title: "Get Legendary Rank in ML", status: false },
-  // ]);
 
   // Tasks (ToDo List) State
   const [toDo, setToDo] = useState([]);
@@ -122,15 +98,6 @@ useEffect(()=>{
   function refresh() {
     dispatch(fetchGoal({ spaceName }));
     dispatch(fetchFinance({ spaceName }));
-    // processNow();
-    // sortedArr();
-    // setToDo(finalArr);
-    let fetchFinanceDataProcessed = fetchFinanceData[0];
-    setToDoFinance(fetchFinanceDataProcessed);
-
-    console.log("res useEffect", fetchFinanceDataProcessed);
-    // setNewArr([]);
-    // setFinalArr([]);
   }
 
 
@@ -345,6 +312,8 @@ useEffect(()=>{
         </div>
         {toDoFinance?.map((element)=> 
           <Card
+          spaceName={element.spaceName}
+          id={element.id}
             title={element.title}
             description={element.description}
             buttonText="Contribute"

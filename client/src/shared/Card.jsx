@@ -7,9 +7,12 @@ import {
     faCirclePlus,faTrashCan
   } from '@fortawesome/free-solid-svg-icons'
 
+import { useDispatch } from "react-redux";
+import { financeDelete } from "../redux/appSlice";
 
 export const Card = ({
-
+  spaceName,
+  id,
   title,
   description,
   buttonText,
@@ -19,14 +22,10 @@ export const Card = ({
   currentGoal,
   endGoal,
 }) => {
-
-  console.log("Card title", title);
-  console.log("Card start", startGoal);
-  console.log("Card cuyrrent", currentGoal);
-  console.log("Card end", endGoal);
   
     
     
+  const dispatch = useDispatch();
 
     const [current, setCurrent]= useState(currentGoal);
     let currentProgress = (currentGoal/endGoal)*100;
@@ -37,28 +36,29 @@ export const Card = ({
     },[currentProgress])
    
 
-
-    console.log("current finance progress" , current);
-
     const Contribute =()=>{
-        const res = current+ incrementalGoal;
-        
-        setCurrent(res);
-        console.log("current", current)
+        const res = current+ incrementalGoal;     
+        setCurrent(res);  
     }
 
     const Backtrack =()=>{
         const res = current- incrementalGoal;
         
         setCurrent(res);
-        console.log("current", current)
+     
+    }
+
+    const trashCanHandler = ()=>{
+      console.log("delete pressed");
+      dispatch(financeDelete({ spaceName, id }));
     }
 
   return (
     <div className="card-container">
      <div className="card-mini-container">
       {title && <h1 className="card-title">{title}</h1>}
-      <FontAwesomeIcon size="xl" icon={faTrashCan} /></div>
+      <div onClick={trashCanHandler}><FontAwesomeIcon size="xl" icon={faTrashCan} /></div>
+      </div>
       <div className="card-progress-bar">{<ProgressBar done={current} startGoal={startGoal} endGoal={endGoal}/>}</div>
       
       {description && <p className="card-description">{description}</p>}
