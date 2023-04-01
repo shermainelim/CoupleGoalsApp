@@ -10,9 +10,6 @@ const ProgressBar = ({ starterGoal, currentSaved, enderGoal }) => {
   const endGoal = enderGoal;
   const startGoal = starterGoal;
 
-   console.log("CurrentGoal", currentGoal);
-   console.log("endGoal", endGoal);
-   console.log("Startgoal", startGoal);
 
    let currentProgress = (currentGoal/endGoal) * 100
 
@@ -21,14 +18,11 @@ const ProgressBar = ({ starterGoal, currentSaved, enderGoal }) => {
   let incrementalGoal = (startGoal/endGoal) * 100;
 
 
-  console.log("Current", current)
-  console.log("Currentprog", currentProgress);
-  console.log("incrementgoal", incrementalGoal);
 
 
-  useEffect(() => {
-    setCurrent(currentProgress);
-  }, [currentProgress]);
+//   useEffect(() => {
+//     setCurrent(currentProgress);
+//   }, [currentProgress]);
 
   const Contribute = () => {
 	console.log("pressed")

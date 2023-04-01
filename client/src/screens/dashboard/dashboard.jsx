@@ -267,7 +267,7 @@ useEffect(()=>{
 
 
   const trashCanHandler = (tid)=>{
-
+    console.log("delete treash can")
     setToDoFinance(toDoFinance.filter((task) => task.id !== tid));
     let id = tid;
     dispatch(financeDelete({ spaceName, id }));
