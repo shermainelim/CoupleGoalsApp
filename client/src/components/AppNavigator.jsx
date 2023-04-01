@@ -8,6 +8,7 @@ import SecondPersonLogin from "../screens/login/secondPersonLogin";
 import Dashboard from "../screens/dashboard/Dashboard";
 import DashboardSecond from "../screens/dashboard/DashboardSecond";
 import FinanceForm from "../screens/finance/FinanceForm";
+import FinanceFormSecond from "../screens/finance/FinanceFormSecond";
 
 
 
@@ -26,6 +27,7 @@ const AppNavigator = () => {
       <Route path="/dashboard" element={<Dashboard/>} />
       <Route path="/dashboardSecond" element={<DashboardSecond/>} />
       <Route path="/financeForm" element={<FinanceForm/>} />
+      <Route path="/financeFormSecond" element={<FinanceFormSecond/>} />
   
       </Routes>
     </Router>

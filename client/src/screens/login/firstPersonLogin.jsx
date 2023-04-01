@@ -10,20 +10,17 @@ import { Navigate } from "react-router-dom";
 
 const FirstPersonLogin = () => {
 
+  const cx = classNames.bind(styles);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [spaceName, setChangeSpaceName] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [firstPersonEmail, setChangeFirstPersonEmail] = useState("");
   const [firstPersonPassword, setChangeFirstPersonPassword] = useState("");
 
-  const cx = classNames.bind(styles);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const isLoggedInFirstPerson = useIsLoggedInFirstPerson();
-
-
 
 if (isLoggedInFirstPerson) {
   return <Navigate to="/dashboard" />;

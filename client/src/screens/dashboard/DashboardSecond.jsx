@@ -15,71 +15,97 @@ import {
   fetchGoal,
   logOutSecondPerson,
   useSecondPerson,
-  useGoalFetch,goalDelete, goalDone
+  useGoalFetch,goalDelete, goalDone, fetchFinance, useFinanceFetch, financeDelete
 } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 const DashboardSecond = () => {
+
   const cx = classNames.bind(styles);
-
+  const navigate = useNavigate();
   const [logout, setLogout] = useState(false);
-
   const [toDo, setToDo] = useState([]);
 
+  const secondPersonData = useSecondPerson();
+ 
+
+  //first person login
+  const spaceName = secondPersonData[0];
+  const secondPersonNameUser = secondPersonData[1];
+  const secondPersonBirthdayUser = secondPersonData[2];
+  const secondPersonName = secondPersonData[3];
+  const secondPersonBirthday = secondPersonData[4];
+  const anniversaryDateFirstPersonUser = secondPersonData[5];
+  
+
+
+  // Tasks (ToDo List) State
+
+  const [toDoFinance, setToDoFinance] = useState([]);
+  const [finalArr , setFinalArr] = useState([])
+  const [newArr, setNewArr] = useState([]);
 
 
   useEffect(() => {
- 
-  
+    //fetch
     dispatch(fetchGoal({ spaceName }));
-    processNow();
-    sortedArr();
+    dispatch(fetchFinance({ spaceName }));
     
-    setToDo(finalArr);
-    newArr=[];
-    finalArr=[];
-   
   }, []);
 
-  function refresh() {
-  
-    dispatch(fetchGoal({ spaceName }));
+  let fetchGoalData = useGoalFetch();
+  let fetchFinanceData = useFinanceFetch();
+
+
+  // Temp State
+  /////////////
+  const [newTask, setNewTask] = useState("");
+  const [updateData, setUpdateData] = useState("");
+
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+  if(typeof fetchGoalData !== "undefined"){
     processNow();
     sortedArr();
     setToDo(finalArr);
+    setNewArr([]);
+    setFinalArr([]);
+  }
+  
+  
+},[fetchGoalData])
 
-    newArr=[];
-    finalArr=[];
-    
+useEffect(()=>{
+  if(typeof fetchFinanceData !== "undefined"){
+ 
+    let fetchFinanceDataProcessed = fetchFinanceData[0];
+    setToDoFinance(fetchFinanceDataProcessed);
+
    
   }
-
-
-
-  let newArr = [];
-
-  //const fetchGoalData = useSelector(state => state.goalFetchData);
-
   
- let fetchGoalData = useGoalFetch();
+  
+},[fetchFinanceData])
 
-//  useEffect(()=>{
-//   refresh();
-//  },[toDo])
+
+  function refresh() {
+    dispatch(fetchGoal({ spaceName }));
+    dispatch(fetchFinance({ spaceName }));
+  }
 
   function processNow() {
-
     if (fetchGoalData === undefined) {
       return;
     } else {
-      
       let onlyGoalsTable = fetchGoalData[1];
 
       const objCopy = [onlyGoalsTable];
       objCopy[0]?.map(function (element) {
         let newData = { ...element };
-  
+
         if (element?.status === 0) {
           newData.status = false;
           newArr.push({ newData });
@@ -93,7 +119,7 @@ const DashboardSecond = () => {
     }
   }
 
-  let finalArr = [];
+ 
 
   function sortedArr() {
     if (newArr.length === 0) {
@@ -109,23 +135,9 @@ const DashboardSecond = () => {
     });
   }
 
-  // Temp State
-  /////////////
-  const [newTask, setNewTask] = useState("");
-  const [updateData, setUpdateData] = useState("");
 
-  const dispatch = useDispatch();
 
-  const secondPersonData = useSecondPerson();
- 
-
-  //first person login
-  const spaceName = secondPersonData[0];
-  const secondPersonNameUser = secondPersonData[1];
-  const secondPersonBirthdayUser = secondPersonData[2];
-  const secondPersonName = secondPersonData[3];
-  const secondPersonBirthday = secondPersonData[4];
-  const anniversaryDateFirstPersonUser = secondPersonData[5];
+  //second person login
 
   var shortMonthNameFirstPersonUserBday = moment(
     secondPersonBirthdayUser
@@ -183,8 +195,7 @@ const DashboardSecond = () => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-
-  // Add task
+// Add task
   ///////////
   const addTask = () => {
     if (newTask) {
@@ -198,7 +209,6 @@ const DashboardSecond = () => {
       let status = false;
 
       dispatch(goalPost({ spaceName, id, title, status }));
-  
     }
   };
 
@@ -210,25 +220,22 @@ const DashboardSecond = () => {
 
     let id = tid;
 
-
-
-      dispatch(goalDelete({ spaceName, id }));
- 
+    dispatch(goalDelete({ spaceName, id }));
   };
+  
+// Mark task as done or completed
+const markDone = (idt) => {
+  let id = idt;
+  let status = true;
 
-  // Mark task as done or completed
-  const markDone = (idt) => {
-    let id = idt;
-    let status = true;
-   
-    setToDo(
-      toDo.map((task) =>
-        task.id === idt ? { ...task, status: !task.status } : task
-        )
-    );
+  setToDo(
+    toDo.map((task) =>
+      task.id === idt ? { ...task, status: !task.status } : task
+    )
+  );
 
-    dispatch(goalDone({ status , spaceName, id,}));
-  };
+  dispatch(goalDone({ status, spaceName, id }));
+};
 
   // Cancel update
   const cancelUpdate = () => {
@@ -247,6 +254,15 @@ const DashboardSecond = () => {
 
     setUpdateData("");
   };
+
+
+
+  const trashCanHandler = (tid)=>{
+  
+    setToDoFinance(toDoFinance.filter((task) => task.id !== tid));
+    let id = tid;
+    dispatch(financeDelete({ spaceName, id }));
+  }
 
   return (
     <div className={cx("space-container")}>
@@ -291,26 +307,15 @@ const DashboardSecond = () => {
       <div className="big-card-container">
         <div className="big-card-icon">
           <div className="big-card-title">Finance Tracker</div>
-          <FontAwesomeIcon size="3x" icon={faCirclePlus} />
+          <div onClick={() => {
+          navigate("/financeFormSecond")}}><FontAwesomeIcon size="3x" icon={faCirclePlus} /></div>
         </div>
-        <Card
-          title="Savings for BTO"
-          description="To save $500 every month till 2028"
-          buttonText="Contribute"
-          buttonText2="Backtrack"
-          startGoal="500"
-          currentGoal="1000"
-          endGoal="10000"
-        />
-        <Card
-          title="Savings for Vacation"
-          description="To save $200 every month till 2028"
-          buttonText="Contribute"
-          buttonText2="Backtrack"
-          startGoal="200"
-          currentGoal="400"
-          endGoal="10000"
-        />
+       
+          <Card
+          todoFinance={toDoFinance}
+          deleteFinance={trashCanHandler}
+          />
+       
       </div>
 
       <div className="big-card-container-goals">
@@ -342,13 +347,12 @@ const DashboardSecond = () => {
           />
         </div>
       </div>
+
       <CustomButton
         className="resident-btn"
         testId="resident"
         content="Logout"
         clicked={logoutHandler}
-
-        // resident={true}
       ></CustomButton>
     </div>
   );

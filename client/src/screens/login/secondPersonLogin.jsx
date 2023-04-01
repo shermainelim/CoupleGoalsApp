@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
 const SecondPersonLogin = () => {
+
   const cx = classNames.bind(styles);
 
   const dispatch = useDispatch();
@@ -19,9 +20,6 @@ const SecondPersonLogin = () => {
   const [secondPersonPassword, setChangeSecondPersonPassword] = useState("");
 
   const isLoggedInSecondPerson = useIsLoggedInSecondPerson();
-
-
-
 
 if (isLoggedInSecondPerson) {
   return <Navigate to="/dashboardSecond" />;

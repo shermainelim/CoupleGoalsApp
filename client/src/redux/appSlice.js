@@ -216,6 +216,8 @@ export const financePost = createAsyncThunk(
   `${name}/financePost`,
   async ({ spaceName, id , title, desc, startGoal, currentSaved, endGoal}) => {
 
+    console.log("Second",spaceName, id , title, desc, startGoal, currentSaved, endGoal )
+
     try {
       //const res = await axios.post("/financePost", {spaceName, id , title, desc, startGoal, currentSaved, endGoal});
       //alert(res.data.message);

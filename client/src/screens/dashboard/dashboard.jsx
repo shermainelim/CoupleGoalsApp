@@ -54,7 +54,7 @@ const Dashboard = () => {
   const [toDo, setToDo] = useState([]);
   const [toDoFinance, setToDoFinance] = useState([]);
   const [finalArr , setFinalArr] = useState([])
-  const [newArr, setNewArr] = useState([])
+  const [newArr, setNewArr] = useState([]);
 
 
   useEffect(() => {
@@ -67,8 +67,6 @@ const Dashboard = () => {
   let fetchGoalData = useGoalFetch();
   let fetchFinanceData = useFinanceFetch();
 
- 
- 
 
 useEffect(()=>{
   if(typeof fetchGoalData !== "undefined"){
@@ -99,10 +97,6 @@ useEffect(()=>{
     dispatch(fetchGoal({ spaceName }));
     dispatch(fetchFinance({ spaceName }));
   }
-
-
-
-  //const fetchGoalData = useSelector(state => state.goalFetchData);
 
 
   function processNow() {
@@ -360,8 +354,6 @@ useEffect(()=>{
         testId="resident"
         content="Logout"
         clicked={logoutHandler}
-
-        // resident={true}
       ></CustomButton>
     </div>
   );
