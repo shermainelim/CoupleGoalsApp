@@ -50,9 +50,9 @@ Features :
 
 
 # Todo List
-- [ ] CRUD Finance Tracker
+- [x] CRUD Finance Tracker
 - [x] CRUD Goal Tracker 
-- [ ] Save and call data from mysql backend for Finance Tracker
+- [x] Save and call data from mysql backend for Finance Tracker
 - [x] Save and call data from mysql backend for Goal Tracker
 - [ ] Implement UI for Story/Event Stick it notes
 - [ ] CRUD Story/Event Stick it notes
