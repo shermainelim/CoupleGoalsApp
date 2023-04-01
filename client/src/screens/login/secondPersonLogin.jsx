@@ -21,7 +21,7 @@ const SecondPersonLogin = () => {
   const isLoggedInSecondPerson = useIsLoggedInSecondPerson();
 
 
-console.log("isloggedin", isLoggedInSecondPerson);
+
 
 if (isLoggedInSecondPerson) {
   return <Navigate to="/dashboardSecond" />;

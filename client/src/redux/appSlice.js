@@ -53,8 +53,7 @@ export const fetchFinance = createAsyncThunk(
 
       if(res.data.message !=="Finance Fetch not found"){
        results=res?.data?.data;
-        console.log("connected Finance Fetch message", results)
-     
+
         return results;
       }
      
@@ -83,8 +82,7 @@ export const fetchGoal = createAsyncThunk(
 
       if(res.data.message !=="Goal Fetch not found"){
        results=res?.data?.data;
-        console.log("connected Goal Fetch message", results)
-     
+
         return results;
       }
      
@@ -114,8 +112,7 @@ export const loginFirstPerson = createAsyncThunk(
 
       if(res.data.message !=="User not found"){
        results=res?.data?.data;
-        console.log("connected message", results)
-     
+  
         return results;
       }
      
@@ -144,8 +141,7 @@ export const loginSecondPerson = createAsyncThunk(
 
       if(res.data.message !=="User not found"){
         results=res?.data?.data;
-        console.log("connected message", results)
-     
+    
         return results;
       }
      
@@ -219,7 +215,7 @@ export const goalDelete = createAsyncThunk(
 export const financePost = createAsyncThunk(
   `${name}/financePost`,
   async ({ spaceName, id , title, desc, startGoal, currentSaved, endGoal}) => {
-   console.log("finance post" , spaceName, id , title, desc, startGoal, currentSaved, endGoal)
+
     try {
       //const res = await axios.post("/financePost", {spaceName, id , title, desc, startGoal, currentSaved, endGoal});
       //alert(res.data.message);
@@ -379,68 +375,65 @@ const appSlice = createSlice({
    
     state.financeFetchData= payload;
 
-    console.log("fetch finance payload", payload)
+   
  
     if(payload){
-      console.log("fetch finance payload true");
+     
      state.isLoggedInFinanceFetched = true;
     }
-       console.log("hit here")
+    
      
      state.isLoggedInFinanceFetched = false;
    });
    builder.addCase(fetchFinance.pending, (state) => {
      state.loginLoadingFinanceFetch = true;
-     console.log("hit here2")
+   
    });
    builder.addCase(fetchFinance.rejected, (state) => {
      state.loginLoadingFinanceFetch = false;
-     console.log("hit here3")
+    
    });
 
     //login goal fetch
    builder.addCase(fetchGoal.fulfilled, (state , { payload }) => {
     state.goalFetchData= payload;
 
-    console.log("fetch goal payload", payload)
- 
+  
     if(payload){
      state.isLoggedInGoalFetched = true;
     }
-       console.log("hit here")
+   
      
      state.isLoggedInGoalFetched = false;
    });
    builder.addCase(fetchGoal.pending, (state) => {
      state.loginLoadingGoalFetch = true;
-     console.log("hit here2")
+   
    });
    builder.addCase(fetchGoal.rejected, (state) => {
      state.loginLoadingGoalFetch = false;
-     console.log("hit here3")
+    
    });
 
    //login first person
    builder.addCase(loginFirstPerson.fulfilled, (state , { payload }) => {
    state.firstPersonData= payload;
 
-   //console.log("data", state.firstPersonData.id)
-   console.log("firstPersonData payload", payload)
 
    if(payload){
     state.isLoggedInFirstPerson = true;
    }
-      console.log("hit here")
+ 
     
     state.loginLoadingFirstPerson = false;
   });
   builder.addCase(loginFirstPerson.pending, (state) => {
     state.loginLoadingFirstPerson = true;
-    console.log("hit here2")
+
   });
   builder.addCase(loginFirstPerson.rejected, (state) => {
     state.loginLoadingFirstPerson = false;
-    console.log("hit here3")
+  
   });
 
  //second person login

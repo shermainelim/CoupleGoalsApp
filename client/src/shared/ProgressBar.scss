@@ -21,6 +21,12 @@ body {
 	margin: 15px 0;
 	height: 30px;
 	width: 300px;
+
+	.pro-card-description{
+		margin-top:20px;
+		margin-bottom:20px;
+	}
+
 	.pro-card-btn-contribute {
 		text-align: center;
 		width: 90%;
@@ -68,6 +74,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+	margin-bottom: 20px;
 }
 .progress-start{
 

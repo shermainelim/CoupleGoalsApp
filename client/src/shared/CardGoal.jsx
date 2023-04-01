@@ -1,10 +1,8 @@
 import React from "react";
-
 import "./CardGoal.scss";
 import ProgressBar from "./ProgressBar";
 
 export const CardGoal = ({
-
   title,
   description,
   buttonText,

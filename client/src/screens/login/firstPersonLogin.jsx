@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginFirstPerson,useIsLoggedInFirstPerson,fetchGoal } from "../../redux/appSlice";
+import { loginFirstPerson,useIsLoggedInFirstPerson } from "../../redux/appSlice";
 import styles from "./firstPersonLogin.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
 import { useNavigate } from "react-router-dom";
-import ProgressBar from "../../shared/ProgressBar";
+
 import { Navigate } from "react-router-dom";
 
 const FirstPersonLogin = () => {
@@ -23,7 +23,7 @@ const FirstPersonLogin = () => {
 
   const isLoggedInFirstPerson = useIsLoggedInFirstPerson();
 
-console.log("isloggedin", isLoggedInFirstPerson);
+
 
 if (isLoggedInFirstPerson) {
   return <Navigate to="/dashboard" />;
@@ -96,7 +96,7 @@ if (isLoggedInFirstPerson) {
             firstPersonEmail.length !== 0 &&
             firstPersonPassword.length !== 0
           ) {
-            console.log("spaceName", firstPersonEmail, firstPersonPassword)
+           
             dispatch(loginFirstPerson({spaceName, firstPersonEmail, firstPersonPassword}))
             setChangeSpaceName("");
             setChangeFirstPersonEmail("");

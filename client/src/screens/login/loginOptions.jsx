@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { register, checkSpaceName } from "../../redux/appSlice";
 import styles from "./loginOptions.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
@@ -8,11 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 const LoginOptions = () => {
   const cx = classNames.bind(styles);
-
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  
   return (
     <div className={cx("register-container")}>
       <div className="register-title"> Login Options</div>
@@ -22,17 +18,17 @@ const LoginOptions = () => {
         testId="resident"
         content="First Person"
         clicked={() => {
-            navigate("/firstPersonLogin");
-          }}
+          navigate("/firstPersonLogin");
+        }}
       ></CustomButton>
 
-<CustomButton
+      <CustomButton
         className="resident-btn"
         testId="resident"
         content="Second Person"
         clicked={() => {
-            navigate("/secondPersonLogin");
-          }}
+          navigate("/secondPersonLogin");
+        }}
       ></CustomButton>
 
       <CustomButton

@@ -7,14 +7,13 @@ import CustomButton from "../../shared/CustomButton";
 import UpdateForm from "../todo/UpdateForm";
 import AddTaskForm from "../todo/AddTaskForm";
 import ToDo from "../todo/ToDo";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import {
   goalPost,
   fetchGoal,
   logOutFirstPerson,
-  logOutSecondPerson,
   useFirstPerson,
   useGoalFetch,
   useFinanceFetch,
@@ -80,7 +79,7 @@ useEffect(()=>{
     setFinalArr([]);
   }
   
-  //console.log("fetchdata use effect", fetchGoalData);
+  
 },[fetchGoalData])
 
 useEffect(()=>{
@@ -89,10 +88,10 @@ useEffect(()=>{
     let fetchFinanceDataProcessed = fetchFinanceData[0];
     setToDoFinance(fetchFinanceDataProcessed);
 
-    console.log("res useEffect", fetchFinanceDataProcessed)
+   
   }
   
-  //console.log("fetchdata use effect", fetchGoalData);
+  
 },[fetchFinanceData])
 
 
@@ -119,7 +118,7 @@ useEffect(()=>{
         if (element?.status === 0) {
           newData.status = false;
           newArr.push({ newData });
-          console.log('after set', newArr);
+        
         } else if (element?.status === 1) {
           newData.status = true;
           newArr.push({ newData });
@@ -267,7 +266,7 @@ useEffect(()=>{
 
 
   const trashCanHandler = (tid)=>{
-    console.log("delete treash can")
+  
     setToDoFinance(toDoFinance.filter((task) => task.id !== tid));
     let id = tid;
     dispatch(financeDelete({ spaceName, id }));

@@ -29,7 +29,7 @@ app.post("/goalDone", (req, res) => {
  const id = req.body.id;
  const status = req.body.status;
 
- console.log("goal done", spaceName, id, status);
+
 
   db.query(
     "UPDATE couplegoals.goals SET status = ? WHERE spaceName = ? AND id = ?",
@@ -74,7 +74,7 @@ app.post("/financePost", (req, res) => {
  const currentSaved = req.body.currentSaved;
  const endGoal = req.body.endGoal;
 
- console.log("hit here finance post")
+
 
 
   db.query(
@@ -107,8 +107,7 @@ app.post("/fetchFinance", (req, res) => {
     "SELECT spaceName, id, title, description, startGoal, currentSaved, endGoal FROM couplegoals.finance WHERE spaceName = ?",
     [spaceName],
     (err, result) => {
-      
-      console.log("index goalData", result);
+
         const goalsData = [result]
         res.send({ data: goalsData, message: "Finance Data Fetch is Successful"});
       
@@ -237,7 +236,7 @@ app.post("/loginSecondPerson", (req, res) => {
         res.send({ data: secondPersonData, message: "Login is Successful"});
        
       } else {
-        console.log("user not found");
+     
         res.send({ message: "User not found" });
       }
     }

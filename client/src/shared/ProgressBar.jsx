@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./ProgressBar.scss";
 
-const ProgressBar = ({ starterGoal, currentSaved, enderGoal }) => {
+const ProgressBar = ({ starterGoal, currentSaved, enderGoal, description }) => {
   const cx = classNames.bind(styles);
   const [style, setStyle] = useState({});
 
@@ -10,22 +10,15 @@ const ProgressBar = ({ starterGoal, currentSaved, enderGoal }) => {
   const endGoal = enderGoal;
   const startGoal = starterGoal;
 
-
-   let currentProgress = (currentGoal/endGoal) * 100
+  let currentProgress = (currentGoal / endGoal) * 100;
 
   const [current, setCurrent] = useState(currentProgress);
-  
-  let incrementalGoal = (startGoal/endGoal) * 100;
 
+  let incrementalGoal = (startGoal / endGoal) * 100;
 
-
-
-//   useEffect(() => {
-//     setCurrent(currentProgress);
-//   }, [currentProgress]);
 
   const Contribute = () => {
-	console.log("pressed")
+
     const res = current + incrementalGoal;
     setCurrent(res);
   };
@@ -54,7 +47,7 @@ const ProgressBar = ({ starterGoal, currentSaved, enderGoal }) => {
         <div className={cx("progress-start")}>{startGoal}</div>
         <div className={cx("progress-end")}>{endGoal}</div>
       </div>
-
+      <div className="pro-card-description">{description}</div>
       <div onClick={Contribute} className="pro-card-btn-contribute">
         Contribute
       </div>

@@ -7,13 +7,12 @@ import CustomButton from "../../shared/CustomButton";
 import UpdateForm from "../todo/UpdateForm";
 import AddTaskForm from "../todo/AddTaskForm";
 import ToDo from "../todo/ToDo";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import {
   goalPost,
   fetchGoal,
-  logOutFirstPerson,
   logOutSecondPerson,
   useSecondPerson,
   useGoalFetch,goalDelete, goalDone
@@ -119,7 +118,7 @@ const DashboardSecond = () => {
 
   const secondPersonData = useSecondPerson();
  
-console.log("second person data", secondPersonData)
+
   //first person login
   const spaceName = secondPersonData[0];
   const secondPersonNameUser = secondPersonData[1];

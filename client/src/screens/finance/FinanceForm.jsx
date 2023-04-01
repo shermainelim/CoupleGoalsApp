@@ -1,24 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import classNames from "classnames/bind";
 import styles from "./FinanceForm.scss";
-import { Card } from "../../shared/Card";
 import CustomButton from "../../shared/CustomButton";
 import {
-  goalPost,
-  fetchGoal,
-  logOutFirstPerson,
-  logOutSecondPerson,
   useFirstPerson,
-  useGoalFetch,
-  goalDelete,
-  goalDone,
   financePost,
 } from "../../redux/appSlice";
-import { Navigate } from "react-router-dom";
-import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import randomIntFromInterval from "../../utils/cgUtil";
 
 

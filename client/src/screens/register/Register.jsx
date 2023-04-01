@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { register, checkSpaceName } from "../../redux/appSlice";
+import { register } from "../../redux/appSlice";
 import styles from "./Register.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
