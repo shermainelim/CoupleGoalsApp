@@ -1,5 +1,7 @@
 # CoupleGoalsReact
 
+Notes : https://www.conventionalcommits.org/en/v1.0.0/
+
 Title:CoupleGoals
 
 Description: A goal setting app that allows couples to set and track shared goals, such as saving money for house, vacation, starting a business or learning a new language. The app can include features like progress trackers, reminders , motivational messages to help couples stay on track.
