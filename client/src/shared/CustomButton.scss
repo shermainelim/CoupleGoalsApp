@@ -4,12 +4,13 @@
   padding: 0.5rem 1rem;
   font-size: 16px;
   border: none;
-  color: #fff;
-  margin: 0.5rem;
+  color: black;
+  margin: 1rem;
   outline: none;
   border-radius: 20px;
-  min-width: 260px;
+  min-width: 480px;
   height: 40px;
+  font-family: monospace;
 }
 
 .btn {
@@ -21,7 +22,7 @@
 }
 
 .resident-btn {
-  background-color: $royal-purple;
+  background-color: aliceblue;
 }
 
 .staff-btn {

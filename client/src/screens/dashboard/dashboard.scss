@@ -1,13 +1,13 @@
 
 body, html {
     height: 100%;
-    background-color: aliceblue;
+    background-color: white;
   }
   
   
   div#root {
     //height: 100%; /* remove this line to see div.app is no more 100% height */
-    background-color: aliceblue;
+    background-color: white;
     min-width:auto;
     
   
@@ -15,7 +15,7 @@ body, html {
   
   div.app {
     height: 100%;
-    background-color: aliceblue;
+    background-color: white;
   }
   
   .space-container{
@@ -28,8 +28,10 @@ body, html {
     height: 100vh;
     align-items: center;
     text-align: center;
-    background-color: aliceblue;
+    background-color: white;
     margin-bottom: 100px;
+    font-family: monospace;
+    color:black;
     
 
     .space-name-new{
@@ -37,7 +39,7 @@ body, html {
       font-weight: 900;
       margin-top: 20px;
       margin-bottom: 10px;
-      color: white;
+      color: black;
     }
   
     .imageIcon{
@@ -47,14 +49,14 @@ body, html {
     
     .space-title{
       font-size:45px;
+      font-family:monospace;
       margin-top:10px;
       margin-bottom:30px;
       font-weight:700;
-      color:teal;
+      color:black;
       font-size: 30px;
       padding-left: 20px;
       padding-right: 20px;
-      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     }
 
     .space-refresh{
@@ -71,7 +73,7 @@ body, html {
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         font-weight: 600;
         margin-bottom: 20px;
-        color: white
+        color: black;
     }
 
     .big-card-container {
@@ -81,12 +83,14 @@ body, html {
         display: flex;
         flex-direction: column;
         margin: 0.5rem;
-        color:white;
-        background-color: rgb(71, 9, 133);
+        color:black;
+        background-color: white;
         height: fit-content;
         margin-left: 20px;
         margin-right: 20px;
         padding-bottom: 10px;
+        border-color: black;
+    border-style: solid;
 
         .big-card-icon{
             display:flex;
@@ -106,11 +110,13 @@ body, html {
         flex-direction: column;
         margin: 0.5rem;
         color: white;
-        background-color: midnightblue;
+        background-color: white;
         height: -moz-fit-content;
         height: fit-content;
         margin-left: 20px;
         margin-right: 20px;
+        border-color: black;
+        border-style: solid;
 
         .main-small-card-container-goals{
           width: 90%;
@@ -120,7 +126,7 @@ body, html {
           flex-direction: column;
           margin: 1rem;
           color: black;
-          background-color: darkblue;
+          background-color: antiquewhite;
           height: -moz-fit-content;
           height: fit-content;
           margin-left: 25px;
@@ -140,11 +146,13 @@ body, html {
         flex-direction: column;
         margin: 0.5rem;
         color:black;
-        background-color: darkslategrey;
+        background-color: white;
         height: fit-content;
         margin-left: 20px;
         margin-right: 20px;
         padding: 20px;
+        border-color: black;
+        border-style: solid;
 
         .small-card-container-goals {
             width: 100%;
@@ -154,7 +162,7 @@ body, html {
             flex-direction: column;
             margin: 0.5rem;
             color:black;
-            background-color: #999;
+            background-color: antiquewhite;
             height: fit-content;
             margin-left: 2px;
             margin-right: 20px;
@@ -169,25 +177,25 @@ body, html {
 }
 
 .btn {
-    background-color: #21ab7d;
+    background-color: black;
     color: white;
 }
 
 .taskText {
     flex: 1 1;
-    color: white;
+    color: black;
     /* background-color: green; */
 }
 
 .taskBg {
-    background-color: grey;
+    background-color: floralwhite;
 }
       .big-card-title{
         font-size: 20px;
         font-weight: 900;
         margin-top: 10px;
         margin-bottom: 10px;
-        color:white;
+        color:black;
        display:"flex";
        flex-direction: row;
       }
@@ -206,7 +214,7 @@ body, html {
       }
       
       .taskBg {
-        background-color: #555;
+        background-color: floralwhite;
         border-radius: 6px;
         margin-bottom: 20px;
         padding: 10px 140px 10px 15px;
@@ -242,6 +250,10 @@ body, html {
       .taskBg .done .taskText {
         text-decoration: line-through;
         opacity: 0.3;
+        color:black;
+        font-family: monospace;
+        font-weight: 700;
+        font-size: 16px;
       }
       
       .taskBg .iconsWrap {
@@ -257,7 +269,7 @@ body, html {
         display: inline-block;
         margin: 0px 10px 0 10px;
         cursor: pointer;
-        color: #00ff89;
+        color: black;
       }
       
       .taskBg .iconsWrap span:hover {

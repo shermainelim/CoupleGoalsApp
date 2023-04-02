@@ -32,8 +32,8 @@ body {
 		width: 90%;
 		border-radius: 5px;
 		padding: 0.5rem 1rem;
-		background-color: #2563eb;
-		color: white;
+	    background-color: aliceblue;
+    color: black;
 		text-decoration: none;
 		margin-bottom: 20px;
 		margin-left: 20px;
@@ -46,8 +46,8 @@ body {
 		width: 90%;
 		border-radius: 5px;
 		padding: 0.5rem 1rem;
-		background-color: #2563eb;
-		color: white;
+	    background-color: aliceblue;
+    color: black;
 		text-decoration: none;
 		margin-bottom: 20px;
 		padding:10px;
@@ -57,10 +57,10 @@ body {
 }
 
 .progress-done {
-	background: linear-gradient(to left, #F2709C, #FF9472);
-	box-shadow: 0 3px 3px -5px #F2709C, 0 2px 5px #F2709C;
+	background: linear-gradient(to left, turquoise, aquamarine);
+    box-shadow: 0 3px 3px -5px turquoise, 0 2px 5px turquoise;
 	border-radius: 20px;
-	color: #fff;
+	color: black;
 	display: flex;
 	align-items: center;
 	justify-content: center;

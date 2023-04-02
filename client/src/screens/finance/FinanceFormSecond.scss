@@ -1,13 +1,13 @@
 
 body, html {
     height: 100%;
-    background-color: aliceblue;
+    background-color: white;
   }
   
   
   div#root {
     //height: 100%; /* remove this line to see div.app is no more 100% height */
-    background-color: aliceblue;
+    background-color: white;
     min-width:auto;
     
   
@@ -15,7 +15,7 @@ body, html {
   
   div.app {
     height: 100%;
-    background-color: aliceblue;
+    background-color: white;
   }
   
   .finance-space-container{
@@ -28,7 +28,7 @@ body, html {
     height: 100vh;
     align-items: center;
     text-align: center;
-    background-color: aliceblue;
+    background-color: white;
     margin-bottom: 100px;
 
     .big-card-container {
@@ -80,7 +80,7 @@ body, html {
           margin-right: 210px;
           margin-top: 2px;
           margin-bottom: 30px;
-          color: rgb(252, 177, 177);
+          color: darkred
       }
       }
     

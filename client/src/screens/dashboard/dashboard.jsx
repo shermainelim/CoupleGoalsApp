@@ -26,7 +26,7 @@ import { Navigate } from "react-router-dom";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import randomIntFromInterval from "../../utils/cgUtil";
-
+import Couple from "../../assets/couple3.png"
 
 const Dashboard = () => {
   const cx = classNames.bind(styles);
@@ -269,11 +269,18 @@ useEffect(()=>{
   return (
     <div className={cx("space-container")}>
       <div className={cx("space-refresh")}>
-        <div className={cx("space-title")}>Couple Goals Dashboard</div>
+      <img
+          data-testid="img-logo-resident"
+          className={cx("imageIcon")}
+          src={Couple}
+          alt="Logo"
+          style={{width:"350px", height:"350px"}}
+        />
         <span title="refresh" onClick={refresh}>
           <FontAwesomeIcon size={"3x"} icon={faRefresh} />
         </span>
       </div>
+      
       <div className="main-big-card-container">
         <div>
           <div className={cx("space-name-new")}>

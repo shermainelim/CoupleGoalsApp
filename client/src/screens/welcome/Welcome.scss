@@ -1,13 +1,13 @@
 
 body, html {
   height: 100%;
-  background-color: aliceblue;
+  background-color: white;
 }
 
 
 div#root {
   //height: 100%; /* remove this line to see div.app is no more 100% height */
-  background-color: aliceblue;
+  background-color: white;
   min-width:auto;
   
 
@@ -15,7 +15,7 @@ div#root {
 
 div.app {
   height: 100%;
-  background-color: aliceblue;
+  background-color: white;
 }
 
 .container{
@@ -28,7 +28,7 @@ div.app {
   height: 100vh;
   align-items: center;
   text-align: center;
-  background-color: aliceblue;
+  background-color: white;
 
   .imageIcon{
     width:200px;
@@ -40,7 +40,8 @@ div.app {
     margin-top:10px;
     margin-bottom:30px;
     font-weight:700;
-    color: "teal";
+    color: "black";
+    font-family: monospace;
   }
 }
 

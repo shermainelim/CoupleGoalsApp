@@ -1,13 +1,13 @@
 
 body, html {
     height: 100%;
-    background-color: aliceblue;
+    background-color: white;
   }
   
   
   div#root {
     //height: 100%; /* remove this line to see div.app is no more 100% height */
-    background-color: aliceblue;
+    background-color: white;
     min-width:auto;
     
   
@@ -15,7 +15,7 @@ body, html {
   
   div.app {
     height: 100%;
-    background-color: aliceblue;
+    background-color: white;
   }
   
   .finance-space-container{
@@ -28,7 +28,7 @@ body, html {
     height: 100vh;
     align-items: center;
     text-align: center;
-    background-color: aliceblue;
+    background-color: white;
     margin-bottom: 100px;
 
     .big-card-container {
@@ -39,18 +39,21 @@ body, html {
         flex-direction: column;
         margin: 0.5rem;
         color:white;
-        background-color: rgb(71, 9, 133);
+        background-color: white;
         height: fit-content;
         margin-left: 20px;
         margin-right: 20px;
         padding:20px;
+        border-color: black;
+        border-style: solid;
+        color:black;
+        font-family: monospace;
 
         .big-card-title{
             font-size: 20px;
             font-weight: 900;
             margin-top: 10px;
             margin-bottom: 10px;
-            color:white;
            display:"flex";
            flex-direction: row;
           }
@@ -58,12 +61,12 @@ body, html {
         .small-card-container-goals {
             width: 95%;
             border-radius: 1rem;
-            box-shadow: 0px 10px 8px #8c70ab;
+            box-shadow: 0px 10px 8px antiquewhite;
             display: flex;
             flex-direction: column;
             margin: 0.5rem;
             color:black;
-            background-color: #7f4fb1;
+            background-color: antiquewhite;
             height: fit-content;
             margin-left: 12px;
             margin-bottom: 30px;
@@ -72,15 +75,13 @@ body, html {
     
           }
         .small-card-title{
-            color:white;
-            font-size: 20px;
-
+          font-size: 18px;
         }
         .input-general-error{
           margin-right: 210px;
           margin-top: 2px;
           margin-bottom: 30px;
-          color: rgb(252, 177, 177);
+          color: darkred;
       }
       }
     

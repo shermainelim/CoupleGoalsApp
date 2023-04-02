@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import styles from "./Welcome.scss";
 
 
-import Couple from "../../assets/couple.png"
+import Couple from "../../assets/couple2.png"
 import CustomButton from "../../shared/CustomButton";
 
 const Welcome = () => {
