@@ -54,8 +54,6 @@ const Dashboard = () => {
   const [toDo, setToDo] = useState([]);
   const [toDoFinance, setToDoFinance] = useState([]);
   const [finalArr , setFinalArr] = useState([])
-  const [newArr, setNewArr] = useState([]);
-
 
   useEffect(() => {
     //fetch
@@ -70,10 +68,9 @@ const Dashboard = () => {
 
 useEffect(()=>{
   if(typeof fetchGoalData !== "undefined"){
-    processNow();
-    sortedArr();
-    setToDo(finalArr);
-    setNewArr([]);
+    processJsonStructure();
+    const finalArrProcessed = finalArr[0];
+    setToDo(finalArrProcessed);
     setFinalArr([]);
   }
   
@@ -86,7 +83,6 @@ useEffect(()=>{
     let fetchFinanceDataProcessed = fetchFinanceData[0];
     setToDoFinance(fetchFinanceDataProcessed);
 
-   
   }
   
   
@@ -99,47 +95,25 @@ useEffect(()=>{
   }
 
 
-  function processNow() {
+  function processJsonStructure() {
     if (fetchGoalData === undefined) {
       return;
     } else {
       let onlyGoalsTable = fetchGoalData[1];
 
       const objCopy = [onlyGoalsTable];
-      objCopy[0]?.map(function (element) {
-        let newData = { ...element };
 
-        if (element?.status === 0) {
-          newData.status = false;
-          newArr.push({ newData });
-        
-        } else if (element?.status === 1) {
-          newData.status = true;
-          newArr.push({ newData });
-        }
-        return newData;
-      });
-    }
+      const mappedArray = objCopy[0]?.map((object) => ({
+        spaceName: object.spaceName,
+        id: object.id,
+        title: object.title,
+        status: object.status === 1 ? "true" : "false",
+      }));
+
+      finalArr.push(mappedArray);
   }
-
+  }
  
-
-  function sortedArr() {
-    if (newArr.length === 0) {
-      return;
-    }
-    newArr.map(function (element) {
-      finalArr.push({
-        spaceName: element.newData.spaceName,
-        id: element.newData.id,
-        title: element.newData.title,
-        status: element.newData.status,
-      });
-    });
-  }
-
-
-
   //first person login
   
 
