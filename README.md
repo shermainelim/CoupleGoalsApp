@@ -8,6 +8,12 @@ Description: A goal setting app that allows couples to set and track shared goal
 
 These are a few ideas for private apps that couples can use to strengthen their relationship and deepen their connection.
 
+# System Architecture
+
+<img width="1173" alt="Screenshot 2023-04-03 at 11 38 08 PM" src="https://user-images.githubusercontent.com/65886071/229558890-84dee9a7-407e-4d7c-bbe4-ccc7ce945261.png">
+
+
+
 Start Date: 27 March 2023 End Date: 10 Feb 2024
 
 Tech stack:
