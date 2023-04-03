@@ -70,6 +70,7 @@ Features :
 - [x] Setup Redux Toolkit state management for frontend
 - [x] Setup backend db and nodejs connection to frontend
 - [x] Implement UI screens for Welcome, Register, Login and Dashboard    
+- [ ] Delete Couple Space
 
 
 
