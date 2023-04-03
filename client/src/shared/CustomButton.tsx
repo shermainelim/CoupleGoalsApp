@@ -6,8 +6,6 @@ interface Props {
   testId?: string;
   content: string;
   clicked: () => void;
-  // resident?: boolean;
-  // staff?:boolean;
   className: string;
 }
 
@@ -15,8 +13,6 @@ const CustomButton: React.FC<Props> = ({
   testId,
   content,
   clicked,
-  // resident,
-  // staff,
   className,
 }) => {
   const cx = classNames.bind(styles);

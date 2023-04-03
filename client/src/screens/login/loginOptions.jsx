@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import styles from "./loginOptions.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";

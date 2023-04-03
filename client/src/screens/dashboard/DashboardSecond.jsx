@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import classNames from "classnames/bind";
 import styles from "./Dashboard.scss";
 import { Card } from "../../shared/Card";
@@ -9,28 +8,31 @@ import AddTaskForm from "../todo/AddTaskForm";
 import ToDo from "../todo/ToDo";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeartCrack, faCirclePlus, faRefresh } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import {
   goalPost,
   fetchGoal,
   logOutSecondPerson,
   useSecondPerson,
-  useGoalFetch,goalDelete, goalDone, fetchFinance, useFinanceFetch, financeDelete
+  useGoalFetch,
+  goalDelete,
+  goalDone,
+  fetchFinance,
+  useFinanceFetch,
+  financeDelete,
 } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import Couple from "../../assets/couple3.png"
+import Couple from "../../assets/couple3.png";
 
 const DashboardSecond = () => {
-
   const cx = classNames.bind(styles);
   const navigate = useNavigate();
   const [logout, setLogout] = useState(false);
   const [toDo, setToDo] = useState([]);
 
   const secondPersonData = useSecondPerson();
- 
 
   //first person login
   const spaceName = secondPersonData[0];
@@ -39,26 +41,21 @@ const DashboardSecond = () => {
   const secondPersonName = secondPersonData[3];
   const secondPersonBirthday = secondPersonData[4];
   const anniversaryDateFirstPersonUser = secondPersonData[5];
-  
-
 
   // Tasks (ToDo List) State
 
   const [toDoFinance, setToDoFinance] = useState([]);
-  const [finalArr , setFinalArr] = useState([])
+  const [finalArr, setFinalArr] = useState([]);
   const [newArr, setNewArr] = useState([]);
-
 
   useEffect(() => {
     //fetch
     dispatch(fetchGoal({ spaceName }));
     dispatch(fetchFinance({ spaceName }));
-    
   }, []);
 
   let fetchGoalData = useGoalFetch();
   let fetchFinanceData = useFinanceFetch();
-
 
   // Temp State
   /////////////
@@ -67,30 +64,22 @@ const DashboardSecond = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-  if(typeof fetchGoalData !== "undefined"){
-    processNow();
-    sortedArr();
-    setToDo(finalArr);
-    setNewArr([]);
-    setFinalArr([]);
-  }
-  
-  
-},[fetchGoalData])
+  useEffect(() => {
+    if (typeof fetchGoalData !== "undefined") {
+      processNow();
+      sortedArr();
+      setToDo(finalArr);
+      setNewArr([]);
+      setFinalArr([]);
+    }
+  }, [fetchGoalData]);
 
-useEffect(()=>{
-  if(typeof fetchFinanceData !== "undefined"){
- 
-    let fetchFinanceDataProcessed = fetchFinanceData[0];
-    setToDoFinance(fetchFinanceDataProcessed);
-
-   
-  }
-  
-  
-},[fetchFinanceData])
-
+  useEffect(() => {
+    if (typeof fetchFinanceData !== "undefined") {
+      let fetchFinanceDataProcessed = fetchFinanceData[0];
+      setToDoFinance(fetchFinanceDataProcessed);
+    }
+  }, [fetchFinanceData]);
 
   function refresh() {
     dispatch(fetchGoal({ spaceName }));
@@ -110,7 +99,6 @@ useEffect(()=>{
         if (element?.status === 0) {
           newData.status = false;
           newArr.push({ newData });
-        
         } else if (element?.status === 1) {
           newData.status = true;
           newArr.push({ newData });
@@ -119,8 +107,6 @@ useEffect(()=>{
       });
     }
   }
-
- 
 
   function sortedArr() {
     if (newArr.length === 0) {
@@ -135,8 +121,6 @@ useEffect(()=>{
       });
     });
   }
-
-
 
   //second person login
 
@@ -196,7 +180,7 @@ useEffect(()=>{
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-// Add task
+  // Add task
   ///////////
   const addTask = () => {
     if (newTask) {
@@ -223,20 +207,20 @@ useEffect(()=>{
 
     dispatch(goalDelete({ spaceName, id }));
   };
-  
-// Mark task as done or completed
-const markDone = (idt) => {
-  let id = idt;
-  let status = true;
 
-  setToDo(
-    toDo.map((task) =>
-      task.id === idt ? { ...task, status: !task.status } : task
-    )
-  );
+  // Mark task as done or completed
+  const markDone = (idt) => {
+    let id = idt;
+    let status = true;
 
-  dispatch(goalDone({ status, spaceName, id }));
-};
+    setToDo(
+      toDo.map((task) =>
+        task.id === idt ? { ...task, status: !task.status } : task
+      )
+    );
+
+    dispatch(goalDone({ status, spaceName, id }));
+  };
 
   // Cancel update
   const cancelUpdate = () => {
@@ -256,32 +240,14 @@ const markDone = (idt) => {
     setUpdateData("");
   };
 
-
-
-  const trashCanHandler = (tid)=>{
-  
+  const trashCanHandler = (tid) => {
     setToDoFinance(toDoFinance.filter((task) => task.id !== tid));
     let id = tid;
     dispatch(financeDelete({ spaceName, id }));
-  }
+  };
 
-  return (
-    <div className={cx("space-container")}>
-      <div className={cx("space-refresh")}>
-      <span title="refresh" onClick={refresh}>
-          <FontAwesomeIcon size={"3x"} icon={faHeartCrack} />
-        </span>
-      <img
-          data-testid="img-logo-resident"
-          className={cx("imageIcon")}
-          src={Couple}
-          alt="Logo"
-          style={{width:"350px", height:"350px"}}
-        />
-        <span title="refresh" onClick={refresh}>
-          <FontAwesomeIcon size={"3x"} icon={faRefresh} />
-        </span>
-      </div>
+  const renderMainCoupleCard = () => {
+    return (
       <div className="main-big-card-container">
         <div>
           <div className={cx("space-name-new")}>
@@ -289,9 +255,7 @@ const markDone = (idt) => {
           </div>
         </div>
         <div className="main-small-card-container-goals">
-          <div className={cx("space-welcome")}>
-            Welcome {secondPersonName}
-          </div>
+          <div className={cx("space-welcome")}>Welcome {secondPersonName}</div>
 
           <div className={cx("space-welcome")}>
             Your Birthday: {shortMonthNameSecondPersonBday}
@@ -314,20 +278,30 @@ const markDone = (idt) => {
           </div>
         </div>
       </div>
+    );
+  };
+
+  const renderFinanceCard = () => {
+    return (
       <div className="big-card-container">
         <div className="big-card-icon">
           <div className="big-card-title">Finance Tracker</div>
-          <div onClick={() => {
-          navigate("/financeFormSecond")}}><FontAwesomeIcon size="3x" icon={faCirclePlus} /></div>
+          <div
+            onClick={() => {
+              navigate("/financeFormSecond");
+            }}
+          >
+            <FontAwesomeIcon size="3x" icon={faCirclePlus} />
+          </div>
         </div>
-       
-          <Card
-          todoFinance={toDoFinance}
-          deleteFinance={trashCanHandler}
-          />
-       
-      </div>
 
+        <Card todoFinance={toDoFinance} deleteFinance={trashCanHandler} />
+      </div>
+    );
+  };
+
+  const renderGoalCard = () => {
+    return (
       <div className="big-card-container-goals">
         <div className="big-card-title">Goal Tracker</div>
 
@@ -357,7 +331,26 @@ const markDone = (idt) => {
           />
         </div>
       </div>
+    );
+  };
 
+  return (
+    <div className={cx("space-container")}>
+      <div className={cx("space-refresh")}>
+        <img
+          data-testid="img-logo-resident"
+          className={cx("imageIcon")}
+          src={Couple}
+          alt="Logo"
+          style={{ width: "350px", height: "350px" }}
+        />
+        <span title="refresh" onClick={refresh}>
+          <FontAwesomeIcon size={"3x"} icon={faRefresh} />
+        </span>
+      </div>
+      {renderMainCoupleCard()}
+      {renderFinanceCard()}
+      {renderGoalCard()}
       <CustomButton
         className="resident-btn"
         testId="resident"
