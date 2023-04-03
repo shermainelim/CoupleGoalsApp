@@ -57,12 +57,9 @@ Features :
 - [ ] Implement UI for Story/Event Stick it notes
 - [ ] CRUD Story/Event Stick it notes
 - [x] Call Birthday/Anni Date data from db to Dashboard UI
-- [ ] Implement manual refresh icon and logic on dashboard for finance and goal tracker
-- [ ] Implement SMTP email for CRUD register , forget password and change password and delete couple space
 - [x] Create custom alert messages with toast or custom component
 - [x] Error handling (connection fail etc)
-- [ ] Implement loading state
-- [ ] Refactor code
+
 - [x] Establish connection between 2 accounts in 1 room lobby/couple space
 - [x] Implement Login and Logout for First Person
 - [x] Implement Login and Logout for Second Person
@@ -73,8 +70,12 @@ Features :
 - [ ] Delete Couple Space
 - [ ] Forget password
 - [ ] Change password
-- [ ] smtp email
-
+- [ ] Implement manual refresh icon and logic on dashboard for finance and goal tracker
+- [ ] Implement SMTP email for CRUD register , forget password and change password and delete couple space
+- [ ] Refactor code
+- [ ] wrap in react native webview for mobile use case
+- [ ] implement devops and infra
+- [ ] deploy to App stores Apple and Android
 
 
 
