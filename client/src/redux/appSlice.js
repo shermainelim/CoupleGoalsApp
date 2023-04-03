@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../utils/axios";
 import { useSelector } from "react-redux";
-
+import cogoToast from "cogo-toast";
 
 const initialState = {
   loginLoadingFinanceFetch: false,
@@ -33,32 +33,29 @@ const initialState = {
 };
 
 const name = "appState";
-let results =""
-
+let results = "";
 
 //Finance Fetch
 export const fetchFinance = createAsyncThunk(
   `${name}/fetchFinance`,
   async ({ spaceName }) => {
     try {
-      const res = await axios.post("/fetchFinance", 
-      {
-        spaceName
+      const res = await axios.post("/fetchFinance", {
+        spaceName,
       });
 
       if (res.status !== 200) {
-        alert("Finance Fetch failed here.");
-        return ;
+        cogoToast.success("Finance fetch failed");
+        return;
       }
 
-      if(res.data.message !=="Finance Fetch not found"){
-       results=res?.data?.data;
+      if (res.data.message !== "Finance Fetch not found") {
+        results = res?.data?.data;
 
         return results;
       }
-     
-      alert(res.data.message);
 
+      cogoToast.success(res.data.message);
     } catch (err) {
       //alert("Goal Fetch failed");
     }
@@ -70,31 +67,27 @@ export const fetchGoal = createAsyncThunk(
   `${name}/fetchGoal`,
   async ({ spaceName }) => {
     try {
-      const res = await axios.post("/fetchGoal", 
-      {
-        spaceName
+      const res = await axios.post("/fetchGoal", {
+        spaceName,
       });
 
       if (res.status !== 200) {
-        alert("Goal Fetch failed here.");
-        return ;
+        cogoToast.success("Goal Fetch failed");
+        return;
       }
 
-      if(res.data.message !=="Goal Fetch not found"){
-       results=res?.data?.data;
+      if (res.data.message !== "Goal Fetch not found") {
+        results = res?.data?.data;
 
         return results;
       }
-     
-      alert(res.data.message);
 
+      cogoToast.success(res.data.message);
     } catch (err) {
-      //alert("Goal Fetch failed");
+      cogoToast.success("Goal fetch failed");
     }
   }
 );
-
-
 
 //login first person
 export const loginFirstPerson = createAsyncThunk(
@@ -102,28 +95,30 @@ export const loginFirstPerson = createAsyncThunk(
   async ({ spaceName, firstPersonEmail, firstPersonPassword }) => {
     try {
       const res = await axios.post("/loginFirstPerson", {
-        spaceName, firstPersonEmail, firstPersonPassword
+        spaceName,
+        firstPersonEmail,
+        firstPersonPassword,
       });
 
       if (res.status !== 200) {
-        alert("Login failed here.");
-        return ;
+        cogoToast.success("Login failed");
+        return;
       }
 
-      if(res.data.message !=="User not found"){
-       results=res?.data?.data;
-  
+      if (res.data.message !== "User not found") {
+        results = res?.data?.data;
+
         return results;
+      } else if (res.data.message === "User not found") {
+        cogoToast.error("User not found");
+      } else if (res.data.message === "Login is Successful") {
+        cogoToast.success("Login is Successful");
       }
-     
-      alert(res.data.message);
-
     } catch (err) {
-      alert("Login failed");
+      cogoToast.success("Login failed");
     }
   }
 );
-
 
 //login second person
 export const loginSecondPerson = createAsyncThunk(
@@ -131,54 +126,88 @@ export const loginSecondPerson = createAsyncThunk(
   async ({ spaceName, secondPersonEmail, secondPersonPassword }) => {
     try {
       const res = await axios.post("/loginSecondPerson", {
-        spaceName, secondPersonEmail, secondPersonPassword
+        spaceName,
+        secondPersonEmail,
+        secondPersonPassword,
       });
 
       if (res.status !== 200) {
-        alert("Login failed here.");
-        return ;
+        cogoToast.error("Login Failed");
+
+        return;
       }
 
-      if(res.data.message !=="User not found"){
-        results=res?.data?.data;
-    
+      if (res.data.message !== "User not found") {
+        results = res?.data?.data;
+
         return results;
+      } else if (res.data.message === "User not found") {
+        cogoToast.error("User not found");
+      } else if (res.data.message === "Login is Successful"){
+        cogoToast.success("Login is Successful");
       }
-     
-      alert(res.data.message);
 
+    
     } catch (err) {
-      alert("Login failed");
+      cogoToast.error("Login failed");
     }
   }
 );
-
 
 export const register = createAsyncThunk(
   `${name}/register`,
-  async ({ id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, firstPersonBirthday,secondPersonName, secondPersonEmail, secondPersonPassword , secondPersonBirthday, anniDate}) => {
+  async ({
+    id,
+    spaceName,
+    firstPersonName,
+    firstPersonEmail,
+    firstPersonPassword,
+    firstPersonBirthday,
+    secondPersonName,
+    secondPersonEmail,
+    secondPersonPassword,
+    secondPersonBirthday,
+    anniDate,
+  }) => {
     try {
-      const res = await axios.post("/register", {id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, firstPersonBirthday,secondPersonName, secondPersonEmail, secondPersonPassword , secondPersonBirthday, anniDate});
+      const res = await axios.post("/register", {
+        id,
+        spaceName,
+        firstPersonName,
+        firstPersonEmail,
+        firstPersonPassword,
+        firstPersonBirthday,
+        secondPersonName,
+        secondPersonEmail,
+        secondPersonPassword,
+        secondPersonBirthday,
+        anniDate,
+      });
 
-      alert(res.data.message);
+      if ((res.data.message = "Error, space not created.")) {
+        cogoToast.error("Error, space not created.");
+      } else if ((res.data.message = "Space name taken, space not created.")) {
+        cogoToast.error("Space name taken, space not created.");
+      } else if (
+        (res.data.message = "Space name is unique, space created successfully")
+      ) {
+        cogoToast.success("Space name is unique, space created successfully");
+      }
     } catch (err) {
-      alert("err", err)
-      alert("Register failed.");
+      cogoToast.error("Register failed.");
     }
   }
 );
 
-
 export const goalDone = createAsyncThunk(
   `${name}/goalDone`,
-  async ({  status ,spaceName, id}) => {
+  async ({ status, spaceName, id }) => {
     try {
-      const res = await axios.post("/goalDone", { status ,spaceName, id});
+      const res = await axios.post("/goalDone", { status, spaceName, id });
 
-      alert(res.data.message);
+      cogoToast.success(res.data.message);
     } catch (err) {
-    
-      alert("Goal done failed.");
+      cogoToast.errer("Goal done failed");
     }
   }
 );
@@ -187,65 +216,65 @@ export const financeDelete = createAsyncThunk(
   `${name}/financeDelete`,
   async ({ spaceName, id }) => {
     try {
-      const res = await axios.post("/financeDelete", {spaceName, id});
+      const res = await axios.post("/financeDelete", { spaceName, id });
 
-      alert(res.data.message);
+      cogoToast.success(res.data.message);
     } catch (err) {
-    
-      alert("Finance Delete failed.");
+      cogoToast.error("Finance delete failed");
     }
   }
 );
-
 
 export const goalDelete = createAsyncThunk(
   `${name}/goalDelete`,
   async ({ spaceName, id }) => {
     try {
-      const res = await axios.post("/goalDelete", {spaceName, id});
+      const res = await axios.post("/goalDelete", { spaceName, id });
 
-      alert(res.data.message);
+      cogoToast.success(res.data.message);
     } catch (err) {
-    
-      alert("Goal Delete failed.");
+      cogoToast.error("Goal Done failed.");
     }
   }
 );
 
 export const financePost = createAsyncThunk(
   `${name}/financePost`,
-  async ({ spaceName, id , title, desc, startGoal, currentSaved, endGoal}) => {
-
-    console.log("Second",spaceName, id , title, desc, startGoal, currentSaved, endGoal )
-
+  async ({ spaceName, id, title, desc, startGoal, currentSaved, endGoal }) => {
     try {
-      //const res = await axios.post("/financePost", {spaceName, id , title, desc, startGoal, currentSaved, endGoal});
-      //alert(res.data.message);
-     
-    const res = await axios.post("/financePost", {spaceName, id , title, desc, startGoal, currentSaved, endGoal});
-    alert(res.data.message);
-
+      const res = await axios.post("/financePost", {
+        spaceName,
+        id,
+        title,
+        desc,
+        startGoal,
+        currentSaved,
+        endGoal,
+      });
+      cogoToast.success(res.data.message);
     } catch (err) {
-     
-      alert("Finance Post failed.");
+      cogoToast.error("Finance Post failed.");
     }
   }
 );
 
 export const goalPost = createAsyncThunk(
   `${name}/goalPost`,
-  async ({ spaceName, id , title, status}) => {
+  async ({ spaceName, id, title, status }) => {
     try {
-      const res = await axios.post("/goalPost", {spaceName, id , title, status});
+      const res = await axios.post("/goalPost", {
+        spaceName,
+        id,
+        title,
+        status,
+      });
 
-      alert(res.data.message);
+      cogoToast.success(res.data.message);
     } catch (err) {
-     
-      alert("Goal Post failed.");
+      cogoToast.error("Goal Post failed.");
     }
   }
 );
-
 
 const appSlice = createSlice({
   name,
@@ -267,28 +296,20 @@ const appSlice = createSlice({
       state.isCheckCreated = initialState.isCheckCreated;
     },
     logOutFinanceFetch: (state) => {
-
-      state.financeFetchData= initialState.financeFetchData;
+      state.financeFetchData = initialState.financeFetchData;
       state.isLoggedInFinanceFetched = initialState.isLoggedInFinanceFetched;
-
     },
     logOutGoalFetch: (state) => {
-
-      state.goalFetchData= initialState.goalFetchData;
+      state.goalFetchData = initialState.goalFetchData;
       state.isLoggedInGoalFetched = initialState.isLoggedInGoalFetched;
-
     },
     logOutFirstPerson: (state) => {
-
-      state.firstPersonData= initialState.firstPersonData;
+      state.firstPersonData = initialState.firstPersonData;
       state.isLoggedInFirstPerson = initialState.isLoggedInFirstPerson;
-
     },
     logOutSecondPerson: (state) => {
-
-      state.secondPersonData= initialState.secondPersonData;
+      state.secondPersonData = initialState.secondPersonData;
       state.isLoggedInSecondPerson = initialState.isLoggedInSecondPerson;
-      
     },
   },
 
@@ -305,24 +326,23 @@ const appSlice = createSlice({
       state.registerLoading = false;
     });
 
+    //goal done
+    builder.addCase(goalDone.fulfilled, (state) => {
+      state.isGoalDoneCreated = true;
 
-      //goal done
-  builder.addCase(goalDone.fulfilled, (state) => {
-    state.isGoalDoneCreated = true;
-
-    state.goalDoneLoading = false;
-  });
-  builder.addCase(goalDone.pending, (state) => {
-    state.goalDoneLoading = true;
-  });
-  builder.addCase(goalDone.rejected, (state) => {
-    state.goalDoneLoading = false;
-  });
+      state.goalDoneLoading = false;
+    });
+    builder.addCase(goalDone.pending, (state) => {
+      state.goalDoneLoading = true;
+    });
+    builder.addCase(goalDone.rejected, (state) => {
+      state.goalDoneLoading = false;
+    });
 
     //finance delete
     builder.addCase(financeDelete.fulfilled, (state) => {
       state.isFinanceDeleteCreated = true;
-  
+
       state.financeDeleteLoading = false;
     });
     builder.addCase(financeDelete.pending, (state) => {
@@ -331,33 +351,32 @@ const appSlice = createSlice({
     builder.addCase(financeDelete.rejected, (state) => {
       state.financeDeleteLoading = false;
     });
-  
 
-  //goal delete
-  builder.addCase(goalDelete.fulfilled, (state) => {
-    state.isGoalDeleteCreated = true;
+    //goal delete
+    builder.addCase(goalDelete.fulfilled, (state) => {
+      state.isGoalDeleteCreated = true;
 
-    state.goalDeleteLoading = false;
-  });
-  builder.addCase(goalDelete.pending, (state) => {
-    state.goalDeleteLoading = true;
-  });
-  builder.addCase(goalDelete.rejected, (state) => {
-    state.goalDeleteLoading = false;
-  });
+      state.goalDeleteLoading = false;
+    });
+    builder.addCase(goalDelete.pending, (state) => {
+      state.goalDeleteLoading = true;
+    });
+    builder.addCase(goalDelete.rejected, (state) => {
+      state.goalDeleteLoading = false;
+    });
 
-  //finance post
-  builder.addCase(financePost.fulfilled, (state) => {
-    state.isFinancePostCreated = true;
+    //finance post
+    builder.addCase(financePost.fulfilled, (state) => {
+      state.isFinancePostCreated = true;
 
-    state.financePostLoading = false;
-  });
-  builder.addCase(financePost.pending, (state) => {
-    state.financePostLoading = true;
-  });
-  builder.addCase(financePost.rejected, (state) => {
-    state.financePostLoading = false;
-  });
+      state.financePostLoading = false;
+    });
+    builder.addCase(financePost.pending, (state) => {
+      state.financePostLoading = true;
+    });
+    builder.addCase(financePost.rejected, (state) => {
+      state.financePostLoading = false;
+    });
 
     //goal post
     builder.addCase(goalPost.fulfilled, (state) => {
@@ -372,87 +391,71 @@ const appSlice = createSlice({
       state.goalPostLoading = false;
     });
 
-  //login finance fetch
-  builder.addCase(fetchFinance.fulfilled, (state , { payload }) => {
-   
-    state.financeFetchData= payload;
+    //login finance fetch
+    builder.addCase(fetchFinance.fulfilled, (state, { payload }) => {
+      state.financeFetchData = payload;
 
-   
- 
-    if(payload){
-     
-     state.isLoggedInFinanceFetched = true;
-    }
-    
-     
-     state.isLoggedInFinanceFetched = false;
-   });
-   builder.addCase(fetchFinance.pending, (state) => {
-     state.loginLoadingFinanceFetch = true;
-   
-   });
-   builder.addCase(fetchFinance.rejected, (state) => {
-     state.loginLoadingFinanceFetch = false;
-    
-   });
+      if (payload) {
+        state.isLoggedInFinanceFetched = true;
+      }
+
+      state.isLoggedInFinanceFetched = false;
+    });
+    builder.addCase(fetchFinance.pending, (state) => {
+      state.loginLoadingFinanceFetch = true;
+    });
+    builder.addCase(fetchFinance.rejected, (state) => {
+      state.loginLoadingFinanceFetch = false;
+    });
 
     //login goal fetch
-   builder.addCase(fetchGoal.fulfilled, (state , { payload }) => {
-    state.goalFetchData= payload;
+    builder.addCase(fetchGoal.fulfilled, (state, { payload }) => {
+      state.goalFetchData = payload;
 
-  
-    if(payload){
-     state.isLoggedInGoalFetched = true;
-    }
-   
-     
-     state.isLoggedInGoalFetched = false;
-   });
-   builder.addCase(fetchGoal.pending, (state) => {
-     state.loginLoadingGoalFetch = true;
-   
-   });
-   builder.addCase(fetchGoal.rejected, (state) => {
-     state.loginLoadingGoalFetch = false;
-    
-   });
+      if (payload) {
+        state.isLoggedInGoalFetched = true;
+      }
 
-   //login first person
-   builder.addCase(loginFirstPerson.fulfilled, (state , { payload }) => {
-   state.firstPersonData= payload;
+      state.isLoggedInGoalFetched = false;
+    });
+    builder.addCase(fetchGoal.pending, (state) => {
+      state.loginLoadingGoalFetch = true;
+    });
+    builder.addCase(fetchGoal.rejected, (state) => {
+      state.loginLoadingGoalFetch = false;
+    });
 
+    //login first person
+    builder.addCase(loginFirstPerson.fulfilled, (state, { payload }) => {
+      state.firstPersonData = payload;
 
-   if(payload){
-    state.isLoggedInFirstPerson = true;
-   }
- 
-    
-    state.loginLoadingFirstPerson = false;
-  });
-  builder.addCase(loginFirstPerson.pending, (state) => {
-    state.loginLoadingFirstPerson = true;
+      if (payload) {
+        state.isLoggedInFirstPerson = true;
+      }
 
-  });
-  builder.addCase(loginFirstPerson.rejected, (state) => {
-    state.loginLoadingFirstPerson = false;
-  
-  });
+      state.loginLoadingFirstPerson = false;
+    });
+    builder.addCase(loginFirstPerson.pending, (state) => {
+      state.loginLoadingFirstPerson = true;
+    });
+    builder.addCase(loginFirstPerson.rejected, (state) => {
+      state.loginLoadingFirstPerson = false;
+    });
 
- //second person login
-   builder.addCase(loginSecondPerson.fulfilled, (state , { payload }) => {
-    state.secondPersonData= payload;
-    if(payload){
-     state.isLoggedInSecondPerson = true;
-    }     
-     state.loginLoadingSecondPerson = false;
-   });
-   builder.addCase(loginSecondPerson.pending, (state) => {
-     state.loginLoadingSecondPerson = true;
-
-   });
-   builder.addCase(loginSecondPerson.rejected, (state) => {
-     state.loginLoadingSecondPerson = false;
-   });
+    //second person login
+    builder.addCase(loginSecondPerson.fulfilled, (state, { payload }) => {
+      state.secondPersonData = payload;
+      if (payload) {
+        state.isLoggedInSecondPerson = true;
+      }
+      state.loginLoadingSecondPerson = false;
+    });
+    builder.addCase(loginSecondPerson.pending, (state) => {
+      state.loginLoadingSecondPerson = true;
+    });
+    builder.addCase(loginSecondPerson.rejected, (state) => {
+      state.loginLoadingSecondPerson = false;
+    });
   },
 });
 
@@ -472,42 +475,45 @@ export const { logOutFinanceFetch } = appSlice.actions;
 
 export default appSlice.reducer;
 
-
 //register complete status
 export const useRegisterCreated = () =>
   useSelector((state) => state.appState.isRegisterCreated);
 
-  export const useGoalDoneCeated = () =>
+export const useGoalDoneCeated = () =>
   useSelector((state) => state.appState.isGoalDeleteCreated);
 
-  export const useGoalDeleteCreated = () =>
+export const useGoalDeleteCreated = () =>
   useSelector((state) => state.appState.isGoalDeleteCreated);
 
-  export const useFinanceDeleteCreated = () =>
+export const useFinanceDeleteCreated = () =>
   useSelector((state) => state.appState.isFinanceDeleteCreated);
 
-  export const useGoalPostedCreated = () =>
+export const useGoalPostedCreated = () =>
   useSelector((state) => state.appState.isGoalPostCreated);
 
-  export const useCheckCreated = () =>
+export const useCheckCreated = () =>
   useSelector((state) => state.appState.isCheckCreated);
 
-  export const useIsLoggedInGoalFetch = () =>
+export const useIsLoggedInGoalFetch = () =>
   useSelector((state) => state.appState.isLoggedInGoalFetched);
 
-  export const useIsLoggedInFinanceFetch = () =>
+export const useIsLoggedInFinanceFetch = () =>
   useSelector((state) => state.appState.isLoggedInFinanceFetched);
-  
-  export const useGoalFetch = () => useSelector((state) => state.appState.goalFetchData);
 
-  export const useFinanceFetch = () => useSelector((state) => state.appState.financeFetchData);
+export const useGoalFetch = () =>
+  useSelector((state) => state.appState.goalFetchData);
 
-  export const useIsLoggedInFirstPerson = () =>
+export const useFinanceFetch = () =>
+  useSelector((state) => state.appState.financeFetchData);
+
+export const useIsLoggedInFirstPerson = () =>
   useSelector((state) => state.appState.isLoggedInFirstPerson);
 
-  export const useFirstPerson = () => useSelector((state) => state.appState.firstPersonData);
+export const useFirstPerson = () =>
+  useSelector((state) => state.appState.firstPersonData);
 
-  export const useIsLoggedInSecondPerson = () =>
+export const useIsLoggedInSecondPerson = () =>
   useSelector((state) => state.appState.isLoggedInSecondPerson);
 
-  export const useSecondPerson = () => useSelector((state) => state.appState.secondPersonData);
+export const useSecondPerson = () =>
+  useSelector((state) => state.appState.secondPersonData);
