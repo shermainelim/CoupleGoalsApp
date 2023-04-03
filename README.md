@@ -78,7 +78,4 @@ Features :
 - [ ] deploy to App stores Apple and Android
 
 
-
-
-
-Members : Shermaine Wee Kiat
+Members : Zane , Shermaine, Wee Kiat
