@@ -9,7 +9,7 @@ import AddTaskForm from "../todo/AddTaskForm";
 import ToDo from "../todo/ToDo";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus, faRefresh } from "@fortawesome/free-solid-svg-icons";
+import { faHeartCrack, faCirclePlus, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import {
   goalPost,
   fetchGoal,
@@ -268,6 +268,9 @@ const markDone = (idt) => {
   return (
     <div className={cx("space-container")}>
       <div className={cx("space-refresh")}>
+      <span title="refresh" onClick={refresh}>
+          <FontAwesomeIcon size={"3x"} icon={faHeartCrack} />
+        </span>
       <img
           data-testid="img-logo-resident"
           className={cx("imageIcon")}
