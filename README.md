@@ -76,6 +76,7 @@ Features :
 - [ ] Refactor code
 - [ ] wrap in react native webview for mobile use case
 - [ ] implement devops and infra
+- [ ] encrypt 2 passwords , how? and decrypt with bcrypt
 - [ ] deploy to App stores Apple and Android
 
 
