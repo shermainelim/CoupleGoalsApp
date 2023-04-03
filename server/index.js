@@ -29,12 +29,12 @@ app.post("/goalDone", (req, res) => {
  const id = req.body.id;
  const status = req.body.status;
 
-
-
   db.query(
     "UPDATE couplegoals.goals SET status = ? WHERE spaceName = ? AND id = ?",
     [status, spaceName, id],
   );
+  res.send({message: "Goal done"});
+
 });
 
 //dashboard delete finance tracker todo
@@ -47,6 +47,8 @@ app.post("/financeDelete", (req, res) => {
     "DELETE FROM couplegoals.finance WHERE spaceName = ? AND id = ?",
     [spaceName, id ],
   );
+  res.send({message: "Finance tracker deleted"});
+
 });
 
 
@@ -60,6 +62,7 @@ app.post("/goalDelete", (req, res) => {
     "DELETE FROM couplegoals.goals WHERE spaceName = ? AND id = ?",
     [spaceName, id ],
   );
+  res.send({message: "Goal deleted"});
 });
 
 
@@ -73,9 +76,6 @@ app.post("/financePost", (req, res) => {
  const startGoal = req.body.startGoal;
  const currentSaved = req.body.currentSaved;
  const endGoal = req.body.endGoal;
-
-
-
 
   db.query(
     "INSERT INTO couplegoals.finance ( spaceName, id , title, description, startGoal, currentSaved, endGoal) VALUES (?,?,?,?,?,?,?)",
@@ -96,6 +96,7 @@ app.post("/goalPost", (req, res) => {
     "INSERT INTO couplegoals.goals ( spaceName, id, title, status) VALUES (?,?,?,?)",
     [spaceName, id , title, status],
   );
+  res.send({message: "Goal posted"});
 });
 
 

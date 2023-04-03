@@ -8,6 +8,12 @@ Description: A goal setting app that allows couples to set and track shared goal
 
 These are a few ideas for private apps that couples can use to strengthen their relationship and deepen their connection.
 
+# System Architecture
+
+<img width="1173" alt="Screenshot 2023-04-03 at 11 38 08 PM" src="https://user-images.githubusercontent.com/65886071/229558890-84dee9a7-407e-4d7c-bbe4-ccc7ce945261.png">
+
+
+
 Start Date: 27 March 2023 End Date: 10 Feb 2024
 
 Tech stack:
@@ -57,12 +63,9 @@ Features :
 - [ ] Implement UI for Story/Event Stick it notes
 - [ ] CRUD Story/Event Stick it notes
 - [x] Call Birthday/Anni Date data from db to Dashboard UI
-- [ ] Implement manual refresh icon and logic on dashboard for finance and goal tracker
-- [ ] Implement SMTP email for CRUD register , forget password and change password and delete couple space
-- [ ] Create custom alert messages with toast or custom component
-- [ ] Error handling (connection fail etc)
-- [ ] Implement loading state
-- [ ] Refactor code
+- [x] Create custom alert messages with toast or custom component
+- [x] Error handling (connection fail etc)
+
 - [x] Establish connection between 2 accounts in 1 room lobby/couple space
 - [x] Implement Login and Logout for First Person
 - [x] Implement Login and Logout for Second Person
@@ -70,10 +73,18 @@ Features :
 - [x] Setup Redux Toolkit state management for frontend
 - [x] Setup backend db and nodejs connection to frontend
 - [x] Implement UI screens for Welcome, Register, Login and Dashboard    
+- [ ] Stay logged in (Cache) in mobile, need sessions
+- [ ] Delete Couple Space
+- [ ] Forget password
+- [ ] Change password
+- [ ] Remember password
+- [ ] Implement manual refresh icon and logic on dashboard for finance and goal tracker
+- [ ] Implement SMTP email for CRUD register , forget password and change password and delete couple space
+- [ ] Refactor code
+- [ ] wrap in react native webview for mobile use case
+- [ ] implement devops and infra
+- [ ] encrypt 2 passwords , how? and decrypt with bcrypt
+- [ ] deploy to App stores Apple and Android
 
 
-
-
-
-
-Members : Shermaine Wee Kiat
+Members : Zane , Shermaine, Wee Kiat

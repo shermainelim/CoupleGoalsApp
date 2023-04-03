@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginFirstPerson,useIsLoggedInFirstPerson } from "../../redux/appSlice";
+import {
+  loginFirstPerson,
+  useIsLoggedInFirstPerson,
+} from "../../redux/appSlice";
 import styles from "./firstPersonLogin.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
@@ -9,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
 const FirstPersonLogin = () => {
-
   const cx = classNames.bind(styles);
 
   const dispatch = useDispatch();
@@ -22,9 +24,9 @@ const FirstPersonLogin = () => {
 
   const isLoggedInFirstPerson = useIsLoggedInFirstPerson();
 
-if (isLoggedInFirstPerson) {
-  return <Navigate to="/dashboard" />;
-}
+  if (isLoggedInFirstPerson) {
+    return <Navigate to="/dashboard" />;
+  }
 
   const spaceNameHandler = (event) => {
     setChangeSpaceName(event.target.value);
@@ -43,7 +45,12 @@ if (isLoggedInFirstPerson) {
       <div className="register-title"> Login as 1st Person</div>
 
       <input
-        style={{borderRadius: "10px", padding:"10px", paddingRight:"100px", marginBottom:"20px"}}
+        style={{
+          borderRadius: "10px",
+          padding: "10px",
+          paddingRight: "100px",
+          marginBottom: "20px",
+        }}
         type="text"
         name="name"
         placeholder="Couple Space Name"
@@ -52,11 +59,25 @@ if (isLoggedInFirstPerson) {
       />
 
       {spaceName.length === 0 && formSubmitted ? (
-        <div  style={{marginRight:"180px", marginBottom:"5px",marginTop:"-15px", color: "darkred"}}>*required</div>
+        <div
+          style={{
+            marginRight: "180px",
+            marginBottom: "5px",
+            marginTop: "-15px",
+            color: "darkred",
+          }}
+        >
+          *required
+        </div>
       ) : null}
 
       <input
-        style={{borderRadius: "10px", padding:"10px", paddingRight:"100px", marginBottom:"20px"}}
+        style={{
+          borderRadius: "10px",
+          padding: "10px",
+          paddingRight: "100px",
+          marginBottom: "20px",
+        }}
         type="text"
         name="name"
         placeholder="1st Person's Email"
@@ -65,11 +86,25 @@ if (isLoggedInFirstPerson) {
       />
 
       {firstPersonEmail.length === 0 && formSubmitted ? (
-        <div style={{marginRight:"180px", marginBottom:"5px",marginTop:"-15px", color: "darkred"}}>*required</div>
+        <div
+          style={{
+            marginRight: "180px",
+            marginBottom: "5px",
+            marginTop: "-15px",
+            color: "darkred",
+          }}
+        >
+          *required
+        </div>
       ) : null}
 
       <input
-        style={{borderRadius: "10px", padding:"10px", paddingRight:"100px", marginBottom:"20px"}}
+        style={{
+          borderRadius: "10px",
+          padding: "10px",
+          paddingRight: "100px",
+          marginBottom: "20px",
+        }}
         type="password"
         name="name"
         placeholder="1st Person's Password"
@@ -78,7 +113,16 @@ if (isLoggedInFirstPerson) {
       />
 
       {firstPersonPassword.length === 0 && formSubmitted ? (
-        <div  style={{marginRight:"180px", marginBottom:"5px",marginTop:"-15px", color: "darkred"}}>*required</div>
+        <div
+          style={{
+            marginRight: "180px",
+            marginBottom: "5px",
+            marginTop: "-15px",
+            color: "darkred",
+          }}
+        >
+          *required
+        </div>
       ) : null}
 
       <CustomButton
@@ -93,8 +137,13 @@ if (isLoggedInFirstPerson) {
             firstPersonEmail.length !== 0 &&
             firstPersonPassword.length !== 0
           ) {
-           
-            dispatch(loginFirstPerson({spaceName, firstPersonEmail, firstPersonPassword}))
+            dispatch(
+              loginFirstPerson({
+                spaceName,
+                firstPersonEmail,
+                firstPersonPassword,
+              })
+            );
             setChangeSpaceName("");
             setChangeFirstPersonEmail("");
             setChangeFirstPersonPassword("");
@@ -110,7 +159,6 @@ if (isLoggedInFirstPerson) {
           navigate("/loginOptions");
         }}
       ></CustomButton>
-
     </div>
   );
 };
