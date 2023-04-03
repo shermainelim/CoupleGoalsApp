@@ -71,6 +71,9 @@ Features :
 - [x] Setup backend db and nodejs connection to frontend
 - [x] Implement UI screens for Welcome, Register, Login and Dashboard    
 - [ ] Delete Couple Space
+- [ ] Forget password
+- [ ] Change password
+- [ ] smtp email
 
 
 
