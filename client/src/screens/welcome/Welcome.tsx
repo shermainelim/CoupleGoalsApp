@@ -2,7 +2,7 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from "./Welcome.scss";
-import Couple from "../../assets/couple2.png";
+import Couple from "../../assets/couple5.png";
 import CustomButton from "../../shared/CustomButton";
 
 const Welcome = () => {

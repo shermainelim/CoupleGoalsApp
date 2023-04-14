@@ -24,7 +24,10 @@ import {
 import { Navigate } from "react-router-dom";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import Couple from "../../assets/couple3.png";
+import Couple from "../../assets/couple6.png";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import * as cgUtils from "../../utils/cgUtil"
 
 const DashboardSecond = () => {
   const cx = classNames.bind(styles);
@@ -122,6 +125,45 @@ const DashboardSecond = () => {
     });
   }
 
+  const onClickDelete=()=>{
+   
+    console.log("deleted");
+  }
+
+  const onSubmit = () => {confirmAlert({
+    customUI: ({ onClose }) => {
+      return (
+        <div style={{marginLeft:"200px", fontSize:"20px",fontFamily:"monospace"}}>
+          <h1>Are you sure?</h1>
+          <p>You want to delete this couple space? <br/>
+          <br/>It will delete both accounts in the  <br/> <br/>
+          couple space.</p>
+         
+          <CustomButton
+
+className="alert-btn"
+testId="resident"
+content="No"
+clicked={onClose}
+></CustomButton>
+
+<CustomButton
+
+className="alert-btn"
+testId="resident"
+content="Yes, Delete it!"
+clicked={onClickDelete}
+></CustomButton>
+          
+          
+ 
+        </div>
+      );
+    }
+  });
+}
+
+
   //second person login
 
   var shortMonthNameFirstPersonUserBday = moment(
@@ -141,50 +183,18 @@ const DashboardSecond = () => {
   if (logout) {
     return <Navigate to="/" />;
   }
-  function getNumberOfDays(start) {
-    const date1 = new Date(start);
-    const date2 = new Date();
-
-    // One day in milliseconds
-    const oneDay = 1000 * 60 * 60 * 24;
-
-    // Calculating the time difference between two dates
-    const diffInTime = date2.getTime() - date1.getTime();
-
-    // Calculating the no. of days between two dates
-    const diffInDays = Math.round(diffInTime / oneDay);
-
-    return diffInDays;
-  }
+  
 
   // mm.dd.yyyy
-  let daysTgt = getNumberOfDays(anniversaryDateFirstPersonUser);
+  let daysTgt = cgUtils.getNumberOfDays(anniversaryDateFirstPersonUser);
 
-  function getFormatedStringFromDays(numberOfDays) {
-    var years = Math.floor(numberOfDays / 365);
-    var months = Math.floor((numberOfDays % 365) / 30);
-    var days = Math.floor((numberOfDays % 365) % 30);
-
-    var yearsDisplay =
-      years > 0 ? years + (years == 1 ? " Year, " : " Years, ") : "";
-    var monthsDisplay =
-      months > 0 ? months + (months == 1 ? " Month, " : " Months, ") : "";
-    var daysDisplay = days > 0 ? days + (days == 1 ? " Day" : " Days") : "";
-    return yearsDisplay + monthsDisplay + daysDisplay;
-  }
-
-  const yearsTgt = getFormatedStringFromDays(daysTgt);
-
-  function randomIntFromInterval(min, max) {
-    // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
+  const yearsTgt = cgUtils.getFormatedStringFromDays(daysTgt);
 
   // Add task
   ///////////
   const addTask = () => {
     if (newTask) {
-      let num = randomIntFromInterval(1, 10000000);
+      let num = cgUtils.randomIntFromInterval(1, 10000000);
       setToDo([...toDo, { id: num, title: newTask, status: false }]);
 
       setNewTask("");
@@ -240,7 +250,9 @@ const DashboardSecond = () => {
     setUpdateData("");
   };
 
-  const trashCanHandler = (tid) => {
+
+  const trashCanHandler = (tid)=>{
+  
     setToDoFinance(toDoFinance.filter((task) => task.id !== tid));
     let id = tid;
     dispatch(financeDelete({ spaceName, id }));
@@ -351,13 +363,23 @@ const DashboardSecond = () => {
       {renderMainCoupleCard()}
       {renderFinanceCard()}
       {renderGoalCard()}
+      
       <CustomButton
-        className="resident-btn"
-        testId="resident"
-        content="Logout"
-        clicked={logoutHandler}
-      ></CustomButton>
-    </div>
+
+className="resident-btn"
+testId="resident"
+content="Logout"
+clicked={logoutHandler}
+></CustomButton>
+
+<CustomButton
+
+className="resident-btn"
+testId="resident"
+content="Delete Couple Space"
+clicked={onSubmit}
+></CustomButton>
+</div>
   );
 };
 

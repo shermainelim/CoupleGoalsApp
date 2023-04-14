@@ -18,6 +18,8 @@ const initialState = {
   isLoggedInSecondPerson: false,
   registerLoading: false,
   isRegisterCreated: false,
+  uniqueLoading: false,
+  isUniqueCreated: false,
   financePostLoading: false,
   isFinancePostCreated: false,
   goalPostLoading: false,
@@ -197,6 +199,27 @@ export const register = createAsyncThunk(
   }
 );
 
+export const checkUnique = createAsyncThunk(
+  `${name}/checkUnique`,
+  async ({ spaceName }) => {
+    try {
+      const res = await axios.post("/checkUnique", {
+        spaceName,
+      });
+
+      console.log("mess", res.data.message);
+      if (res.data.message === "unique") {
+        cogoToast.success("Space name is unique.");
+      }
+      if (res.data.message === "taken") {
+        cogoToast.error("Space name taken.");
+      }
+    } catch (err) {
+      cogoToast.error("Check failed.");
+    }
+  }
+);
+
 export const goalDone = createAsyncThunk(
   `${name}/goalDone`,
   async ({ status, spaceName, id }) => {
@@ -278,6 +301,10 @@ const appSlice = createSlice({
   name,
   initialState,
   reducers: {
+    completeUnique: (state) => {
+      state.isUniqueCreated = initialState.isUniqueCreated;
+    },
+
     completeRegister: (state) => {
       state.isRegisterCreated = initialState.isCheckCreated;
     },
@@ -312,8 +339,20 @@ const appSlice = createSlice({
   },
 
   extraReducers: (builder) => {
+    builder.addCase(checkUnique.fulfilled, (state) => {
+      state.is = true;
+
+      state.uniqueLoading = false;
+    });
+    builder.addCase(checkUnique.pending, (state) => {
+      state.uniqueLoading = true;
+    });
+    builder.addCase(checkUnique.rejected, (state) => {
+      state.uniqueLoading = false;
+    });
+
     builder.addCase(register.fulfilled, (state) => {
-      state.isRegisterCreated = true;
+      state.isUniqueCreated = true;
 
       state.registerLoading = false;
     });
@@ -460,6 +499,7 @@ const appSlice = createSlice({
 // each case under reducers becomes an action
 
 export const { completeRegister } = appSlice.actions;
+export const { completeIsUnique } = appSlice.actions;
 export const { completeGoalDone } = appSlice.actions;
 export const { completeGoalDelete } = appSlice.actions;
 export const { completeFinanceDelete } = appSlice.actions;
@@ -476,6 +516,9 @@ export default appSlice.reducer;
 //register complete status
 export const useRegisterCreated = () =>
   useSelector((state) => state.appState.isRegisterCreated);
+
+export const useIsUniqueCreated = () =>
+  useSelector((state) => state.appState.isUniqueCreated);
 
 export const useGoalDoneCeated = () =>
   useSelector((state) => state.appState.isGoalDeleteCreated);
