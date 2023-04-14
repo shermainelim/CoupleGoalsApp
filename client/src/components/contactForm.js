@@ -7,10 +7,10 @@ export default function ContactUs() {
 
     emailjs
       .sendForm(
-        "service_dolphinoo",
-        "template_chocolate_labs",
+        "service_56o8mmm",
+        "template_jve82wn",
         e.target,
-        "3ui3POghHgf34NMMz"
+        "XxERtShXrmAuFQEda"
       )
       .then(
         (result) => {

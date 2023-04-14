@@ -22,6 +22,30 @@ const db = mysql.createPool({
   database: "couplegoals",
 });
 
+//send email
+
+app.post("/api/sendemail", async (req, res) => {
+  const email = req.body.firstPersonEmail;
+  const username = req.body.firstPersonName;
+
+  try {
+    const send_to = email;
+    const sent_from = process.env.EMAIL_USER;
+    const reply_to = email;
+    const subject = "Sign Up Message From Couple Goals Official";
+    const message = `
+        <p>Hello ${username}</p>
+        <p>Thank for signing up with Couple Goals ! </p>
+        <p>Enjoy,</p>
+        <p>Couple Goals Official</p>
+    `;
+
+    await sendEmail(subject, message, send_to, sent_from, reply_to);
+    res.status(200).json({ success: true, message: "Email Sent" });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+});
 
 //dashboard done goal tracker todo
 app.post("/goalDone", (req, res) => {

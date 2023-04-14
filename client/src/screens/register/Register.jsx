@@ -5,6 +5,7 @@ import styles from "./Register.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
 import { useNavigate } from "react-router-dom";
+import axios from "../../utils/axios";
 
 const Register = () => {
   const cx = classNames.bind(styles);
@@ -71,6 +72,22 @@ const Register = () => {
 
   const anniDateHandler = (event) => {
     setAnniDate(event.target.value);
+  };
+
+  const sendEmail = async (e) => {
+    //e.preventDefault();
+
+    const data = {
+      firstPersonEmail,
+      firstPersonName
+    };
+
+    const response = await axios.post(
+      "http://localhost:3004/api/sendemail",
+      data
+    );
+    console.log(response.data);
+    alert("Email Sent!");
   };
 
   return (
@@ -284,7 +301,7 @@ const Register = () => {
                 anniDate,
               })
             );
-
+              sendEmail();
             setChangeSpaceName("");
             setChangeFirstPersonName("");
             setChangeFirstPersonEmail("");
