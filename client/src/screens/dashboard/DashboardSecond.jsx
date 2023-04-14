@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import classNames from "classnames/bind";
-import styles from "./DashboardSecond.scss";
+import styles from "./Dashboard.scss";
 import { Card } from "../../shared/Card";
 import CustomButton from "../../shared/CustomButton";
 import UpdateForm from "../todo/UpdateForm";
@@ -20,6 +20,8 @@ import {
   fetchFinance,
   useFinanceFetch,
   financeDelete,
+  spaceDelete,
+  completeSpaceDelete,
 } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 import moment from "moment";
@@ -28,14 +30,17 @@ import Couple from "../../assets/couple6.png";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import * as cgUtils from "../../utils/cgUtil"
+import cogoToast from "cogo-toast";
 
-const DashboardSecond = () => {
+const Dashboard = () => {
   const cx = classNames.bind(styles);
   const navigate = useNavigate();
   const [logout, setLogout] = useState(false);
   const [toDo, setToDo] = useState([]);
+  const [deleted, setDeleted]= useState(false);
+  let secondPersonData = useSecondPerson();
 
-  const secondPersonData = useSecondPerson();
+  console.log("secoind", secondPersonData);
 
   //first person login
   const spaceName = secondPersonData[0];
@@ -87,6 +92,7 @@ const DashboardSecond = () => {
   function refresh() {
     dispatch(fetchGoal({ spaceName }));
     dispatch(fetchFinance({ spaceName }));
+    cogoToast.success("Refreshed");
   }
 
   function processNow() {
@@ -126,38 +132,51 @@ const DashboardSecond = () => {
   }
 
   const onClickDelete=()=>{
-   
-    console.log("deleted");
+    confirmAlert({
+      customUI: ({ onClose }) => {
+    dispatch(spaceDelete({ spaceName }));
+    dispatch(logOutSecondPerson());
+    setLogout(true);
+    dispatch(completeSpaceDelete());
+    onClose();
+      }
+  });
   }
 
-  const onSubmit = () => {confirmAlert({
+ 
+
+
+  const onSubmit = () => {
+    confirmAlert({
     customUI: ({ onClose }) => {
       return (
         <div style={{marginLeft:"200px", fontSize:"20px",fontFamily:"monospace"}}>
-          <h1>Are you sure?</h1>
-          <p>You want to delete this couple space? <br/>
-          <br/>It will delete both accounts in the  <br/> <br/>
-          couple space.</p>
-         
+        <h1>Are you sure?</h1>
+        <p>You want to delete this couple space? <br/>
+        <br/>It will delete both accounts in the  <br/> <br/>
+        couple space.</p>
+     
+       <CustomButton
+
+          className="alert-btn"
+          testId="resident"
+          content="No"
+          clicked={onClose}
+          ></CustomButton>
+          
           <CustomButton
-
-className="alert-btn"
-testId="resident"
-content="No"
-clicked={onClose}
-></CustomButton>
-
-<CustomButton
-
-className="alert-btn"
-testId="resident"
-content="Yes, Delete it!"
-clicked={onClickDelete}
-></CustomButton>
           
-          
- 
-        </div>
+          className="alert-btn"
+          testId="resident"
+          content="Yes. Delete Couple Space"
+          clicked={onClickDelete}
+          ></CustomButton>
+      
+        
+        
+
+      </div>
+        
       );
     }
   });
@@ -270,7 +289,7 @@ clicked={onClickDelete}
           <div className={cx("space-welcome")}>Welcome {secondPersonName}</div>
 
           <div className={cx("space-welcome")}>
-            Your Birthday: {shortMonthNameSecondPersonBday}
+            Your Birthday: { shortMonthNameSecondPersonBday}
           </div>
 
           <div className={cx("space-welcome")}>
@@ -383,4 +402,4 @@ clicked={onSubmit}
   );
 };
 
-export default DashboardSecond;
+export default Dashboard;
