@@ -37,6 +37,18 @@ app.post("/goalDone", (req, res) => {
 
 });
 
+//dashboard delete couple space
+app.post("/spaceDelete", (req, res) => {
+  const spaceName = req.body.spaceName;
+
+  db.query(
+    "DELETE FROM couplegoals.space WHERE spaceName = ?",
+    [spaceName ],
+  );
+  res.send({message: "Couple Space deleted"});
+
+});
+
 //dashboard delete finance tracker todo
 app.post("/financeDelete", (req, res) => {
   const spaceName = req.body.spaceName;

@@ -27,6 +27,8 @@ const initialState = {
   goalDeleteLoading: false,
   isFinanceDeleteCreated: false,
   financeDeleteLoading: false,
+  isSpaceDeleteCreated: false,
+  spaceDeleteLoading: false,
   isGoalDeleteCreated: false,
   goalDoneLoading: false,
   isGoalDoneCreated: false,
@@ -233,6 +235,19 @@ export const goalDone = createAsyncThunk(
   }
 );
 
+export const spaceDelete = createAsyncThunk(
+  `${name}/spaceDelete`,
+  async ({ spaceName }) => {
+    try {
+      const res = await axios.post("/spaceDelete", { spaceName});
+
+      cogoToast.success(res.data.message);
+    } catch (err) {
+      cogoToast.error("Couple Space delete failed");
+    }
+  }
+);
+
 export const financeDelete = createAsyncThunk(
   `${name}/financeDelete`,
   async ({ spaceName, id }) => {
@@ -308,6 +323,9 @@ const appSlice = createSlice({
     completeRegister: (state) => {
       state.isRegisterCreated = initialState.isCheckCreated;
     },
+    completeSpaceDelete: (state) => {
+      state.firstPersonData = initialState.firstPersonData;
+    },
     completeDeletePost: (state) => {
       state.isGoalDeleteCreated = initialState.isGoalDeleteCreated;
     },
@@ -374,6 +392,19 @@ const appSlice = createSlice({
     });
     builder.addCase(goalDone.rejected, (state) => {
       state.goalDoneLoading = false;
+    });
+
+     //space delete
+     builder.addCase(spaceDelete.fulfilled, (state) => {
+      state.isSpaceDeleteCreated = true;
+
+      state.spaceDeleteLoading = false;
+    });
+    builder.addCase(spaceDelete.pending, (state) => {
+      state.spaceDeleteLoading = true;
+    });
+    builder.addCase(spaceDelete.rejected, (state) => {
+      state.spaceDeleteLoading = false;
     });
 
     //finance delete
@@ -503,6 +534,7 @@ export const { completeIsUnique } = appSlice.actions;
 export const { completeGoalDone } = appSlice.actions;
 export const { completeGoalDelete } = appSlice.actions;
 export const { completeFinanceDelete } = appSlice.actions;
+export const { completeSpaceDelete } = appSlice.actions;
 export const { completeFinancePost } = appSlice.actions;
 export const { completeGoalPost } = appSlice.actions;
 export const { completeCheck } = appSlice.actions;
@@ -525,6 +557,9 @@ export const useGoalDoneCeated = () =>
 
 export const useGoalDeleteCreated = () =>
   useSelector((state) => state.appState.isGoalDeleteCreated);
+
+  export const useSpaceDeleteCreated = () =>
+  useSelector((state) => state.appState.isSpaceDeleteCreated);
 
 export const useFinanceDeleteCreated = () =>
   useSelector((state) => state.appState.isFinanceDeleteCreated);
