@@ -6,7 +6,7 @@ import CustomButton from "../../shared/CustomButton";
 import { useFirstPerson, financePost } from "../../redux/appSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import randomIntFromInterval from "../../utils/cgUtil";
+import * as cgUtils from "../../utils/cgUtil";
 
 const FinanceForm = () => {
   const cx = classNames.bind(styles);
@@ -44,7 +44,7 @@ const FinanceForm = () => {
     setEndGoal(event.target.value);
   };
 
-  let id = randomIntFromInterval(1, 10000000);
+  let id = cgUtils.randomIntFromInterval(1, 10000000);
 
   return (
     <div className={cx("finance-space-container")}>

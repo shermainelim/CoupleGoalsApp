@@ -24,7 +24,6 @@ import {
 import { Navigate } from "react-router-dom";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import randomIntFromInterval from "../../utils/cgUtil";
 import Couple from "../../assets/couple6.png";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
@@ -205,7 +204,7 @@ clicked={onClickDelete}
   ///////////
   const addTask = () => {
     if (newTask) {
-      let num = cgUtils.randomIntFromInt(1, 10000000);
+      let num = cgUtils.randomIntFromInterval(1, 10000000);
       setToDo([...toDo, { id: num, title: newTask, status: false }]);
 
       setNewTask("");
