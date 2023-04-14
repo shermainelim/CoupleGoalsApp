@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
+  forgetPassword,
   loginFirstPerson,
   useIsLoggedInFirstPerson,
 } from "../../redux/appSlice";
@@ -8,7 +9,7 @@ import styles from "./ForgetPassword.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
 import { useNavigate } from "react-router-dom";
-
+import * as cgUtils from "../../utils/cgUtil";
 import { Navigate } from "react-router-dom";
 
 const ForgetPassword = () => {
@@ -20,13 +21,9 @@ const ForgetPassword = () => {
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [firstPersonEmail, setChangeFirstPersonEmail] = useState("");
- 
+ const randNo = cgUtils.randomIntFromInterval(1,100000);
 
- 
-
- 
- 
-
+ console.log("rand", randNo);
   const firstPersonEmailHandler = (event) => {
     setChangeFirstPersonEmail(event.target.value);
   };
@@ -73,7 +70,7 @@ const ForgetPassword = () => {
             
             firstPersonEmail.length !== 0 
           ) {
-            
+            dispatch(forgetPassword({ randNo, firstPersonEmail }));
             
             setChangeFirstPersonEmail("");
             

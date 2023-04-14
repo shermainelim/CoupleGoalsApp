@@ -37,6 +37,24 @@ const triggerEmail = async (email, username) => {
   return await sendEmail(subject, message, sendTo, sentFrom, replyTo);
 }
 
+
+const triggerResetEmail = async (email, randNo) => {
+  const sendTo = email;
+  const sentFrom = process.env.EMAIL_USER;
+  const replyTo = email;
+  const subject = "Sign Up Message From Couple Goals Official";
+  const message = `
+      <p>Hello User</p>
+      <p>You have requested to reset your password. </p>
+      <p>Your temporary password is ${randNo}. </p>
+      <p>Please login and change password. </p>
+      <p>Enjoy,</p>
+      <p>Couple Goals Official</p>
+  `;
+  
+  return await sendEmail(subject, message, sendTo, sentFrom, replyTo);
+}
+
 //send email
 
 app.post("/api/sendemail", async (req, res) => {
@@ -74,6 +92,28 @@ app.post("/goalDone", (req, res) => {
     [status, spaceName, id],
   );
   res.send({message: "Goal done"});
+
+});
+
+//forget password
+app.post("/forgetPassword",async (req, res) => {
+  const firstPersonEmail = req.body.firstPersonEmail;
+  const randNo = req.body.randNo;
+
+  console.log("randno be", randNo);
+
+  db.query(
+    "UPDATE couplegoals.space SET firstPersonPassword = ? WHERE firstPersonEmail = ?",
+    [randNo, firstPersonEmail],
+  );
+
+  try {
+    await triggerResetEmail(firstPersonEmail, randNo);
+    res.status(200).json({ success: true, message: "Reset Email sent" });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+
 
 });
 

@@ -32,6 +32,8 @@ const initialState = {
   isGoalDeleteCreated: false,
   goalDoneLoading: false,
   isGoalDoneCreated: false,
+  resetDoneLoading: false,
+  isResetDoneCreated: false,
   checkLoading: false,
   isCheckCreated: false,
 };
@@ -230,7 +232,22 @@ export const goalDone = createAsyncThunk(
 
       cogoToast.success(res.data.message);
     } catch (err) {
-      cogoToast.errer("Goal done failed");
+      cogoToast.error("Goal done failed");
+    }
+  }
+);
+
+
+export const forgetPassword = createAsyncThunk(
+  `${name}/forgetPassword `,
+  async ({ randNo,firstPersonEmail}) => {
+    console.log("rand",randNo)
+    try {
+      const res = await axios.post("/forgetPassword", { randNo, firstPersonEmail });
+
+      cogoToast.success(res.data.message);
+    } catch (err) {
+      cogoToast.error("Reset Password failed");
     }
   }
 );
@@ -394,6 +411,20 @@ const appSlice = createSlice({
       state.goalDoneLoading = false;
     });
 
+
+       //reset done
+       builder.addCase(forgetPassword.fulfilled, (state) => {
+        state.isResetDoneCreated = true;
+  
+        state.resetDoneLoading = false;
+      });
+      builder.addCase(forgetPassword.pending, (state) => {
+        state.resetDoneLoading = true;
+      });
+      builder.addCase(forgetPassword.rejected, (state) => {
+        state.resetDoneLoading = false;
+      });
+
      //space delete
      builder.addCase(spaceDelete.fulfilled, (state) => {
       state.isSpaceDeleteCreated = true;
@@ -532,6 +563,7 @@ const appSlice = createSlice({
 export const { completeRegister } = appSlice.actions;
 export const { completeIsUnique } = appSlice.actions;
 export const { completeGoalDone } = appSlice.actions;
+export const { completeResetDone } = appSlice.actions;
 export const { completeGoalDelete } = appSlice.actions;
 export const { completeFinanceDelete } = appSlice.actions;
 export const { completeSpaceDelete } = appSlice.actions;
@@ -553,7 +585,10 @@ export const useIsUniqueCreated = () =>
   useSelector((state) => state.appState.isUniqueCreated);
 
 export const useGoalDoneCeated = () =>
-  useSelector((state) => state.appState.isGoalDeleteCreated);
+  useSelector((state) => state.appState.isGoalDoneCreated);
+
+  export const useResetDoneCeated = () =>
+  useSelector((state) => state.appState.isResetDoneCreated);
 
 export const useGoalDeleteCreated = () =>
   useSelector((state) => state.appState.isGoalDeleteCreated);
