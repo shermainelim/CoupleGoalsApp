@@ -22,6 +22,21 @@ const db = mysql.createPool({
   database: "couplegoals",
 });
 
+const triggerEmail = async (email, username) => {
+  const sendTo = email;
+  const sentFrom = process.env.EMAIL_USER;
+  const replyTo = email;
+  const subject = "Sign Up Message From Couple Goals Official";
+  const message = `
+      <p>Hello ${username}</p>
+      <p>Thank for signing up with Couple Goals ! </p>
+      <p>Enjoy,</p>
+      <p>Couple Goals Official</p>
+  `;
+  
+  return await sendEmail(subject, message, sendTo, sentFrom, replyTo);
+}
+
 //send email
 
 app.post("/api/sendemail", async (req, res) => {
@@ -29,18 +44,19 @@ app.post("/api/sendemail", async (req, res) => {
   const username = req.body.firstPersonName;
 
   try {
-    const send_to = email;
-    const sent_from = process.env.EMAIL_USER;
-    const reply_to = email;
-    const subject = "Sign Up Message From Couple Goals Official";
-    const message = `
-        <p>Hello ${username}</p>
-        <p>Thank for signing up with Couple Goals ! </p>
-        <p>Enjoy,</p>
-        <p>Couple Goals Official</p>
-    `;
+    await triggerEmail(email, username);
+    res.status(200).json({ success: true, message: "Email Sent" });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+});
 
-    await sendEmail(subject, message, send_to, sent_from, reply_to);
+app.post("/api/sendEmailSecond", async (req, res) => {
+  const email = req.body.secondPersonEmail;
+  const username = req.body.secondPersonName;
+
+  try {
+    await triggerEmail(email, username);
     res.status(200).json({ success: true, message: "Email Sent" });
   } catch (error) {
     res.status(500).json(error.message);
@@ -207,6 +223,9 @@ app.post("/register", (req, res) => {
   const secondPersonBirthday = req.body.secondPersonBirthday;
   const anniDate = req.body.anniDate;
 
+// do validation here before insert
+// because raw sql query, need validate for symbols. to prevent script insertion like <>
+// sanization of data
   const hash1 = bcrypt.hashSync(firstPersonPassword, saltRounds);
   const hash2 = bcrypt.hashSync(secondPersonPassword, saltRounds);
 

@@ -6,6 +6,7 @@ import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
 import { useNavigate } from "react-router-dom";
 import axios from "../../utils/axios";
+import cogoToast from "cogo-toast";
 
 const Register = () => {
   const cx = classNames.bind(styles);
@@ -87,7 +88,23 @@ const Register = () => {
       data
     );
     console.log(response.data);
-    alert("Email Sent!");
+    cogoToast.success("Email Sent!");
+  };
+
+  const sendEmailSecondPerson = async () => {
+   
+
+    const data = {
+      secondPersonEmail,
+      secondPersonName
+    };
+
+    const response = await axios.post(
+      "http://localhost:3004/api/sendEmailSecond",
+      data
+    );
+    console.log(response.data);
+    cogoToast.success("Email Sent!");
   };
 
   return (
@@ -302,6 +319,7 @@ const Register = () => {
               })
             );
               sendEmail();
+              sendEmailSecondPerson();
             setChangeSpaceName("");
             setChangeFirstPersonName("");
             setChangeFirstPersonEmail("");
