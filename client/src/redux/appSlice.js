@@ -189,11 +189,11 @@ export const register = createAsyncThunk(
       if ((res.data.message === "Error, space not created.")) {
         cogoToast.error("Error, space not created.");
       } else if ((res.data.message === "Space name taken, space not created.")) {
-        cogoToast.error("Space name taken, space not created.");
+        cogoToast.error("Not created.");
       } else if (
         (res.data.message === "Space name is unique, space created successfully")
       ) {
-        cogoToast.success("Space name is unique, space created successfully");
+        cogoToast.success("Created successfully");
       }
     } catch (err) {
       cogoToast.error("Register failed.");

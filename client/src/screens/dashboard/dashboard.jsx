@@ -319,7 +319,7 @@ const Dashboard = () => {
           <div className="big-finance-card-title">Finance Tracker</div>
           <div
             onClick={() => {
-              navigate("/financeFormSecond");
+              navigate("/financeForm");
             }}
           >
             <FontAwesomeIcon size="3x" icon={faCirclePlus} />
