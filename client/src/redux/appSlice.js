@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../utils/axios";
 import { useSelector } from "react-redux";
 import cogoToast from "cogo-toast";
+import ForgetPasswordSecond from "../screens/forgetPassword/forgetPasswordSecond";
 
 const initialState = {
   loginLoadingFinanceFetch: false,
@@ -34,6 +35,8 @@ const initialState = {
   isGoalDoneCreated: false,
   resetDoneLoading: false,
   isResetDoneCreated: false,
+  resetSecondDoneLoading: false,
+  isResetSecondDoneCreated: false,
   checkLoading: false,
   isCheckCreated: false,
 };
@@ -188,12 +191,12 @@ export const register = createAsyncThunk(
         anniDate,
       });
 
-      if ((res.data.message === "Error, space not created.")) {
+      if (res.data.message === "Error, space not created.") {
         cogoToast.error("Error, space not created.");
-      } else if ((res.data.message === "Space name taken, space not created.")) {
+      } else if (res.data.message === "Space name taken, space not created.") {
         cogoToast.error("Not created.");
       } else if (
-        (res.data.message === "Space name is unique, space created successfully")
+        res.data.message === "Space name is unique, space created successfully"
       ) {
         cogoToast.success("Created successfully");
       }
@@ -237,15 +240,34 @@ export const goalDone = createAsyncThunk(
   }
 );
 
-
 export const forgetPassword = createAsyncThunk(
   `${name}/forgetPassword `,
-  async ({ randNo,firstPersonEmail}) => {
-    console.log("rand",randNo)
+  async ({ randNo, firstPersonEmail }) => {
+    console.log("rand", randNo);
     try {
-      const res = await axios.post("/forgetPassword", { randNo, firstPersonEmail });
+      const res = await axios.post("/forgetPassword", {
+        randNo,
+        firstPersonEmail,
+      });
 
-      cogoToast.success(res.data.message);
+      cogoToast.info(res.data.message);
+    } catch (err) {
+      cogoToast.error("Reset Password failed");
+    }
+  }
+);
+
+export const forgetPasswordSecond = createAsyncThunk(
+  `${name}/forgetPasswordSecond `,
+  async ({ randNo, firstPersonEmail }) => {
+    console.log("rand", randNo);
+    try {
+      const res = await axios.post("/forgetPasswordSecond", {
+        randNo,
+        firstPersonEmail,
+      });
+
+      cogoToast.info(res.data.message);
     } catch (err) {
       cogoToast.error("Reset Password failed");
     }
@@ -256,7 +278,7 @@ export const spaceDelete = createAsyncThunk(
   `${name}/spaceDelete`,
   async ({ spaceName }) => {
     try {
-      const res = await axios.post("/spaceDelete", { spaceName});
+      const res = await axios.post("/spaceDelete", { spaceName });
 
       cogoToast.success(res.data.message);
     } catch (err) {
@@ -411,22 +433,34 @@ const appSlice = createSlice({
       state.goalDoneLoading = false;
     });
 
+    //reset second done
+    builder.addCase(forgetPasswordSecond.fulfilled, (state) => {
+      state.isResetSecondDoneCreated = true;
 
-       //reset done
-       builder.addCase(forgetPassword.fulfilled, (state) => {
-        state.isResetDoneCreated = true;
-  
-        state.resetDoneLoading = false;
-      });
-      builder.addCase(forgetPassword.pending, (state) => {
-        state.resetDoneLoading = true;
-      });
-      builder.addCase(forgetPassword.rejected, (state) => {
-        state.resetDoneLoading = false;
-      });
+      state.resetSecondDoneLoading = false;
+    });
+    builder.addCase(forgetPasswordSecond.pending, (state) => {
+      state.resetSecondDoneLoading = true;
+    });
+    builder.addCase(forgetPasswordSecond.rejected, (state) => {
+      state.resetSecondDoneLoading = false;
+    });
 
-     //space delete
-     builder.addCase(spaceDelete.fulfilled, (state) => {
+    //reset done
+    builder.addCase(forgetPassword.fulfilled, (state) => {
+      state.isResetDoneCreated = true;
+
+      state.resetDoneLoading = false;
+    });
+    builder.addCase(forgetPassword.pending, (state) => {
+      state.resetDoneLoading = true;
+    });
+    builder.addCase(forgetPassword.rejected, (state) => {
+      state.resetDoneLoading = false;
+    });
+
+    //space delete
+    builder.addCase(spaceDelete.fulfilled, (state) => {
       state.isSpaceDeleteCreated = true;
 
       state.spaceDeleteLoading = false;
@@ -564,6 +598,7 @@ export const { completeRegister } = appSlice.actions;
 export const { completeIsUnique } = appSlice.actions;
 export const { completeGoalDone } = appSlice.actions;
 export const { completeResetDone } = appSlice.actions;
+export const { completeResetSecondDone } = appSlice.actions;
 export const { completeGoalDelete } = appSlice.actions;
 export const { completeFinanceDelete } = appSlice.actions;
 export const { completeSpaceDelete } = appSlice.actions;
@@ -587,13 +622,16 @@ export const useIsUniqueCreated = () =>
 export const useGoalDoneCeated = () =>
   useSelector((state) => state.appState.isGoalDoneCreated);
 
-  export const useResetDoneCeated = () =>
+export const useResetDoneCeated = () =>
   useSelector((state) => state.appState.isResetDoneCreated);
+
+export const useResetSecondDoneCeated = () =>
+  useSelector((state) => state.appState.isResetSecondDoneCreated);
 
 export const useGoalDeleteCreated = () =>
   useSelector((state) => state.appState.isGoalDeleteCreated);
 
-  export const useSpaceDeleteCreated = () =>
+export const useSpaceDeleteCreated = () =>
   useSelector((state) => state.appState.isSpaceDeleteCreated);
 
 export const useFinanceDeleteCreated = () =>

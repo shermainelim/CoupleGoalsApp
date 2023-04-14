@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
-  loginFirstPerson,
+  loginFirstPerson, ForgetPasswordSecond,
   useIsLoggedInFirstPerson,
+  forgetPasswordSecond,
 } from "../../redux/appSlice";
 import styles from "./ForgetPasswordSecond.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
 import { useNavigate } from "react-router-dom";
-
+import * as cgUtils from "../../utils/cgUtil";
 import { Navigate } from "react-router-dom";
 
-const ForgetPasswordSecond = () => {
+const ForgetPasswordSec = () => {
   const cx = classNames.bind(styles);
 
   const dispatch = useDispatch();
@@ -22,7 +23,9 @@ const ForgetPasswordSecond = () => {
   const [firstPersonEmail, setChangeFirstPersonEmail] = useState("");
  
 
- 
+  const randNo = cgUtils.randomIntFromInterval(1,100000);
+
+  console.log("rand", randNo);
 
  
  
@@ -74,7 +77,7 @@ const ForgetPasswordSecond = () => {
             firstPersonEmail.length !== 0 
           ) {
             
-            
+            dispatch(forgetPasswordSecond({ randNo, firstPersonEmail }));
             setChangeFirstPersonEmail("");
             
           }
@@ -94,4 +97,4 @@ const ForgetPasswordSecond = () => {
   );
 };
 
-export default ForgetPasswordSecond;
+export default ForgetPasswordSec;

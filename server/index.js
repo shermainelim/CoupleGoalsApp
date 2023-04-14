@@ -95,6 +95,28 @@ app.post("/goalDone", (req, res) => {
 
 });
 
+//forget password second
+app.post("/forgetPasswordSecond",async (req, res) => {
+  const firstPersonEmail = req.body.firstPersonEmail;
+  const randNo = req.body.randNo;
+
+  console.log("randno be", randNo);
+
+  db.query(
+    "UPDATE couplegoals.space SET secondPersonPassword = ? WHERE secondPersonEmail = ?",
+    [randNo, firstPersonEmail],
+  );
+
+  try {
+    await triggerResetEmail(firstPersonEmail, randNo);
+    res.status(200).json({ success: true, message: "Email sent if user exist" });
+  } catch (error) {
+    res.status(500).json({ message: "User not found" });
+  }
+
+
+});
+
 //forget password
 app.post("/forgetPassword",async (req, res) => {
   const firstPersonEmail = req.body.firstPersonEmail;
@@ -109,7 +131,7 @@ app.post("/forgetPassword",async (req, res) => {
 
   try {
     await triggerResetEmail(firstPersonEmail, randNo);
-    res.status(200).json({ success: true, message: "Reset Email sent" });
+    res.status(200).json({ success: true, message: "Email sent if user exist" });
   } catch (error) {
     res.status(500).json(error.message);
   }
