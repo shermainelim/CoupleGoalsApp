@@ -16,9 +16,7 @@ const ProgressBar = ({ starterGoal, currentSaved, enderGoal, description }) => {
 
   let incrementalGoal = (startGoal / endGoal) * 100;
 
-
   const Contribute = () => {
-
     const res = current + incrementalGoal;
     setCurrent(res);
   };

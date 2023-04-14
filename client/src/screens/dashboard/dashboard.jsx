@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import classNames from "classnames/bind";
 import styles from "./Dashboard.scss";
 import { Card } from "../../shared/Card";
@@ -7,9 +6,9 @@ import CustomButton from "../../shared/CustomButton";
 import UpdateForm from "../todo/UpdateForm";
 import AddTaskForm from "../todo/AddTaskForm";
 import ToDo from "../todo/ToDo";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeartCrack, faCirclePlus, faRefresh } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import {
   goalPost,
   fetchGoal,
@@ -49,19 +48,16 @@ const Dashboard = () => {
   const secondPersonBirthday = firstPersonData[4];
   const anniversaryDateFirstPersonUser = firstPersonData[5];
 
-
   // Tasks (ToDo List) State
   const [toDo, setToDo] = useState([]);
   const [toDoFinance, setToDoFinance] = useState([]);
-  const [finalArr , setFinalArr] = useState([])
+  const [finalArr, setFinalArr] = useState([]);
   const [newArr, setNewArr] = useState([]);
-
 
   useEffect(() => {
     //fetch
     dispatch(fetchGoal({ spaceName }));
     dispatch(fetchFinance({ spaceName }));
-    
   }, []);
 
   let fetchGoalData = useGoalFetch();
@@ -97,7 +93,6 @@ useEffect(()=>{
     dispatch(fetchFinance({ spaceName }));
   }
 
-
   function processNow() {
     if (fetchGoalData === undefined) {
       return;
@@ -111,7 +106,6 @@ useEffect(()=>{
         if (element?.status === 0) {
           newData.status = false;
           newArr.push({ newData });
-        
         } else if (element?.status === 1) {
           newData.status = true;
           newArr.push({ newData });
@@ -137,7 +131,6 @@ useEffect(()=>{
   }
 
   //first person login
-  
 
   var shortMonthNameFirstPersonUserBday = moment(
     firstPersonBirthdayUser
@@ -227,32 +220,14 @@ useEffect(()=>{
     setUpdateData("");
   };
 
-
-  const trashCanHandler = (tid)=>{
-  
+  const trashCanHandler = (tid) => {
     setToDoFinance(toDoFinance.filter((task) => task.id !== tid));
     let id = tid;
     dispatch(financeDelete({ spaceName, id }));
-  }
+  };
 
-  return (
-    <div className={cx("space-container")}>
-      <div className={cx("space-refresh")}>
-      <span title="refresh" onClick={refresh}>
-          <FontAwesomeIcon size={"3x"} icon={faHeartCrack} />
-        </span>
-      <img
-          data-testid="img-logo-resident"
-          className={cx("imageIcon")}
-          src={Couple}
-          alt="Logo"
-          style={{width:"350px", height:"350px"}}
-        />
-        <span title="refresh" onClick={refresh}>
-          <FontAwesomeIcon size={"3x"} icon={faRefresh} />
-        </span>
-      </div>
-      
+  const renderMainCoupleCard = () => {
+    return (
       <div className="main-big-card-container">
         <div>
           <div className={cx("space-name-new")}>
@@ -285,20 +260,30 @@ useEffect(()=>{
           </div>
         </div>
       </div>
+    );
+  };
+
+  const renderFinanceCard = () => {
+    return (
       <div className="big-card-container">
         <div className="big-card-icon">
           <div className="big-card-title">Finance Tracker</div>
-          <div onClick={() => {
-          navigate("/financeForm")}}><FontAwesomeIcon size="3x" icon={faCirclePlus} /></div>
+          <div
+            onClick={() => {
+              navigate("/financeForm");
+            }}
+          >
+            <FontAwesomeIcon size="3x" icon={faCirclePlus} />
+          </div>
         </div>
-       
-          <Card
-          todoFinance={toDoFinance}
-          deleteFinance={trashCanHandler}
-          />
-       
-      </div>
 
+        <Card todoFinance={toDoFinance} deleteFinance={trashCanHandler} />
+      </div>
+    );
+  };
+
+  const renderGoalCard = () => {
+    return (
       <div className="big-card-container-goals">
         <div className="big-card-title">Goal Tracker</div>
 
@@ -328,6 +313,30 @@ useEffect(()=>{
           />
         </div>
       </div>
+    );
+  };
+
+  return (
+    <div className={cx("space-container")}>
+      <div className={cx("space-refresh")}>
+        <img
+          data-testid="img-logo-resident"
+          className={cx("imageIcon")}
+          src={Couple}
+          alt="Logo"
+          style={{ width: "350px", height: "350px" }}
+        />
+        <span title="refresh" onClick={refresh}>
+          <FontAwesomeIcon size={"3x"} icon={faRefresh} />
+        </span>
+      </div>
+
+      {renderMainCoupleCard()}
+
+      {renderFinanceCard()}
+
+      {renderGoalCard()}
+
       <CustomButton
         className="resident-btn"
         testId="resident"

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useIsLoggedInSecondPerson,loginSecondPerson } from "../../redux/appSlice";
+import {
+  useIsLoggedInSecondPerson,
+  loginSecondPerson,
+} from "../../redux/appSlice";
 import styles from "./secondPersonLogin.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
@@ -8,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
 const SecondPersonLogin = () => {
-
   const cx = classNames.bind(styles);
 
   const dispatch = useDispatch();
@@ -21,9 +23,9 @@ const SecondPersonLogin = () => {
 
   const isLoggedInSecondPerson = useIsLoggedInSecondPerson();
 
-if (isLoggedInSecondPerson) {
-  return <Navigate to="/dashboardSecond" />;
-}
+  if (isLoggedInSecondPerson) {
+    return <Navigate to="/dashboardSecond" />;
+  }
 
   const spaceNameHandler = (event) => {
     setChangeSpaceName(event.target.value);
@@ -42,7 +44,12 @@ if (isLoggedInSecondPerson) {
       <div className="register-title"> Login as 2nd Person</div>
 
       <input
-        style={{borderRadius: "10px", padding:"10px", paddingRight:"100px", marginBottom:"20px"}}
+        style={{
+          borderRadius: "10px",
+          padding: "10px",
+          paddingRight: "100px",
+          marginBottom: "20px",
+        }}
         type="text"
         name="name"
         placeholder="Couple Space Name"
@@ -51,11 +58,25 @@ if (isLoggedInSecondPerson) {
       />
 
       {spaceName.length === 0 && formSubmitted ? (
-        <div  style={{marginRight:"180px", marginBottom:"5px",marginTop:"-15px", color: "darkred"}}>*required</div>
+        <div
+          style={{
+            marginRight: "180px",
+            marginBottom: "5px",
+            marginTop: "-15px",
+            color: "darkred",
+          }}
+        >
+          *required
+        </div>
       ) : null}
 
       <input
-        style={{borderRadius: "10px", padding:"10px", paddingRight:"100px", marginBottom:"20px"}}
+        style={{
+          borderRadius: "10px",
+          padding: "10px",
+          paddingRight: "100px",
+          marginBottom: "20px",
+        }}
         type="text"
         name="name"
         placeholder="2nd Person's Email"
@@ -64,11 +85,25 @@ if (isLoggedInSecondPerson) {
       />
 
       {secondPersonEmail.length === 0 && formSubmitted ? (
-        <div style={{marginRight:"180px", marginBottom:"5px",marginTop:"-15px", color: "darkred"}}>*required</div>
+        <div
+          style={{
+            marginRight: "180px",
+            marginBottom: "5px",
+            marginTop: "-15px",
+            color: "darkred",
+          }}
+        >
+          *required
+        </div>
       ) : null}
 
       <input
-        style={{borderRadius: "10px", padding:"10px", paddingRight:"100px", marginBottom:"20px"}}
+        style={{
+          borderRadius: "10px",
+          padding: "10px",
+          paddingRight: "100px",
+          marginBottom: "20px",
+        }}
         type="password"
         name="name"
         placeholder="2nd Person's Password"
@@ -77,7 +112,16 @@ if (isLoggedInSecondPerson) {
       />
 
       {secondPersonPassword.length === 0 && formSubmitted ? (
-        <div  style={{marginRight:"180px", marginBottom:"5px",marginTop:"-15px", color: "darkred"}}>*required</div>
+        <div
+          style={{
+            marginRight: "180px",
+            marginBottom: "5px",
+            marginTop: "-15px",
+            color: "darkred",
+          }}
+        >
+          *required
+        </div>
       ) : null}
 
       <CustomButton
@@ -92,7 +136,13 @@ if (isLoggedInSecondPerson) {
             secondPersonEmail.length !== 0 &&
             secondPersonPassword.length !== 0
           ) {
-            dispatch(loginSecondPerson({spaceName, secondPersonEmail, secondPersonPassword}))
+            dispatch(
+              loginSecondPerson({
+                spaceName,
+                secondPersonEmail,
+                secondPersonPassword,
+              })
+            );
             setChangeSpaceName("");
             setChangeSecondPersonEmail("");
             setChangeSecondPersonPassword("");

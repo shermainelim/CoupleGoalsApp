@@ -143,11 +143,9 @@ export const loginSecondPerson = createAsyncThunk(
         return results;
       } else if (res.data.message === "User not found") {
         cogoToast.error("User not found");
-      } else if (res.data.message === "Login is Successful"){
+      } else if (res.data.message === "Login is Successful") {
         cogoToast.success("Login is Successful");
       }
-
-    
     } catch (err) {
       cogoToast.error("Login failed");
     }
