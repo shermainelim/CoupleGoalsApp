@@ -77,7 +77,7 @@ Features :
 - [x] Delete Couple Space
 - [ ] Forget password
 - [ ] Change password
-- [ ] Remember password
+- [ ] Async local storage username and couple space
 - [ ] Implement manual refresh icon and logic on dashboard for finance and goal tracker
 - [ ] Implement SMTP email for CRUD register , forget password and change password and delete couple space
 - [ ] Refactor code
