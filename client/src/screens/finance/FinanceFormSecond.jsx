@@ -73,7 +73,7 @@ const FinanceFormSecond = () => {
 
           <div className="small-card-title">Description</div>
           <div>
-            <textarea
+            <input
               style={{
                 fontSize: "18px",
                 width: "300px",
@@ -83,7 +83,6 @@ const FinanceFormSecond = () => {
               }}
               type="text"
               name="name"
-              multiline={true}
               value={desc}
               onChange={descHandler}
             />
