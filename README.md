@@ -74,7 +74,7 @@ Features :
 - [x] Setup backend db and nodejs connection to frontend
 - [x] Implement UI screens for Welcome, Register, Login and Dashboard    
 - [ ] Stay logged in (Cache) in mobile, need sessions
-- [ ] Delete Couple Space
+- [x] Delete Couple Space
 - [ ] Forget password
 - [ ] Change password
 - [ ] Remember password
