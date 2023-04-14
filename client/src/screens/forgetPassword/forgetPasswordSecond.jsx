@@ -4,14 +4,14 @@ import {
   loginFirstPerson,
   useIsLoggedInFirstPerson,
 } from "../../redux/appSlice";
-import styles from "./ForgetPassword.scss";
+import styles from "./ForgetPasswordSecond.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
 import { useNavigate } from "react-router-dom";
 
 import { Navigate } from "react-router-dom";
 
-const ForgetPassword = () => {
+const ForgetPasswordSecond = () => {
   const cx = classNames.bind(styles);
 
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const ForgetPassword = () => {
 
   return (
     <div className={cx("register-container")}>
-      <div className="register-title"> Input First Person Email</div>
+      <div className="register-title"> Input Second Person Email</div>
       <input
         style={{
           borderRadius: "10px",
@@ -94,4 +94,4 @@ const ForgetPassword = () => {
   );
 };
 
-export default ForgetPassword;
+export default ForgetPasswordSecond;
