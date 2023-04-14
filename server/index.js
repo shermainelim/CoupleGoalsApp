@@ -133,6 +133,28 @@ app.post("/fetchGoal", (req, res) => {
   );
 });
 
+//check unique name 
+app.post("/checkUnique", (req, res) => {
+ 
+  const spaceName = req.body.spaceName;
+  console.log("hit here");
+
+  db.query(
+    "SELECT * from couplegoals.space WHERE spaceName = ?",
+    [spaceName],
+    (err, result) => {
+      console.log("Res", result);
+      if (result.length !== 0) {
+        console.log("HIT HERE NOW");
+        res.send({ message: "taken" });
+      } else {
+        console.log("HIT HERE no");
+        res.send({ message: "unique" });
+        //space name not taken
+      }
+    }
+  );
+});
 
 //register couples
 app.post("/register", (req, res) => {

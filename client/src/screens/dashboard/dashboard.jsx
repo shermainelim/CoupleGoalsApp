@@ -25,7 +25,9 @@ import { Navigate } from "react-router-dom";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import randomIntFromInterval from "../../utils/cgUtil";
-import Couple from "../../assets/couple3.png";
+import Couple from "../../assets/couple6.png";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 const Dashboard = () => {
   const cx = classNames.bind(styles);
@@ -120,6 +122,44 @@ const Dashboard = () => {
       });
     });
   }
+
+  const onClickDelete=()=>{
+   
+    console.log("deleted");
+  }
+
+  const onSubmit = () => {confirmAlert({
+    customUI: ({ onClose }) => {
+      return (
+        <div style={{marginLeft:"200px", fontSize:"20px",fontFamily:"monospace"}}>
+          <h1>Are you sure?</h1>
+          <p>You want to delete this couple space? <br/>
+          <br/>It will delete both accounts in the  <br/> <br/>
+          couple space.</p>
+         
+          <CustomButton
+
+className="alert-btn"
+testId="resident"
+content="No"
+clicked={onClose}
+></CustomButton>
+
+<CustomButton
+
+className="alert-btn"
+testId="resident"
+content="Yes, Delete it!"
+clicked={onClickDelete}
+></CustomButton>
+          
+          
+ 
+        </div>
+      );
+    }
+  });
+}
 
   //first person login
 
@@ -353,11 +393,20 @@ const Dashboard = () => {
       {renderGoalCard()}
 
       <CustomButton
+
         className="resident-btn"
         testId="resident"
         content="Logout"
         clicked={logoutHandler}
       ></CustomButton>
+
+<CustomButton
+
+className="resident-btn"
+testId="resident"
+content="Delete Couple Space"
+clicked={onSubmit}
+></CustomButton>
     </div>
   );
 };

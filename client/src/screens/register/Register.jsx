@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { register } from "../../redux/appSlice";
+import { checkUnique, register } from "../../redux/appSlice";
 import styles from "./Register.scss";
 import classNames from "classnames/bind";
 import CustomButton from "../../shared/CustomButton";
@@ -92,6 +92,26 @@ const Register = () => {
         {spaceName.length === 0 && formSubmitted ? (
           <div className={cx("input-general-error")}>*required</div>
         ) : null}
+        <div>
+          <CustomButton
+            className="resident-btn"
+            testId="resident"
+            content="Check if space name is unique"
+            clicked={async () => {
+              setFormSubmitted(true);
+
+              if (spaceName.length !== 0) {
+                dispatch(
+                  checkUnique({
+                    spaceName,
+                  })
+                );
+
+                setChangeSpaceName("");
+              }
+            }}
+          ></CustomButton>
+        </div>
 
         <div className={cx("input-couple-space-name-person")}>1st Person</div>
         <div>
