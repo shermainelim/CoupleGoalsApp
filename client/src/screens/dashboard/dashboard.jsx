@@ -37,6 +37,8 @@ const Dashboard = () => {
 
   const secondPersonData = useFirstPerson();
 
+  console.log("secoind", secondPersonData);
+
   //first person login
   const spaceName = secondPersonData[0];
   const secondPersonNameUser = secondPersonData[1];
@@ -267,17 +269,17 @@ clicked={onClickDelete}
           </div>
         </div>
         <div className="main-small-card-container-goals">
-          <div className={cx("space-welcome")}>Welcome {secondPersonName}</div>
+          <div className={cx("space-welcome")}>Welcome {secondPersonNameUser}</div>
 
           <div className={cx("space-welcome")}>
-            Your Birthday: {shortMonthNameSecondPersonBday}
+            Your Birthday: { shortMonthNameFirstPersonUserBday }
           </div>
 
           <div className={cx("space-welcome")}>
-            Your Partner's Name: {secondPersonNameUser}
+            Your Partner's Name: {secondPersonName}
           </div>
           <div className={cx("space-welcome")}>
-            Your Partner's Birthday: {shortMonthNameFirstPersonUserBday}
+            Your Partner's Birthday: {shortMonthNameSecondPersonBday}
           </div>
 
           <div className={cx("space-welcome")}>
