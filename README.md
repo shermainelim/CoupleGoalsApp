@@ -75,8 +75,9 @@ Features :
 - [x] Implement UI screens for Welcome, Register, Login and Dashboard    
 - [x] T & C Data Privacy
 - [x] Delete Couple Space
-- [ ] Forget password
+- [x] Forget password
 - [ ] Change password
+- [ ] Revamp UI
 - [ ] Async local storage username and couple space
 - [ ] Implement manual refresh icon and logic on dashboard for finance and goal tracker
 - [ ] Implement SMTP email for CRUD register , forget password and change password and delete couple space
