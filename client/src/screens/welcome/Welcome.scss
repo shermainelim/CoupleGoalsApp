@@ -5,6 +5,8 @@ body, html {
 }
 
 
+
+
 div#root {
   //height: 100%; /* remove this line to see div.app is no more 100% height */
   background-color: white;
@@ -29,6 +31,17 @@ div.app {
   align-items: center;
   text-align: center;
   background-color: white;
+
+  .react-confirm-alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    background: white;
+  }
+   
 
   .imageIcon{
     width:200px;
