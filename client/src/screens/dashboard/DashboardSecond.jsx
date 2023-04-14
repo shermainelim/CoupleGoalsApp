@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import classNames from "classnames/bind";
-import styles from "./Dashboard.scss";
+import styles from "./DashboardSecond.scss";
 import { Card } from "../../shared/Card";
 import CustomButton from "../../shared/CustomButton";
 import UpdateForm from "../todo/UpdateForm";
@@ -297,7 +297,7 @@ clicked={onClickDelete}
     return (
       <div className="big-card-container">
         <div className="big-card-icon">
-          <div className="big-card-title">Finance Tracker</div>
+          <div className="big-finance-card-title">Finance Tracker</div>
           <div
             onClick={() => {
               navigate("/financeFormSecond");

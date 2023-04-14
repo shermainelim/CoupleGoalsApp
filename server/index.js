@@ -176,6 +176,7 @@ app.post("/register", (req, res) => {
     [spaceName],
     (err, result) => {
       if (err) {
+        console.log("error", err);
         res.send({ message: "Error, space not created." });
       }
       if (result.length > 0) {

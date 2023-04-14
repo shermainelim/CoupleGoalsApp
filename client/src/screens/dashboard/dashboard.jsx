@@ -15,10 +15,10 @@ import {
   logOutFirstPerson,
   useFirstPerson,
   useGoalFetch,
-  useFinanceFetch,
   goalDelete,
   goalDone,
   fetchFinance,
+  useFinanceFetch,
   financeDelete,
 } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
@@ -27,33 +27,29 @@ import { useNavigate } from "react-router-dom";
 import Couple from "../../assets/couple6.png";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import * as cgUtils from "../../utils/cgUtil";
+import * as cgUtils from "../../utils/cgUtil"
 
 const Dashboard = () => {
   const cx = classNames.bind(styles);
   const navigate = useNavigate();
   const [logout, setLogout] = useState(false);
+  const [toDo, setToDo] = useState([]);
 
-  // Temp State
-  /////////////
-  const [newTask, setNewTask] = useState("");
-  const [updateData, setUpdateData] = useState("");
+  const secondPersonData = useFirstPerson();
 
-  const dispatch = useDispatch();
-
-  const firstPersonData = useFirstPerson();
-
-  const spaceName = firstPersonData[0];
-  const firstPersonNameUser = firstPersonData[1];
-  const firstPersonBirthdayUser = firstPersonData[2];
-  const secondPersonName = firstPersonData[3];
-  const secondPersonBirthday = firstPersonData[4];
-  const anniversaryDateFirstPersonUser = firstPersonData[5];
+  //first person login
+  const spaceName = secondPersonData[0];
+  const secondPersonNameUser = secondPersonData[1];
+  const secondPersonBirthdayUser = secondPersonData[2];
+  const secondPersonName = secondPersonData[3];
+  const secondPersonBirthday = secondPersonData[4];
+  const anniversaryDateFirstPersonUser = secondPersonData[5];
 
   // Tasks (ToDo List) State
-  const [toDo, setToDo] = useState([]);
+
   const [toDoFinance, setToDoFinance] = useState([]);
-  const [finalArr , setFinalArr] = useState([])
+  const [finalArr, setFinalArr] = useState([]);
+  const [newArr, setNewArr] = useState([]);
 
   useEffect(() => {
     //fetch
@@ -64,53 +60,56 @@ const Dashboard = () => {
   let fetchGoalData = useGoalFetch();
   let fetchFinanceData = useFinanceFetch();
 
-useEffect(()=>{
-  if(typeof fetchGoalData !== "undefined"){
-    processJsonStructure();
-    const finalArrProcessed = finalArr[0];
-    setToDo(finalArrProcessed);
-    setFinalArr([]);
-  }
-  
-  
-},[fetchGoalData])
+  // Temp State
+  /////////////
+  const [newTask, setNewTask] = useState("");
+  const [updateData, setUpdateData] = useState("");
 
-useEffect(()=>{
-  if(typeof fetchFinanceData !== "undefined"){
- 
-    let fetchFinanceDataProcessed = fetchFinanceData[0];
-    setToDoFinance(fetchFinanceDataProcessed);
+  const dispatch = useDispatch();
 
-  }
-  
-  
-},[fetchFinanceData])
+  useEffect(() => {
+    if (typeof fetchGoalData !== "undefined") {
+      processNow();
+      sortedArr();
+      setToDo(finalArr);
+      setNewArr([]);
+      setFinalArr([]);
+    }
+  }, [fetchGoalData]);
 
+  useEffect(() => {
+    if (typeof fetchFinanceData !== "undefined") {
+      let fetchFinanceDataProcessed = fetchFinanceData[0];
+      setToDoFinance(fetchFinanceDataProcessed);
+    }
+  }, [fetchFinanceData]);
 
   function refresh() {
     dispatch(fetchGoal({ spaceName }));
     dispatch(fetchFinance({ spaceName }));
   }
 
-
-  function processJsonStructure() {
+  function processNow() {
     if (fetchGoalData === undefined) {
       return;
     } else {
       let onlyGoalsTable = fetchGoalData[1];
 
       const objCopy = [onlyGoalsTable];
+      objCopy[0]?.map(function (element) {
+        let newData = { ...element };
 
-      const mappedArray = objCopy[0]?.map((object) => ({
-        spaceName: object.spaceName,
-        id: object.id,
-        title: object.title,
-        status: object.status === 1 ? "true" : "false",
-      }));
-
-      finalArr.push(mappedArray);
+        if (element?.status === 0) {
+          newData.status = false;
+          newArr.push({ newData });
+        } else if (element?.status === 1) {
+          newData.status = true;
+          newArr.push({ newData });
+        }
+        return newData;
+      });
+    }
   }
-
 
   function sortedArr() {
     if (newArr.length === 0) {
@@ -164,10 +163,11 @@ clicked={onClickDelete}
   });
 }
 
-  //first person login
+
+  //second person login
 
   var shortMonthNameFirstPersonUserBday = moment(
-    firstPersonBirthdayUser
+    secondPersonBirthdayUser
   ).format("DD MMM YYYY");
   var shortMonthNameSecondPersonBday =
     moment(secondPersonBirthday).format("DD MMM YYYY");
@@ -183,16 +183,12 @@ clicked={onClickDelete}
   if (logout) {
     return <Navigate to="/" />;
   }
-
- 
+  
 
   // mm.dd.yyyy
   let daysTgt = cgUtils.getNumberOfDays(anniversaryDateFirstPersonUser);
 
-
   const yearsTgt = cgUtils.getFormatedStringFromDays(daysTgt);
-
-
 
   // Add task
   ///////////
@@ -254,7 +250,9 @@ clicked={onClickDelete}
     setUpdateData("");
   };
 
-  const trashCanHandler = (tid) => {
+
+  const trashCanHandler = (tid)=>{
+  
     setToDoFinance(toDoFinance.filter((task) => task.id !== tid));
     let id = tid;
     dispatch(financeDelete({ spaceName, id }));
@@ -269,19 +267,17 @@ clicked={onClickDelete}
           </div>
         </div>
         <div className="main-small-card-container-goals">
+          <div className={cx("space-welcome")}>Welcome {secondPersonName}</div>
+
           <div className={cx("space-welcome")}>
-            Welcome {firstPersonNameUser}
+            Your Birthday: {shortMonthNameSecondPersonBday}
           </div>
 
           <div className={cx("space-welcome")}>
-            Your Birthday: {shortMonthNameFirstPersonUserBday}
-          </div>
-
-          <div className={cx("space-welcome")}>
-            Your Partner's Name: {secondPersonName}
+            Your Partner's Name: {secondPersonNameUser}
           </div>
           <div className={cx("space-welcome")}>
-            Your Partner's Birthday: {shortMonthNameSecondPersonBday}
+            Your Partner's Birthday: {shortMonthNameFirstPersonUserBday}
           </div>
 
           <div className={cx("space-welcome")}>
@@ -301,10 +297,10 @@ clicked={onClickDelete}
     return (
       <div className="big-card-container">
         <div className="big-card-icon">
-          <div className="big-card-title">Finance Tracker</div>
+          <div className="big-finance-card-title">Finance Tracker</div>
           <div
             onClick={() => {
-              navigate("/financeForm");
+              navigate("/financeFormSecond");
             }}
           >
             <FontAwesomeIcon size="3x" icon={faCirclePlus} />
@@ -364,20 +360,17 @@ clicked={onClickDelete}
           <FontAwesomeIcon size={"3x"} icon={faRefresh} />
         </span>
       </div>
-
       {renderMainCoupleCard()}
-
       {renderFinanceCard()}
-
       {renderGoalCard()}
-
+      
       <CustomButton
 
-        className="resident-btn"
-        testId="resident"
-        content="Logout"
-        clicked={logoutHandler}
-      ></CustomButton>
+className="resident-btn"
+testId="resident"
+content="Logout"
+clicked={logoutHandler}
+></CustomButton>
 
 <CustomButton
 
@@ -386,7 +379,7 @@ testId="resident"
 content="Delete Couple Space"
 clicked={onSubmit}
 ></CustomButton>
-    </div>
+</div>
   );
 };
 
