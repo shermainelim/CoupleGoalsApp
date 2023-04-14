@@ -243,8 +243,8 @@ app.post("/loginFirstPerson", (req, res) => {
   const firstPersonPassword = req.body.firstPersonPassword;
 
   db.query(
-    "SELECT * FROM couplegoals.space WHERE spaceName = ? and firstPersonEmail = ? and firstPersonPassword = ?",
-    [spaceName, firstPersonEmail,firstPersonPassword],
+    "SELECT * FROM couplegoals.space WHERE spaceName = ? and firstPersonEmail = ?",
+    [spaceName, firstPersonEmail],
     (err, result) => {
       if (result.length > 0) {
        
@@ -285,8 +285,8 @@ app.post("/loginSecondPerson", (req, res) => {
 
 
   db.query(
-    "SELECT * FROM couplegoals.space WHERE spaceName = ? and secondPersonEmail = ? and secondPersonPassword = ?",
-    [spaceName, secondPersonEmail,secondPersonPassword],
+    "SELECT * FROM couplegoals.space WHERE spaceName = ? and secondPersonEmail = ?",
+    [spaceName, secondPersonEmail],
     (err, result) => {
    
       if (result.length > 0) {
