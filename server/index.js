@@ -226,6 +226,8 @@ app.post("/register", (req, res) => {
 // do validation here before insert
 // because raw sql query, need validate for symbols. to prevent script insertion like <>
 // sanization of data
+  const hash1 = bcrypt.hashSync(firstPersonPassword, saltRounds);
+  const hash2 = bcrypt.hashSync(secondPersonPassword, saltRounds);
 
   db.query(
     "SELECT * from couplegoals.space WHERE spaceName = ?",
@@ -244,7 +246,7 @@ app.post("/register", (req, res) => {
     db.query(
       "INSERT INTO couplegoals.space ( id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, firstPersonBirthday,secondPersonName, secondPersonEmail, secondPersonPassword , secondPersonBirthday, anniDate) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
       [
-        id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, firstPersonBirthday,secondPersonName, secondPersonEmail, secondPersonPassword , secondPersonBirthday, anniDate
+        id, spaceName, firstPersonName, firstPersonEmail, hash1, firstPersonBirthday,secondPersonName, secondPersonEmail, hash2 , secondPersonBirthday, anniDate
       ]
     );
       }
@@ -265,8 +267,11 @@ app.post("/loginFirstPerson", (req, res) => {
     (err, result) => {
       if (result.length > 0) {
        
-      
-        const spaceName = result[0].spaceName;
+
+        bcrypt.compare(firstPersonPassword, result[0].firstPersonPassword, (error, response) => {
+          if (response) {
+            //send full name
+            const spaceName = result[0].spaceName;
         const firstPersonNameUser = result[0].firstPersonName;
         const firstPersonBirthdayUser = result[0].firstPersonBirthday;
         const secondPersonName = result[0].secondPersonName;
@@ -276,9 +281,11 @@ app.post("/loginFirstPerson", (req, res) => {
 
         const firstPersonData = [spaceName, firstPersonNameUser, firstPersonBirthdayUser, secondPersonName, secondPersonBirthday, anniDate]
 
-     
-
         res.send({ data: firstPersonData, message: "Login is Successful"});
+          } else {
+            res.send({ message: "Wrong combination!" });
+          }
+        });
        
       } else {
        
@@ -302,8 +309,10 @@ app.post("/loginSecondPerson", (req, res) => {
     (err, result) => {
    
       if (result.length > 0) {
-       
-        const spaceName = result[0].spaceName;
+
+        bcrypt.compare(secondPersonPassword, result[0].secondPersonPassword, (error, response) => {
+          if (response) {
+            const spaceName = result[0].spaceName;
         const firstPersonNameUser = result[0].firstPersonName;
         const firstPersonBirthdayUser = result[0].firstPersonBirthday;
         const secondPersonName = result[0].secondPersonName;
@@ -314,6 +323,10 @@ app.post("/loginSecondPerson", (req, res) => {
         const secondPersonData = [spaceName, firstPersonNameUser, firstPersonBirthdayUser, secondPersonName, secondPersonBirthday, anniDate]
 
         res.send({ data: secondPersonData, message: "Login is Successful"});
+          } else {
+            res.send({ message: "Wrong username/password combination!" });
+          }
+        });
        
       } else {
      
