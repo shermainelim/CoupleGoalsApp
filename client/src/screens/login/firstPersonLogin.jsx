@@ -156,7 +156,7 @@ const FirstPersonLogin = () => {
         testId="resident"
         content="Forget Password"
         clicked={() => {
-          navigate("/loginOptions");
+          navigate("/forgetPassword");
         }}
       ></CustomButton>
 
