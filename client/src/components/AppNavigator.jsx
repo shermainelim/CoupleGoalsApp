@@ -11,6 +11,8 @@ import FinanceForm from "../screens/finance/FinanceForm";
 import FinanceFormSecond from "../screens/finance/FinanceFormSecond";
 import ForgetPassword from "../screens/forgetPassword/forgetPassword";
 import ForgetPasswordSec from "../screens/forgetPassword/forgetPasswordSecond";
+import ChangePassword from "../screens/changePassword/ChangePassword";
+import ChangePasswordSecond from "../screens/changePassword/ChangePasswordSecond";
 
 const AppNavigator = () => {
   return (
@@ -28,6 +30,8 @@ const AppNavigator = () => {
         <Route path="/financeFormSecond" element={<FinanceFormSecond />} />
         <Route path="/forgetPassword" element={<ForgetPassword/>} />
         <Route path="/forgetPasswordSecond" element={<ForgetPasswordSec/>} />
+        <Route path="/changePassword" element={<ChangePassword/>} />
+        <Route path="/changePasswordSecond" element={<ChangePasswordSecond/>} />
       </Routes>
     </Router>
   );

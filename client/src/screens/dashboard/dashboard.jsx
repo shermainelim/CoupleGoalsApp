@@ -391,7 +391,9 @@ const Dashboard = () => {
         className="resident-btn"
         testId="resident"
         content="Change Password"
-        clicked={logoutHandler}
+        clicked={() => {
+          navigate("/changePassword");
+        }}
       ></CustomButton>
 
       <CustomButton

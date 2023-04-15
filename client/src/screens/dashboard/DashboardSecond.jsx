@@ -32,7 +32,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import * as cgUtils from "../../utils/cgUtil"
 import cogoToast from "cogo-toast";
 
-const Dashboard = () => {
+const DashboardSecond = () => {
   const cx = classNames.bind(styles);
   const navigate = useNavigate();
   const [logout, setLogout] = useState(false);
@@ -392,6 +392,15 @@ clicked={logoutHandler}
 ></CustomButton>
 
 <CustomButton
+        className="resident-btn"
+        testId="resident"
+        content="Change Password"
+        clicked={() => {
+          navigate("/changePasswordSecond");
+        }}
+      ></CustomButton>
+
+<CustomButton
 
 className="resident-btn"
 testId="resident"
@@ -402,4 +411,4 @@ clicked={onSubmit}
   );
 };
 
-export default Dashboard;
+export default DashboardSecond;
