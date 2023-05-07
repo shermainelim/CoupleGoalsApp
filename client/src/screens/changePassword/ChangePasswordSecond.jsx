@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
+  changePasswordSecond,
   forgetPassword,
+  logOutSecondPerson,
   loginFirstPerson,
   useIsLoggedInFirstPerson,
+  useSecondPerson,
 } from "../../redux/appSlice";
 import styles from "./ChangePasswordSecond.scss";
 import classNames from "classnames/bind";
@@ -18,13 +21,19 @@ const ChangePasswordSecond = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  let secondPersonData = useSecondPerson();
+  const secondPersonEmail = secondPersonData[6];
 
+  const [logout, setLogout] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [password, setChangePassword] = useState("");
   const [confirmPassword, setChangeConfirmPassword] = useState("");
- const randNo = cgUtils.randomIntFromInterval(1,100000);
+ 
 
- console.log("rand", randNo);
+ if (logout) {
+  return <Navigate to="/" />;
+}
+
   const passwordHandler = (event) => {
     setChangePassword(event.target.value);
   };
@@ -45,7 +54,7 @@ const ChangePasswordSecond = () => {
           paddingRight: "100px",
           marginBottom: "20px",
         }}
-        type="text"
+        type="password"
         name="name"
         placeholder="Password"
         value={password}
@@ -74,7 +83,7 @@ const ChangePasswordSecond = () => {
           paddingRight: "100px",
           marginBottom: "20px",
         }}
-        type="text"
+        type="password"
         name="name"
         placeholder="Confirm Password"
         value={confirmPassword}
@@ -94,6 +103,19 @@ const ChangePasswordSecond = () => {
         </div>
       ) : null}
 
+{confirmPassword !==password && formSubmitted ? (
+        <div
+          style={{
+            marginRight: "80px",
+            marginBottom: "5px",
+            marginTop: "10px",
+            color: "darkred",
+          }}
+        >
+          *Passwords don't match
+        </div>
+      ) : null}
+
       <CustomButton
         className="resident-btn"
         testId="resident"
@@ -104,11 +126,15 @@ const ChangePasswordSecond = () => {
           if (
             
             password.length !== 0 &&
-            confirmPassword.length !==0
+            confirmPassword.length !==0 && password ===confirmPassword
           ) {
            
             
+            dispatch(changePasswordSecond({ confirmPassword, secondPersonEmail }));
             setChangePassword("");
+            setChangeConfirmPassword("");
+            dispatch(logOutSecondPerson());
+            setLogout(true);
             
           }
         }}

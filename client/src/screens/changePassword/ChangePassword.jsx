@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
+  changePassword,
   forgetPassword,
+  logOutFirstPerson,
   loginFirstPerson,
+  useFirstPerson,
   useIsLoggedInFirstPerson,
 } from "../../redux/appSlice";
 import styles from "./ChangePassword.scss";
@@ -18,13 +21,18 @@ const ChangePassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  let secondPersonData = useFirstPerson();
+  const firstPersonEmail = secondPersonData[6];
 
+  const [logout, setLogout] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [password, setChangePassword] = useState("");
   const [confirmPassword, setChangeConfirmPassword] = useState("");
- const randNo = cgUtils.randomIntFromInterval(1,100000);
 
- console.log("rand", randNo);
+ if (logout) {
+  return <Navigate to="/" />;
+}
+
   const passwordHandler = (event) => {
     setChangePassword(event.target.value);
   };
@@ -45,7 +53,7 @@ const ChangePassword = () => {
           paddingRight: "100px",
           marginBottom: "20px",
         }}
-        type="text"
+        type="password"
         name="name"
         placeholder="Password"
         value={password}
@@ -74,7 +82,7 @@ const ChangePassword = () => {
           paddingRight: "100px",
           marginBottom: "20px",
         }}
-        type="text"
+        type="password"
         name="name"
         placeholder="Confirm Password"
         value={confirmPassword}
@@ -94,6 +102,19 @@ const ChangePassword = () => {
         </div>
       ) : null}
 
+{confirmPassword !==password && formSubmitted ? (
+        <div
+          style={{
+            marginRight: "80px",
+            marginBottom: "5px",
+            marginTop: "10px",
+            color: "darkred",
+          }}
+        >
+          *Passwords don't match
+        </div>
+      ) : null}
+
       <CustomButton
         className="resident-btn"
         testId="resident"
@@ -101,14 +122,16 @@ const ChangePassword = () => {
         clicked={async () => {
           setFormSubmitted(true);
 
-          if (
-            
+          if ( 
             password.length !== 0 &&
-            confirmPassword.length !==0
+            confirmPassword.length !==0 && password ===confirmPassword
           ) {
            
-            
+            dispatch(changePassword({ confirmPassword, firstPersonEmail }));
             setChangePassword("");
+            setChangeConfirmPassword("");
+            dispatch(logOutFirstPerson());
+            setLogout(true);
             
           }
         }}

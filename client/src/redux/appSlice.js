@@ -240,8 +240,43 @@ export const goalDone = createAsyncThunk(
   }
 );
 
+export const changePassword = createAsyncThunk(
+  `${name}/changePassword `,
+  async ({ confirmPassword, firstPersonEmail }) => {
+    console.log("firstPersonEmail", firstPersonEmail);
+    try {
+      const res = await axios.post("/changePassword", {
+        confirmPassword,
+        firstPersonEmail
+      });
+
+      cogoToast.info(res.data.message);
+    } catch (err) {
+      cogoToast.error("Change Password failed");
+    }
+  }
+);
+
+
+export const changePasswordSecond = createAsyncThunk(
+  `${name}/changePasswordSecond`,
+  async ({ confirmPassword, secondPersonEmail }) => {
+    console.log("secondPersonEmail", secondPersonEmail);
+    try {
+      const res = await axios.post("/changePasswordSecond", {
+        confirmPassword,
+        secondPersonEmail
+      });
+
+      cogoToast.info(res.data.message);
+    } catch (err) {
+      cogoToast.error("Change Password failed");
+    }
+  }
+);
+
 export const forgetPassword = createAsyncThunk(
-  `${name}/forgetPassword `,
+  `${name}/forgetPassword`,
   async ({ randNo, firstPersonEmail }) => {
     console.log("rand", randNo);
     try {

@@ -88,7 +88,7 @@ const Register = () => {
       data
     );
     console.log(response.data);
-    cogoToast.success("Email Sent!");
+    cogoToast.success("Email First Sent!");
   };
 
   const sendEmailSecondPerson = async () => {
@@ -104,7 +104,7 @@ const Register = () => {
       data
     );
     console.log(response.data);
-    cogoToast.success("Email Sent!");
+    cogoToast.success("Email Second Sent!");
   };
 
   return (

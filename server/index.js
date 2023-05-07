@@ -42,7 +42,7 @@ const triggerResetEmail = async (email, randNo) => {
   const sendTo = email;
   const sentFrom = process.env.EMAIL_USER;
   const replyTo = email;
-  const subject = "Sign Up Message From Couple Goals Official";
+  const subject = "Reset Email Message From Couple Goals Official";
   const message = `
       <p>Hello User</p>
       <p>You have requested to reset your password. </p>
@@ -55,6 +55,40 @@ const triggerResetEmail = async (email, randNo) => {
   return await sendEmail(subject, message, sendTo, sentFrom, replyTo);
 }
 
+
+const triggerChangePwEmail = async (email) => {
+  const sendTo = email;
+  const sentFrom = process.env.EMAIL_USER;
+  const replyTo = email;
+  const subject = "Change Password Message From Couple Goals Official";
+  const message = `
+      <p>Hello User</p>
+      <p>You have changed your password. </p>
+      <p>Enjoy,</p>
+      <p>Couple Goals Official</p>
+  `;
+  
+  return await sendEmail(subject, message, sendTo, sentFrom, replyTo);
+}
+
+
+const triggerDeleteEmail = async (email, username, coupleSpace) => {
+  const sendTo = email;
+  const sentFrom = process.env.EMAIL_USER;
+  const replyTo = email;
+  const subject = "Delete Message From Couple Goals Official";
+  const message = `
+      <p>Hello ${username}</p>
+      <p>You have requested to delete your couple space account. </p>
+      <p>${coupleSpace} and both associated accounts have been deleted. </p>
+      <p>Enjoy,</p>
+      <p>Couple Goals Official</p>
+  `;
+  
+  return await sendEmail(subject, message, sendTo, sentFrom, replyTo);
+}
+
+
 //send email
 
 app.post("/api/sendemail", async (req, res) => {
@@ -63,7 +97,7 @@ app.post("/api/sendemail", async (req, res) => {
 
   try {
     await triggerEmail(email, username);
-    res.status(200).json({ success: true, message: "Email Sent" });
+    res.status(200).json({ success: true, message: "Email First Sent" });
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -75,7 +109,7 @@ app.post("/api/sendEmailSecond", async (req, res) => {
 
   try {
     await triggerEmail(email, username);
-    res.status(200).json({ success: true, message: "Email Sent" });
+    res.status(200).json({ success: true, message: "Email Second Sent" });
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -95,16 +129,66 @@ app.post("/goalDone", (req, res) => {
 
 });
 
+
+//change password  second
+app.post("/changePasswordSecond",async (req, res) => {
+  const confirmPassword = req.body.confirmPassword;
+  const secondPersonEmail= req.body.secondPersonEmail;
+  console.log("confirmPassword", confirmPassword);
+  console.log("secondPersonEmail", secondPersonEmail);
+  const hash1Change = bcrypt.hashSync(confirmPassword, saltRounds);
+
+  db.query(
+    "UPDATE couplegoals.space SET firstPersonPassword = ? WHERE firstPersonEmail = ?",
+    [hash1Change, secondPersonEmail],
+  );
+
+  try {
+    await triggerChangePwEmail(secondPersonEmail);
+    res.status(200).json({ success: true, message: "Password changed. Email sent." });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+
+
+});
+
+
+//change password
+app.post("/changePassword",async (req, res) => {
+  const confirmPassword = req.body.confirmPassword;
+  const firstPersonEmail= req.body.firstPersonEmail;
+  console.log("confirmPassword", confirmPassword);
+  console.log("firstPersonEmail", firstPersonEmail);
+  const hash1Change = bcrypt.hashSync(confirmPassword, saltRounds);
+
+  db.query(
+    "UPDATE couplegoals.space SET firstPersonPassword = ? WHERE firstPersonEmail = ?",
+    [hash1Change, firstPersonEmail],
+  );
+
+  try {
+    await triggerChangePwEmail(firstPersonEmail);
+    res.status(200).json({ success: true, message: "Password changed. Email sent." });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+
+
+});
+
 //forget password second
 app.post("/forgetPasswordSecond",async (req, res) => {
   const firstPersonEmail = req.body.firstPersonEmail;
+  console.log("Second person forget", firstPersonEmail);
   const randNo = req.body.randNo;
-
-  console.log("randno be", randNo);
+  const randNoString = randNo.toString();
+  const saltRoundsNew = 10;
+  const hash1Change = bcrypt.hashSync(randNoString, saltRoundsNew);
 
   db.query(
     "UPDATE couplegoals.space SET secondPersonPassword = ? WHERE secondPersonEmail = ?",
-    [randNo, firstPersonEmail],
+    [hash1Change, firstPersonEmail],
   );
 
   try {
@@ -121,12 +205,16 @@ app.post("/forgetPasswordSecond",async (req, res) => {
 app.post("/forgetPassword",async (req, res) => {
   const firstPersonEmail = req.body.firstPersonEmail;
   const randNo = req.body.randNo;
+  const randNoString = randNo.toString();
+  const saltRoundsNew = 10;
+  console.log("randNo", randNoString);
+  console.log("Saltrounds",  saltRoundsNew);
 
-  console.log("randno be", randNo);
-
+  const hashChangeForget = bcrypt.hashSync(randNoString,  saltRoundsNew);
+console.log("hashed", hashChangeForget);
   db.query(
     "UPDATE couplegoals.space SET firstPersonPassword = ? WHERE firstPersonEmail = ?",
-    [randNo, firstPersonEmail],
+    [hashChangeForget, firstPersonEmail],
   );
 
   try {
@@ -140,13 +228,20 @@ app.post("/forgetPassword",async (req, res) => {
 });
 
 //dashboard delete couple space
-app.post("/spaceDelete", (req, res) => {
+app.post("/spaceDelete", async (req, res) => {
   const spaceName = req.body.spaceName;
 
   db.query(
     "DELETE FROM couplegoals.space WHERE spaceName = ?",
     [spaceName ],
   );
+
+  try {
+    await triggerDeleteEmail(email, spaceName);
+    res.status(200).json({ success: true, message: "Couple Space deleted" });
+  } catch (error) {
+    res.status(500).json({ message: "User not found" });
+  }
   res.send({message: "Couple Space deleted"});
 
 });
@@ -341,7 +436,7 @@ app.post("/loginFirstPerson", (req, res) => {
 
         const anniDate = result[0].anniDate;
 
-        const firstPersonData = [spaceName, firstPersonNameUser, firstPersonBirthdayUser, secondPersonName, secondPersonBirthday, anniDate]
+        const firstPersonData = [spaceName, firstPersonNameUser, firstPersonBirthdayUser, secondPersonName, secondPersonBirthday, anniDate, firstPersonEmail]
 
         res.send({ data: firstPersonData, message: "Login is Successful"});
           } else {
@@ -382,7 +477,7 @@ app.post("/loginSecondPerson", (req, res) => {
 
         const anniDate = result[0].anniDate;
 
-        const secondPersonData = [spaceName, firstPersonNameUser, firstPersonBirthdayUser, secondPersonName, secondPersonBirthday, anniDate]
+        const secondPersonData = [spaceName, firstPersonNameUser, firstPersonBirthdayUser, secondPersonName, secondPersonBirthday, anniDate, secondPersonEmail]
 
         res.send({ data: secondPersonData, message: "Login is Successful"});
           } else {
