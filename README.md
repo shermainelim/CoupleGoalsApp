@@ -76,11 +76,11 @@ Features :
 - [x] T & C Data Privacy
 - [x] Delete Couple Space
 - [x] Forget password
-- [ ] Change password
+- [x] Change password
 - [ ] Revamp UI
 - [ ] Async local storage username and couple space
 - [ ] Implement manual refresh icon and logic on dashboard for finance and goal tracker
-- [ ] Implement SMTP email for CRUD register , forget password and change password and delete couple space
+- [x] Implement SMTP email for CRUD register , forget password and change password and delete couple space
 - [ ] Refactor code
 - [ ] wrap in react native webview for mobile use case
 - [ ] implement devops and infra
