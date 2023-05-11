@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./FinanceForm.scss";
 import CustomButton from "../../shared/CustomButton";
-import { financePost, useSecondPerson } from "../../redux/appSlice";
+import { financePost, useSecondPerson,useFinancePostLoading } from "../../redux/appSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as cgUtils from "../../utils/cgUtil";
@@ -20,6 +20,7 @@ const FinanceFormSecond = () => {
   const [currentSaved, setCurrentSaved] = useState("");
   const [endGoal, setEndGoal] = useState("");
 
+  const financePostLoading = useFinancePostLoading();
   const secondPersonData = useSecondPerson();
 
   const spaceName = secondPersonData[0];
@@ -154,6 +155,7 @@ const FinanceFormSecond = () => {
             className="resident-btn"
             testId="resident"
             content="Submit"
+            loading={financePostLoading}
             clicked={async () => {
               setFormSubmitted(true);
 

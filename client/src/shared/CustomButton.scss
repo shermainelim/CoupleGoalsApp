@@ -11,7 +11,14 @@
   min-width: 480px;
   height: 40px;
   font-family: monospace;
+
+  .spinner{
+    display: flex;
+    justify-content: center;
+  }
 }
+
+
 
 .btn {
   background-color: $kaya-green;

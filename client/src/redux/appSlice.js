@@ -647,6 +647,16 @@ export const { logOutFinanceFetch } = appSlice.actions;
 
 export default appSlice.reducer;
 
+export const useFinanceFetchLoading = () =>
+useSelector((state) => state.appState.sLoggedInFinanceFetched);
+
+export const useGoalFetchLoading = () =>
+useSelector((state) => state.appState.isLoggedInGoalFetched);
+
+
+export const useFinancePostLoading = () =>
+useSelector((state) => state.appState.financePostLoading);
+
 //register complete status
 export const useRegisterCreated = () =>
   useSelector((state) => state.appState.isRegisterCreated);

@@ -22,6 +22,8 @@ import {
   financeDelete,
   spaceDelete,
   completeSpaceDelete,
+  useFinanceFetchLoading,
+  useGoalFetchLoading,
 } from "../../redux/appSlice";
 import { Navigate } from "react-router-dom";
 import moment from "moment";
@@ -31,6 +33,8 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import * as cgUtils from "../../utils/cgUtil"
 import cogoToast from "cogo-toast";
+import { Spinner } from "react-activity";
+import "react-activity/dist/library.css";
 
 const DashboardSecond = () => {
   const cx = classNames.bind(styles);
@@ -39,6 +43,9 @@ const DashboardSecond = () => {
   const [toDo, setToDo] = useState([]);
   const [deleted, setDeleted]= useState(false);
   let secondPersonData = useSecondPerson();
+
+  const goalFetchLoading = useFinanceFetchLoading();
+  const financeFetchLoading = useGoalFetchLoading();
 
   console.log("secoind", secondPersonData);
 
@@ -375,9 +382,15 @@ const DashboardSecond = () => {
           alt="Logo"
           style={{ width: "350px", height: "350px" }}
         />
-        <span title="refresh" onClick={refresh}>
-          <FontAwesomeIcon size={"3x"} icon={faRefresh} />
-        </span>
+  {goalFetchLoading || financeFetchLoading ? (
+          <div className={cx("spinner")}>
+            <Spinner />
+          </div>
+        ) : (
+          <span title="refresh" onClick={refresh}>
+            <FontAwesomeIcon size={"3x"} icon={faRefresh} />{" "}
+          </span>
+        )}
       </div>
       {renderMainCoupleCard()}
       {renderFinanceCard()}
