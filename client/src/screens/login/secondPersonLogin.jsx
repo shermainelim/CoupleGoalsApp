@@ -46,8 +46,8 @@ const SecondPersonLogin = () => {
       <input
         style={{
           borderRadius: "0.625rem",
-          padding: "0.625rem",
-          paddingRight: "6.25rem",
+          padding: "0.5rem",
+          width:"18.5rem",
           marginBottom: "1.25rem",
         }}
         type="text"
@@ -73,8 +73,8 @@ const SecondPersonLogin = () => {
       <input
         style={{
           borderRadius: "0.625rem",
-          padding: "0.625rem",
-          paddingRight: "6.25rem",
+          padding: "0.5rem",
+          width:"18.5rem",
           marginBottom: "1.25rem",
         }}
         type="text"
@@ -100,8 +100,8 @@ const SecondPersonLogin = () => {
       <input
         style={{
           borderRadius: "0.625rem",
-          padding: "0.625rem",
-          paddingRight: "6.25rem",
+          padding: "0.5rem",
+          width:"18.5rem",
           marginBottom: "1.25rem",
         }}
         type="password"

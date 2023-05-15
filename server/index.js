@@ -72,15 +72,15 @@ const triggerChangePwEmail = async (email) => {
 }
 
 
-const triggerDeleteEmail = async (email, username, coupleSpace) => {
+const triggerDeleteEmail = async (email, spaceName) => {
   const sendTo = email;
   const sentFrom = process.env.EMAIL_USER;
   const replyTo = email;
   const subject = "Delete Message From Couple Goals Official";
   const message = `
-      <p>Hello ${username}</p>
+      <p>Hello User</p>
       <p>You have requested to delete your couple space account. </p>
-      <p>${coupleSpace} and both associated accounts have been deleted. </p>
+      <p>Couple space name ${spaceName} and both associated accounts have been deleted. </p>
       <p>Enjoy,</p>
       <p>Couple Goals Official</p>
   `;
@@ -95,6 +95,8 @@ app.post("/api/sendemail", async (req, res) => {
   const email = req.body.firstPersonEmail;
   const username = req.body.firstPersonName;
 
+  console.log("first email", email);
+
   try {
     await triggerEmail(email, username);
     res.status(200).json({ success: true, message: "Email First Sent" });
@@ -107,7 +109,11 @@ app.post("/api/sendEmailSecond", async (req, res) => {
   const email = req.body.secondPersonEmail;
   const username = req.body.secondPersonName;
 
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+
+ 
   try {
+    await delay(2000);
     await triggerEmail(email, username);
     res.status(200).json({ success: true, message: "Email Second Sent" });
   } catch (error) {
@@ -139,7 +145,7 @@ app.post("/changePasswordSecond",async (req, res) => {
   const hash1Change = bcrypt.hashSync(confirmPassword, saltRounds);
 
   db.query(
-    "UPDATE couplegoals.space SET firstPersonPassword = ? WHERE firstPersonEmail = ?",
+    "UPDATE couplegoals.space SET secondPersonPassword = ? WHERE secondPersonEmail = ?",
     [hash1Change, secondPersonEmail],
   );
 
@@ -230,10 +236,11 @@ console.log("hashed", hashChangeForget);
 //dashboard delete couple space
 app.post("/spaceDelete", async (req, res) => {
   const spaceName = req.body.spaceName;
+  const email = req.body.secondPersonEmail;
 
   db.query(
     "DELETE FROM couplegoals.space WHERE spaceName = ?",
-    [spaceName ],
+    [spaceName],
   );
 
   try {
@@ -291,6 +298,23 @@ app.post("/financePost", (req, res) => {
     [spaceName, id , title, desc, startGoal, currentSaved, endGoal],
   );
   res.send({message: "Finance tracker posted"});
+});
+
+
+//finance post 
+app.post("/contributionBackPost", (req, res) => {
+  const spaceName = req.body.spaceName;
+ const id = req.body.id;
+ const current = req.body.currentSaved
+
+ console.log("space", spaceName, id, current);
+
+
+  db.query(
+    "UPDATE couplegoals.finance SET currentSaved = ? WHERE spaceName = ? AND id = ?",
+    [current, spaceName, id],
+  );
+  res.send({message: "Financial savings updated"});
 });
 
 

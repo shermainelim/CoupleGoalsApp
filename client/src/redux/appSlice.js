@@ -23,6 +23,8 @@ const initialState = {
   isUniqueCreated: false,
   financePostLoading: false,
   isFinancePostCreated: false,
+  contributionBackPostLoading: false,
+  isContributionBackPostCreated: false,
   goalPostLoading: false,
   isGoalPostCreated: false,
   goalDeleteLoading: false,
@@ -311,9 +313,10 @@ export const forgetPasswordSecond = createAsyncThunk(
 
 export const spaceDelete = createAsyncThunk(
   `${name}/spaceDelete`,
-  async ({ spaceName }) => {
+  async ({ secondPersonEmail, spaceName }) => {
+    console.log("spACENAME", spaceName);
     try {
-      const res = await axios.post("/spaceDelete", { spaceName });
+      const res = await axios.post("/spaceDelete", { secondPersonEmail, spaceName });
 
       cogoToast.success(res.data.message);
     } catch (err) {
@@ -368,6 +371,24 @@ export const financePost = createAsyncThunk(
   }
 );
 
+
+export const contributionBackPost = createAsyncThunk(
+  `${name}/contributionBackPost`,
+  async ({ spaceName, id, currentSaved }) => {
+    console.log("spacename here", spaceName)
+    try {
+      const res = await axios.post("/contributionBackPost", {
+        spaceName,
+        id,
+        currentSaved
+      });
+      cogoToast.success(res.data.message);
+    } catch (err) {
+      cogoToast.error("Financial savings not updated.");
+    }
+  }
+);
+
 export const goalPost = createAsyncThunk(
   `${name}/goalPost`,
   async ({ spaceName, id, title, status }) => {
@@ -405,6 +426,9 @@ const appSlice = createSlice({
     },
     completeFinancePost: (state) => {
       state.isFinancePostCreated = initialState.isFinancePostCreated;
+    },
+    completeContributionBackPost: (state) => {
+      state.isContributionBackPostCreated = initialState.isContributionBackPostCreated;
     },
     completeGoalPost: (state) => {
       state.isGoalPostCreated = initialState.isGoalPostCreated;
@@ -546,6 +570,19 @@ const appSlice = createSlice({
       state.financePostLoading = false;
     });
 
+        //finance savings update
+        builder.addCase(contributionBackPost.fulfilled, (state) => {
+          state.isContributionBackPostCreated = true;
+    
+          state.contributionBackPostLoading = false;
+        });
+        builder.addCase(contributionBackPost.pending, (state) => {
+          state.contributionBackPostLoading = true;
+        });
+        builder.addCase(contributionBackPost.rejected, (state) => {
+          state.contributionBackPostLoading = false;
+        });
+
     //goal post
     builder.addCase(goalPost.fulfilled, (state) => {
       state.isGoalPostCreated = true;
@@ -638,6 +675,7 @@ export const { completeGoalDelete } = appSlice.actions;
 export const { completeFinanceDelete } = appSlice.actions;
 export const { completeSpaceDelete } = appSlice.actions;
 export const { completeFinancePost } = appSlice.actions;
+export const { completeContributionBackPost } = appSlice.actions;
 export const { completeGoalPost } = appSlice.actions;
 export const { completeCheck } = appSlice.actions;
 export const { logOutFirstPerson } = appSlice.actions;
@@ -656,6 +694,9 @@ useSelector((state) => state.appState.isLoggedInGoalFetched);
 
 export const useFinancePostLoading = () =>
 useSelector((state) => state.appState.financePostLoading);
+
+export const useContributionBackPostLoading = () =>
+useSelector((state) => state.appState.contributionBackPostLoading);
 
 //register complete status
 export const useRegisterCreated = () =>

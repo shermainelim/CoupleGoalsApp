@@ -56,6 +56,7 @@ const Dashboard = () => {
   const secondPersonName = secondPersonData[3];
   const secondPersonBirthday = secondPersonData[4];
   const anniversaryDateFirstPersonUser = secondPersonData[5];
+  const secondPersonEmail = secondPersonData[6];
 
   // Tasks (ToDo List) State
 
@@ -141,7 +142,7 @@ const Dashboard = () => {
   const onClickDelete = () => {
     confirmAlert({
       customUI: ({ onClose }) => {
-        dispatch(spaceDelete({ spaceName }));
+        dispatch(spaceDelete({ secondPersonEmail,spaceName }));
         dispatch(logOutFirstPerson());
         setLogout(true);
         dispatch(completeSpaceDelete());
@@ -156,7 +157,7 @@ const Dashboard = () => {
         return (
           <div
             style={{
-              marginLeft: "12.5rem",
+         
               fontSize: "1.25rem",
               fontFamily: "monospace",
             }}

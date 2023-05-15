@@ -1,30 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "./ProgressBar.scss";
+import { useDispatch } from "react-redux";
+import { contributionBackPost } from "../redux/appSlice";
 
-const ProgressBar = ({ starterGoal, currentSaved, enderGoal, description }) => {
+const ProgressBar = ({ starterGoal, currentSaved, enderGoal, description, spacerName, ider }) => {
   const cx = classNames.bind(styles);
   const [style, setStyle] = useState({});
+  const dispatch = useDispatch();
 
   const currentGoal = currentSaved;
   const endGoal = enderGoal;
   const startGoal = starterGoal;
 
+  const spaceName = spacerName;
+  const id= ider;
+
+  console.log("spacername", spacerName);
+
+
+  
+
   let currentProgress = (currentGoal / endGoal) * 100;
 
   const [current, setCurrent] = useState(currentProgress);
 
+  useEffect(()=>{
+setCurrent(currentSaved);
+  },[currentGoal])
+
   let incrementalGoal = (startGoal / endGoal) * 100;
 
   const Contribute = () => {
-    const res = current + incrementalGoal;
+    const curr = parseInt(current);
+    const res = curr + incrementalGoal;
+
+    console.log("curret", curr);
+    console.log("goal",incrementalGoal);
+    console.log("resno",res);
+
     setCurrent(res);
+    let currentSaved = res;
+    dispatch(contributionBackPost({  spaceName, id , currentSaved}));
   };
 
   const Backtrack = () => {
-    const res = current - incrementalGoal;
+    const curr = parseInt(current);
+    const res = curr - incrementalGoal;
 
+    console.log("resnow",res);
     setCurrent(res);
+    let currentSaved = res;
+    dispatch(contributionBackPost({  spaceName, id , currentSaved}));
   };
 
   setTimeout(() => {

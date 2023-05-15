@@ -56,7 +56,8 @@ const DashboardSecond = () => {
   const secondPersonName = secondPersonData[3];
   const secondPersonBirthday = secondPersonData[4];
   const anniversaryDateFirstPersonUser = secondPersonData[5];
-
+  const secondPersonEmail = secondPersonData[6];
+  
   // Tasks (ToDo List) State
 
   const [toDoFinance, setToDoFinance] = useState([]);
@@ -141,7 +142,7 @@ const DashboardSecond = () => {
   const onClickDelete=()=>{
     confirmAlert({
       customUI: ({ onClose }) => {
-    dispatch(spaceDelete({ spaceName }));
+    dispatch(spaceDelete({ secondPersonEmail,spaceName}));
     dispatch(logOutSecondPerson());
     setLogout(true);
     dispatch(completeSpaceDelete());
@@ -157,7 +158,7 @@ const DashboardSecond = () => {
     confirmAlert({
     customUI: ({ onClose }) => {
       return (
-        <div style={{marginLeft:"12.5rem", fontSize:"1.25rem",fontFamily:"monospace"}}>
+        <div style={{ fontSize:"1.25rem",fontFamily:"monospace"}}>
         <h1>Are you sure?</h1>
         <p>You want to delete this couple space? <br/>
         <br/>It will delete both accounts in the  <br/> <br/>

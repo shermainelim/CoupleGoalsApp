@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 export const Card = ({ todoFinance, deleteFinance }) => {
+  
+  console.log("todofibna", todoFinance)
+  
   return (
     <>
       {todoFinance &&
@@ -27,6 +30,8 @@ export const Card = ({ todoFinance, deleteFinance }) => {
                     currentSaved={ele.currentSaved}
                     enderGoal={ele.endGoal}
                     description={ele.description}
+                    spacerName={ele.spaceName}
+                    ider={ele.id}
                   />
                 }
               </div>

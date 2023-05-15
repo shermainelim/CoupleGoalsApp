@@ -75,9 +75,9 @@ const Register = () => {
     setAnniDate(event.target.value);
   };
 
-  const sendEmail = async (e) => {
+  const sendEmail = async () => {
     //e.preventDefault();
-
+console.log("firstpersonemail", firstPersonEmail);
     const data = {
       firstPersonEmail,
       firstPersonName
@@ -87,13 +87,12 @@ const Register = () => {
       "http://localhost:3004/api/sendemail",
       data
     );
-    console.log(response.data);
+    console.log("first",response.data);
     cogoToast.success("Email First Sent!");
   };
 
   const sendEmailSecondPerson = async () => {
    
-
     const data = {
       secondPersonEmail,
       secondPersonName
@@ -103,7 +102,7 @@ const Register = () => {
       "http://localhost:3004/api/sendEmailSecond",
       data
     );
-    console.log(response.data);
+    console.log("Second",response.data);
     cogoToast.success("Email Second Sent!");
   };
 
@@ -320,6 +319,7 @@ const Register = () => {
             );
               sendEmail();
               sendEmailSecondPerson();
+              setFormSubmitted(false);
             setChangeSpaceName("");
             setChangeFirstPersonName("");
             setChangeFirstPersonEmail("");
@@ -327,6 +327,7 @@ const Register = () => {
             setChangeSecondPersonName("");
             setChangeSecondPersonEmail("");
             setChangeSecondPersonPassword("");
+           
           }
         }}
       ></CustomButton>

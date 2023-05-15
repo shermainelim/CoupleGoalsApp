@@ -52,7 +52,7 @@ const ChangePasswordSecond = () => {
           borderRadius: "0.625rem",
           padding: "0.625rem",
           paddingRight: "6.25rem",
-          marginBottom: "1.25rem",
+          margin:"1rem",
         }}
         type="password"
         name="name"
@@ -81,7 +81,7 @@ const ChangePasswordSecond = () => {
           borderRadius: "0.625rem",
           padding: "0.625rem",
           paddingRight: "6.25rem",
-          marginBottom: "1.25rem",
+          margin:"1rem",
         }}
         type="password"
         name="name"
