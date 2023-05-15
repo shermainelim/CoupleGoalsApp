@@ -95,8 +95,6 @@ app.post("/api/sendemail", async (req, res) => {
   const email = req.body.firstPersonEmail;
   const username = req.body.firstPersonName;
 
-  console.log("first email", email);
-
   try {
     await triggerEmail(email, username);
     res.status(200).json({ success: true, message: "Email First Sent" });
@@ -140,8 +138,7 @@ app.post("/goalDone", (req, res) => {
 app.post("/changePasswordSecond",async (req, res) => {
   const confirmPassword = req.body.confirmPassword;
   const secondPersonEmail= req.body.secondPersonEmail;
-  console.log("confirmPassword", confirmPassword);
-  console.log("secondPersonEmail", secondPersonEmail);
+ 
   const hash1Change = bcrypt.hashSync(confirmPassword, saltRounds);
 
   db.query(
@@ -164,8 +161,7 @@ app.post("/changePasswordSecond",async (req, res) => {
 app.post("/changePassword",async (req, res) => {
   const confirmPassword = req.body.confirmPassword;
   const firstPersonEmail= req.body.firstPersonEmail;
-  console.log("confirmPassword", confirmPassword);
-  console.log("firstPersonEmail", firstPersonEmail);
+  
   const hash1Change = bcrypt.hashSync(confirmPassword, saltRounds);
 
   db.query(
@@ -186,7 +182,7 @@ app.post("/changePassword",async (req, res) => {
 //forget password second
 app.post("/forgetPasswordSecond",async (req, res) => {
   const firstPersonEmail = req.body.firstPersonEmail;
-  console.log("Second person forget", firstPersonEmail);
+
   const randNo = req.body.randNo;
   const randNoString = randNo.toString();
   const saltRoundsNew = 10;
@@ -213,11 +209,10 @@ app.post("/forgetPassword",async (req, res) => {
   const randNo = req.body.randNo;
   const randNoString = randNo.toString();
   const saltRoundsNew = 10;
-  console.log("randNo", randNoString);
-  console.log("Saltrounds",  saltRoundsNew);
+
 
   const hashChangeForget = bcrypt.hashSync(randNoString,  saltRoundsNew);
-console.log("hashed", hashChangeForget);
+
   db.query(
     "UPDATE couplegoals.space SET firstPersonPassword = ? WHERE firstPersonEmail = ?",
     [hashChangeForget, firstPersonEmail],
@@ -307,9 +302,6 @@ app.post("/contributionBackPost", (req, res) => {
  const id = req.body.id;
  const current = req.body.currentSaved
 
- console.log("space", spaceName, id, current);
-
-
   db.query(
     "UPDATE couplegoals.finance SET currentSaved = ? WHERE spaceName = ? AND id = ?",
     [current, spaceName, id],
@@ -370,18 +362,18 @@ app.post("/fetchGoal", (req, res) => {
 app.post("/checkUnique", (req, res) => {
  
   const spaceName = req.body.spaceName;
-  console.log("hit here");
+
 
   db.query(
     "SELECT * from couplegoals.space WHERE spaceName = ?",
     [spaceName],
     (err, result) => {
-      console.log("Res", result);
+   
       if (result.length !== 0) {
-        console.log("HIT HERE NOW");
+       
         res.send({ message: "taken" });
       } else {
-        console.log("HIT HERE no");
+       
         res.send({ message: "unique" });
         //space name not taken
       }

@@ -25,10 +25,6 @@ const ForgetPasswordSec = () => {
 
   const randNo = cgUtils.randomIntFromInterval(1,100000);
 
-  console.log("rand", randNo);
-
- 
- 
 
   const firstPersonEmailHandler = (event) => {
     setChangeFirstPersonEmail(event.target.value);

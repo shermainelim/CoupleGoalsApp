@@ -47,7 +47,7 @@ const Dashboard = () => {
   const goalFetchLoading = useFinanceFetchLoading();
   const financeFetchLoading = useGoalFetchLoading();
 
-  console.log("secoind", secondPersonData);
+ 
 
   //first person login
   const spaceName = secondPersonData[0];

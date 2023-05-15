@@ -15,10 +15,10 @@ export default function ContactUs() {
       .then(
         (result) => {
           alert("Message sent");
-          console.log(result.text);
+       
         },
         (error) => {
-          console.log(error.text);
+       
         }
       );
     e.target.reset();

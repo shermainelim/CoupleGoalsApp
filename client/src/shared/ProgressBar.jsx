@@ -16,11 +16,6 @@ const ProgressBar = ({ starterGoal, currentSaved, enderGoal, description, spacer
   const spaceName = spacerName;
   const id= ider;
 
-  console.log("spacername", spacerName);
-
-
-  
-
   let currentProgress = (currentGoal / endGoal) * 100;
 
   const [current, setCurrent] = useState(currentProgress);
@@ -35,10 +30,6 @@ setCurrent(currentSaved);
     const curr = parseInt(current);
     const res = curr + incrementalGoal;
 
-    console.log("curret", curr);
-    console.log("goal",incrementalGoal);
-    console.log("resno",res);
-
     setCurrent(res);
     let currentSaved = res;
     dispatch(contributionBackPost({  spaceName, id , currentSaved}));
@@ -48,7 +39,6 @@ setCurrent(currentSaved);
     const curr = parseInt(current);
     const res = curr - incrementalGoal;
 
-    console.log("resnow",res);
     setCurrent(res);
     let currentSaved = res;
     dispatch(contributionBackPost({  spaceName, id , currentSaved}));

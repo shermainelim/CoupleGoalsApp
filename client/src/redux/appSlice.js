@@ -216,7 +216,7 @@ export const checkUnique = createAsyncThunk(
         spaceName,
       });
 
-      console.log("mess", res.data.message);
+     
       if (res.data.message === "unique") {
         cogoToast.success("Space name is unique.");
       }
@@ -245,7 +245,7 @@ export const goalDone = createAsyncThunk(
 export const changePassword = createAsyncThunk(
   `${name}/changePassword `,
   async ({ confirmPassword, firstPersonEmail }) => {
-    console.log("firstPersonEmail", firstPersonEmail);
+   
     try {
       const res = await axios.post("/changePassword", {
         confirmPassword,
@@ -263,7 +263,7 @@ export const changePassword = createAsyncThunk(
 export const changePasswordSecond = createAsyncThunk(
   `${name}/changePasswordSecond`,
   async ({ confirmPassword, secondPersonEmail }) => {
-    console.log("secondPersonEmail", secondPersonEmail);
+  
     try {
       const res = await axios.post("/changePasswordSecond", {
         confirmPassword,
@@ -280,7 +280,7 @@ export const changePasswordSecond = createAsyncThunk(
 export const forgetPassword = createAsyncThunk(
   `${name}/forgetPassword`,
   async ({ randNo, firstPersonEmail }) => {
-    console.log("rand", randNo);
+   
     try {
       const res = await axios.post("/forgetPassword", {
         randNo,
@@ -297,7 +297,7 @@ export const forgetPassword = createAsyncThunk(
 export const forgetPasswordSecond = createAsyncThunk(
   `${name}/forgetPasswordSecond `,
   async ({ randNo, firstPersonEmail }) => {
-    console.log("rand", randNo);
+  
     try {
       const res = await axios.post("/forgetPasswordSecond", {
         randNo,
@@ -314,7 +314,7 @@ export const forgetPasswordSecond = createAsyncThunk(
 export const spaceDelete = createAsyncThunk(
   `${name}/spaceDelete`,
   async ({ secondPersonEmail, spaceName }) => {
-    console.log("spACENAME", spaceName);
+   
     try {
       const res = await axios.post("/spaceDelete", { secondPersonEmail, spaceName });
 
@@ -375,7 +375,7 @@ export const financePost = createAsyncThunk(
 export const contributionBackPost = createAsyncThunk(
   `${name}/contributionBackPost`,
   async ({ spaceName, id, currentSaved }) => {
-    console.log("spacename here", spaceName)
+   
     try {
       const res = await axios.post("/contributionBackPost", {
         spaceName,

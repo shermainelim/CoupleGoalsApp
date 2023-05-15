@@ -77,7 +77,7 @@ const Register = () => {
 
   const sendEmail = async () => {
     //e.preventDefault();
-console.log("firstpersonemail", firstPersonEmail);
+
     const data = {
       firstPersonEmail,
       firstPersonName
@@ -87,7 +87,7 @@ console.log("firstpersonemail", firstPersonEmail);
       "http://localhost:3004/api/sendemail",
       data
     );
-    console.log("first",response.data);
+    
     cogoToast.success("Email First Sent!");
   };
 
@@ -102,7 +102,7 @@ console.log("firstpersonemail", firstPersonEmail);
       "http://localhost:3004/api/sendEmailSecond",
       data
     );
-    console.log("Second",response.data);
+  
     cogoToast.success("Email Second Sent!");
   };
 
