@@ -15,50 +15,50 @@ body {
 
 .progress {
 	background-color: #d8d8d8;
-	border-radius: 20px;
+	border-radius: 1.25rem;
 	position: relative;
-	margin: 15px 0;
-	height: 30px;
-	width: 300px;
+	margin: 0.9375rem 0;
+	height: 1.875rem;
+	width: 18.75rem;
 
 	.pro-card-description{
-		margin-top:20px;
-		margin-bottom:20px;
+		margin-top:1.25rem;
+		margin-bottom:1.25rem;
 	}
 
 	.pro-card-btn-contribute {
 		text-align: center;
 		width: 90%;
-		border-radius: 5px;
+		border-radius: 0.3125rem;
 		padding: 0.5rem 1rem;
 	    background-color: aliceblue;
     color: black;
 		text-decoration: none;
-		margin-bottom: 20px;
-		margin-left: 20px;
-		padding:10px;
+		margin-bottom: 1.25rem;
+		margin-left: 1.25rem;
+		padding:0.625rem;
 		align-items: center;
 	  }
 	
 	  .pro-card-btn-backtrack {
 		text-align: center;
 		width: 90%;
-		border-radius: 5px;
+		border-radius: 0.3125rem;
 		padding: 0.5rem 1rem;
 	    background-color: aliceblue;
     color: black;
 		text-decoration: none;
-		margin-bottom: 20px;
-		padding:10px;
-		margin-left: 20px;
+		margin-bottom: 1.25rem;
+		padding:0.625rem;
+		margin-left: 1.25rem;
 		align-items: center;
 	  }
 }
 
 .progress-done {
 	background: linear-gradient(to left, turquoise, aquamarine);
-    box-shadow: 0 3px 3px -5px turquoise, 0 2px 5px turquoise;
-	border-radius: 20px;
+    box-shadow: 0 0.1875rem 0.1875rem -0.3125rem turquoise, 0 0.125rem 0.3125rem turquoise;
+	border-radius: 1.25rem;
 	color: black;
 	display: flex;
 	align-items: center;
@@ -73,7 +73,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-	margin-bottom: 20px;
+	margin-bottom: 1.25rem;
 }
 .progress-start{
 
@@ -84,7 +84,7 @@ body {
 }
 
 .pro-card-description {
-    margin-top: 25px;
+    margin-top: 1.5625rem;
   }
   
   

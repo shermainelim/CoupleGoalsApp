@@ -46,10 +46,10 @@ const FirstPersonLogin = () => {
 
       <input
         style={{
-          borderRadius: "10px",
-          padding: "10px",
-          paddingRight: "100px",
-          marginBottom: "20px",
+          borderRadius: "0.625rem",
+          padding: "0.625rem",
+          paddingRight: "6.25rem",
+          marginBottom: "1.25rem",
         }}
         type="text"
         name="name"
@@ -61,9 +61,9 @@ const FirstPersonLogin = () => {
       {spaceName.length === 0 && formSubmitted ? (
         <div
           style={{
-            marginRight: "180px",
-            marginBottom: "5px",
-            marginTop: "-15px",
+            marginRight: "11.25rem",
+            marginBottom: "0.3125rem",
+            marginTop: "-0.9375rem",
             color: "darkred",
           }}
         >
@@ -73,10 +73,10 @@ const FirstPersonLogin = () => {
 
       <input
         style={{
-          borderRadius: "10px",
-          padding: "10px",
-          paddingRight: "100px",
-          marginBottom: "20px",
+          borderRadius: "0.625rem",
+          padding: "0.625rem",
+          paddingRight: "6.25rem",
+          marginBottom: "1.25rem",
         }}
         type="text"
         name="name"
@@ -88,9 +88,9 @@ const FirstPersonLogin = () => {
       {firstPersonEmail.length === 0 && formSubmitted ? (
         <div
           style={{
-            marginRight: "180px",
-            marginBottom: "5px",
-            marginTop: "-15px",
+            marginRight: "11.25rem",
+            marginBottom: "0.3125rem",
+            marginTop: "-0.9375rem",
             color: "darkred",
           }}
         >
@@ -100,10 +100,10 @@ const FirstPersonLogin = () => {
 
       <input
         style={{
-          borderRadius: "10px",
-          padding: "10px",
-          paddingRight: "100px",
-          marginBottom: "20px",
+          borderRadius: "0.625rem",
+          padding: "0.625rem",
+          paddingRight: "6.25rem",
+          marginBottom: "1.25rem",
         }}
         type="password"
         name="name"
@@ -115,9 +115,9 @@ const FirstPersonLogin = () => {
       {firstPersonPassword.length === 0 && formSubmitted ? (
         <div
           style={{
-            marginRight: "180px",
-            marginBottom: "5px",
-            marginTop: "-15px",
+            marginRight: "11.25rem",
+            marginBottom: "0.3125rem",
+            marginTop: "-0.9375rem",
             color: "darkred",
           }}
         >

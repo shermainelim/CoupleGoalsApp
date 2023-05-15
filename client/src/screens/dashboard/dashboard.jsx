@@ -156,8 +156,8 @@ const Dashboard = () => {
         return (
           <div
             style={{
-              marginLeft: "200px",
-              fontSize: "20px",
+              marginLeft: "12.5rem",
+              fontSize: "1.25rem",
               fontFamily: "monospace",
             }}
           >
@@ -377,7 +377,7 @@ const Dashboard = () => {
           className={cx("imageIcon")}
           src={Couple}
           alt="Logo"
-          style={{ width: "350px", height: "350px" }}
+          style={{ width: "21.875rem", height: "21.875rem" }}
         />
 
         {goalFetchLoading || financeFetchLoading ? (

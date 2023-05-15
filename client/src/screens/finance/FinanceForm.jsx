@@ -56,11 +56,11 @@ const FinanceForm = () => {
           <div>
             <input
               style={{
-                fontSize: "18px",
-                width: "300px",
-                marginTop: "5px",
-                marginBottom: "10px",
-                padding: "10px",
+                fontSize: "1.125rem",
+                width: "18.75rem",
+                marginTop: "0.3125rem",
+                marginBottom: "0.625rem",
+                padding: "0.625rem",
               }}
               type="text"
               name="name"
@@ -76,11 +76,11 @@ const FinanceForm = () => {
           <div>
             <input
               style={{
-                fontSize: "18px",
-                width: "300px",
-                marginTop: "5px",
-                marginBottom: "10px",
-                padding: "10px",
+                fontSize: "1.125rem",
+                width: "18.75rem",
+                marginTop: "0.3125rem",
+                marginBottom: "0.625rem",
+                padding: "0.625rem",
               }}
               type="text"
               name="name"
@@ -96,11 +96,11 @@ const FinanceForm = () => {
           <div>
             <input
               style={{
-                fontSize: "18px",
-                width: "300px",
-                marginTop: "5px",
-                marginBottom: "10px",
-                padding: "10px",
+                fontSize: "1.125rem",
+                width: "18.75rem",
+                marginTop: "0.3125rem",
+                marginBottom: "0.625rem",
+                padding: "0.625rem",
               }}
               type="text"
               name="name"
@@ -116,11 +116,11 @@ const FinanceForm = () => {
           <div>
             <input
               style={{
-                fontSize: "18px",
-                width: "300px",
-                marginTop: "5px",
-                marginBottom: "10px",
-                padding: "10px",
+                fontSize: "1.125rem",
+                width: "18.75rem",
+                marginTop: "0.3125rem",
+                marginBottom: "0.625rem",
+                padding: "0.625rem",
               }}
               type="text"
               name="name"
@@ -136,11 +136,11 @@ const FinanceForm = () => {
           <div>
             <input
               style={{
-                fontSize: "18px",
-                width: "300px",
-                marginTop: "5px",
-                marginBottom: "10px",
-                padding: "10px",
+                fontSize: "1.125rem",
+                width: "18.75rem",
+                marginTop: "0.3125rem",
+                marginBottom: "0.625rem",
+                padding: "0.625rem",
               }}
               type="text"
               name="name"

@@ -19,7 +19,7 @@ body, html {
   }
   
   .finance-space-container{
-    margin-top:500px;
+    margin-top:31.25rem;
     flex-wrap: wrap;
     justify-content: center;
     max-width: 100%;
@@ -28,31 +28,31 @@ body, html {
     align-items: center;
     text-align: center;
     background-color: white;
-    margin-bottom: 100px;
+    margin-bottom: 6.25rem;
 
     .big-card-container {
         width: 90%;
         border-radius: 1rem;
-        box-shadow: 0px 10px 8px #999;
+        box-shadow: 0rem 0.625rem 0.5rem #999;
         display: flex;
         flex-direction: column;
         margin: 0.5rem;
         color:white;
         background-color: white;
         height: fit-content;
-        margin-left: 20px;
-        margin-right: 20px;
-        padding:20px;
+        margin-left: 1.25rem;
+        margin-right: 1.25rem;
+        padding:1.25rem;
         border-color: black;
         border-style: solid;
         color:black;
         font-family: monospace;
 
         .big-card-title{
-            font-size: 20px;
+            font-size: 1.25rem;
             font-weight: 900;
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin-top: 0.625rem;
+            margin-bottom: 0.625rem;
            display:"flex";
            flex-direction: row;
           }
@@ -60,26 +60,26 @@ body, html {
         .small-card-container-goals {
             width: 95%;
             border-radius: 1rem;
-            box-shadow: 0px 10px 8px antiquewhite;
+            box-shadow: 0rem 0.625rem 0.5rem antiquewhite;
             display: flex;
             flex-direction: column;
             margin: 0.5rem;
             color:black;
             background-color: antiquewhite;
             height: fit-content;
-            margin-left: 12px;
-            margin-bottom: 30px;
-            margin-right: 20px;
-            padding: 20px;
+            margin-left: 0.75rem;
+            margin-bottom: 1.875rem;
+            margin-right: 1.25rem;
+            padding: 1.25rem;
     
           }
         .small-card-title{
-          font-size: 18px;
+          font-size: 1.125rem;
         }
         .input-general-error{
-          margin-right: 210px;
-          margin-top: 2px;
-          margin-bottom: 30px;
+          margin-right: 13.125rem;
+          margin-top: 0.125rem;
+          margin-bottom: 1.875rem;
           color: darkred;
       }
       }

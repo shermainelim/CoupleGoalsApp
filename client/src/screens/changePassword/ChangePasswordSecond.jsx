@@ -49,10 +49,10 @@ const ChangePasswordSecond = () => {
       <div className="register-title"> Change Second Person Password</div>
       <input
         style={{
-          borderRadius: "10px",
-          padding: "10px",
-          paddingRight: "100px",
-          marginBottom: "20px",
+          borderRadius: "0.625rem",
+          padding: "0.625rem",
+          paddingRight: "6.25rem",
+          marginBottom: "1.25rem",
         }}
         type="password"
         name="name"
@@ -64,9 +64,9 @@ const ChangePasswordSecond = () => {
       {password.length === 0 && formSubmitted ? (
         <div
           style={{
-            marginRight: "180px",
-            marginBottom: "5px",
-            marginTop: "-15px",
+            marginRight: "11.25rem",
+            marginBottom: "0.3125rem",
+            marginTop: "-0.9375rem",
             color: "darkred",
           }}
         >
@@ -78,10 +78,10 @@ const ChangePasswordSecond = () => {
 
 <input
         style={{
-          borderRadius: "10px",
-          padding: "10px",
-          paddingRight: "100px",
-          marginBottom: "20px",
+          borderRadius: "0.625rem",
+          padding: "0.625rem",
+          paddingRight: "6.25rem",
+          marginBottom: "1.25rem",
         }}
         type="password"
         name="name"
@@ -93,9 +93,9 @@ const ChangePasswordSecond = () => {
       {confirmPassword.length === 0 && formSubmitted ? (
         <div
           style={{
-            marginRight: "180px",
-            marginBottom: "5px",
-            marginTop: "-15px",
+            marginRight: "11.25rem",
+            marginBottom: "0.3125rem",
+            marginTop: "-0.9375rem",
             color: "darkred",
           }}
         >
@@ -106,9 +106,9 @@ const ChangePasswordSecond = () => {
 {confirmPassword !==password && formSubmitted ? (
         <div
           style={{
-            marginRight: "80px",
-            marginBottom: "5px",
-            marginTop: "10px",
+            marginRight: "5rem",
+            marginBottom: "0.3125rem",
+            marginTop: "0.625rem",
             color: "darkred",
           }}
         >

@@ -18,7 +18,7 @@ const Welcome = () => {
           <div
             style={{
             opacity:1,
-              fontSize: "20px",
+              fontSize: "1.25rem",
               fontFamily: "monospace",
             }}
           >

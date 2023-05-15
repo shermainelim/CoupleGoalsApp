@@ -157,7 +157,7 @@ const DashboardSecond = () => {
     confirmAlert({
     customUI: ({ onClose }) => {
       return (
-        <div style={{marginLeft:"200px", fontSize:"20px",fontFamily:"monospace"}}>
+        <div style={{marginLeft:"12.5rem", fontSize:"1.25rem",fontFamily:"monospace"}}>
         <h1>Are you sure?</h1>
         <p>You want to delete this couple space? <br/>
         <br/>It will delete both accounts in the  <br/> <br/>
@@ -380,7 +380,7 @@ const DashboardSecond = () => {
           className={cx("imageIcon")}
           src={Couple}
           alt="Logo"
-          style={{ width: "350px", height: "350px" }}
+          style={{ width: "21.875rem", height: "21.875rem" }}
         />
   {goalFetchLoading || financeFetchLoading ? (
           <div className={cx("spinner")}>
