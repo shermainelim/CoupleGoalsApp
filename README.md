@@ -1,5 +1,8 @@
 # CoupleGoalsReact
 
+Frontend (netlify) : https://couplegoals.netlify.app/
+Backend (heroku) : 
+
 Notes : https://www.conventionalcommits.org/en/v1.0.0/
 
 Title:CoupleGoals
