@@ -5,7 +5,7 @@ import Register from "../screens/register/Register";
 import LoginOptions from "../screens/login/loginOptions";
 import FirstPersonLogin from "../screens/login/firstPersonLogin";
 import SecondPersonLogin from "../screens/login/secondPersonLogin";
-import Dashboard from "../screens/Dashboard/Dashboard";
+import Dashboard from "../../src/screens/Dashboard/Dashboard";
 import DashboardSecond from "../screens/Dashboard/DashboardSecond";
 import FinanceForm from "../screens/finance/FinanceForm";
 import FinanceFormSecond from "../screens/finance/FinanceFormSecond";
