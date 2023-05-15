@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import classNames from "classnames/bind";
-import styles from "./Dashboard.scss";
+import styles from "./DashboardFirst.scss";
 import { Card } from "../../shared/Card";
 import CustomButton from "../../shared/CustomButton";
 import UpdateForm from "../todo/UpdateForm";
