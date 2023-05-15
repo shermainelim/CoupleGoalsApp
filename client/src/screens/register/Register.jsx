@@ -141,7 +141,7 @@ const Register = () => {
                   })
                 );
 
-                setChangeSpaceName("");
+                
               }
             }}
           ></CustomButton>
