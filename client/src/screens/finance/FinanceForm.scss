@@ -19,7 +19,7 @@ body, html {
   }
   
   .finance-space-container{
-    margin-top:31.25rem;
+    margin-top:17.25rem;
     flex-wrap: wrap;
     justify-content: center;
     max-width: 100%;
@@ -31,7 +31,7 @@ body, html {
     margin-bottom: 6.25rem;
 
     .big-card-container {
-        width: 90%;
+        width: 85%;
         border-radius: 1rem;
         box-shadow: 0rem 0.625rem 0.5rem #999;
         display: flex;
@@ -40,9 +40,8 @@ body, html {
         color:white;
         background-color: white;
         height: fit-content;
-        margin-left: 1.25rem;
-        margin-right: 1.25rem;
-        padding:1.25rem;
+        margin-left: 3rem;
+
         border-color: black;
         border-style: solid;
         color:black;

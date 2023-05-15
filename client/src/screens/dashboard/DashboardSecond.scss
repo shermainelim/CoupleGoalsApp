@@ -19,7 +19,7 @@ div.app {
 }
 
 .space-container{
-  margin-top:11.25rem;
+  margin-top:5.25rem;
   flex-wrap: wrap;
   justify-content: center;
   max-width: 100%;
@@ -85,7 +85,7 @@ div.app {
       color:black;
       background-color: white;
       height: fit-content;
-      margin-left: 1.25rem;
+      margin-left: 2rem;
       margin-right: 1.25rem;
       padding-bottom: 0.625rem;
       border-color: black;
@@ -94,7 +94,7 @@ div.app {
       .big-card-icon{
           display:flex;
           flex-direction: row;
-          justify-content: space-around;
+        
           margin-top: 0.625rem;
       }
       
@@ -112,7 +112,7 @@ div.app {
       background-color: white;
       height: -moz-fit-content;
       height: fit-content;
-      margin-left: 1.25rem;
+      margin-left: 2rem;
       margin-right: 1.25rem;
       border-color: black;
       border-style: solid;
@@ -148,7 +148,7 @@ div.app {
       color:black;
       background-color: white;
       height: fit-content;
-      margin-left: 1.25rem;
+      margin-left: 2rem;
       margin-right: 1.25rem;
       padding: 1.25rem;
       border-color: black;
@@ -212,7 +212,8 @@ div.app {
   color:black;
  display:"flex";
  flex-direction: row;
- margin-left:11.875rem;
+ margin-left:9.875rem;
+ margin-right: 1.25rem;
 }
     .container-todo{
       color:black

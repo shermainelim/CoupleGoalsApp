@@ -108,7 +108,7 @@ const Register = () => {
   };
 
   return (
-    <div className={cx("register-container")}>
+    <div className={cx("register-only-container")}>
       <div className="register-title"> Create a Couple Space</div>
 
       <div className={cx("input-container")}>

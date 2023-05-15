@@ -1,4 +1,4 @@
-.register-container{
+.register-only-container{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -9,7 +9,7 @@
     text-align: center;
     background-color: white;
     font-family: monospace;
-    margin-top: 1.25rem;
+    margin-top: 5.25rem;
 
     .register-title{
         font-size: 1.25rem;
