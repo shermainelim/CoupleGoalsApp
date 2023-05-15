@@ -77,7 +77,7 @@ Features :
 - [x] Delete Couple Space
 - [x] Forget password
 - [x] Change password
-- [ ] Revamp UI
+- [ ] Revamp UI to be web and mobile responsive
 - [ ] Async local storage username and couple space
 - [ ] Implement manual refresh icon and logic on dashboard for finance and goal tracker
 - [x] Implement SMTP email for CRUD register , forget password and change password and delete couple space
@@ -88,4 +88,4 @@ Features :
 - [ ] deploy to App stores Apple and Android
 
 
-Members : Zane , Shermaine, Wee Kiat
+Members : Zane , Gerald, Shermaine, Wee Kiat
