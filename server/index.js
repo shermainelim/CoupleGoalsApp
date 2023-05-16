@@ -233,6 +233,9 @@ app.post("/spaceDelete", async (req, res) => {
   const spaceName = req.body.spaceName;
   const email = req.body.secondPersonEmail;
 
+  console.log("spacenAME", spaceName);
+  console.log("email", email);
+
   db.query(
     "DELETE FROM heroku_4762ecdc0006081.space WHERE spaceName = ?",
     [spaceName],
@@ -244,7 +247,8 @@ app.post("/spaceDelete", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "User not found" });
   }
-  res.send({message: "Couple Space deleted"});
+  
+  console.log("Error space delete");
 
 });
 
