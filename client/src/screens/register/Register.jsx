@@ -84,7 +84,7 @@ const Register = () => {
     };
 
     const response = await axios.post(
-      "http://localhost:3004/api/sendemail",
+      "https://couple-goals-new.herokuapp.com/api/sendemail",
       data
     );
     
@@ -99,7 +99,7 @@ const Register = () => {
     };
 
     const response = await axios.post(
-      "http://localhost:3004/api/sendEmailSecond",
+      "https://couple-goals-new.herokuapp.com/api/sendEmailSecond",
       data
     );
   
