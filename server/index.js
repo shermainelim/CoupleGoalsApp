@@ -16,10 +16,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "couplegoals",
+  host: "us-cdbr-east-06.cleardb.net",
+  user: "b2ce4a45c067ae",
+  password: "2e2f1c52",
+  database: "heroku_4762ecdc0006081",
 });
 
 const triggerEmail = async (email, username) => {
