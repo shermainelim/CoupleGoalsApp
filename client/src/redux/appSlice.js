@@ -112,7 +112,7 @@ export const loginFirstPerson = createAsyncThunk(
       });
 
       if (res.status !== 200) {
-        cogoToast.success("Login failed");
+        cogoToast.error("Login failed");
         return;
       }
 
