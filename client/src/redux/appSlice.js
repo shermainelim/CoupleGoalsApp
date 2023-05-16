@@ -126,7 +126,7 @@ export const loginFirstPerson = createAsyncThunk(
         cogoToast.success("Login is Successful");
       }
     } catch (err) {
-      cogoToast.success("Login failed");
+      cogoToast.error("Login failed");
     }
   }
 );
