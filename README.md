@@ -10,6 +10,8 @@ Frontend (netlify) : https://couplegoals.netlify.app/
 
 Backend (heroku) : - removed due to updated cost - 
 
+GitLab DevOps : [https://gitlab.com/shermainelim](https://gitlab.com/shermainelim/CoupleGoalsMobile)
+
 Transforming Web to Mobile React Native : https://github.com/shermainelim/CoupleGoalsMobile 
 
 Notes : https://www.conventionalcommits.org/en/v1.0.0/
