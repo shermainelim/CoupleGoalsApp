@@ -7,7 +7,7 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 export const Card = ({ todoFinance, deleteFinance }) => {
   
-  
+  //added card
   return (
     <>
       {todoFinance &&
