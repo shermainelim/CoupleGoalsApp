@@ -3,6 +3,7 @@ import "./CardGoal.scss";
 import ProgressBar from "./ProgressBar";
 
 export const CardGoal = ({ title, description, buttonText, link }) => {
+  // card goal
   return (
     <div className="card-container-goal">
       {title && <h1 className="card-title">{title}</h1>}
