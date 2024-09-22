@@ -64,7 +64,7 @@ setCurrent(currentSaved);
       </div>
       <div className="pro-card-description">{description}</div>
       <div onClick={Contribute} className="pro-card-btn-contribute">
-        Contribute
+        Contributes
       </div>
 
       <div onClick={Backtrack} className="pro-card-btn-backtrack">
