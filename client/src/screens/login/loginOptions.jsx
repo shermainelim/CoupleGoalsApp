@@ -5,6 +5,7 @@ import CustomButton from "../../shared/CustomButton";
 import { useNavigate } from "react-router-dom";
 
 const LoginOptions = () => {
+  //login
   const cx = classNames.bind(styles);
   const navigate = useNavigate();
 
