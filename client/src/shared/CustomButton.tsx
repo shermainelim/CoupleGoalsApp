@@ -27,7 +27,7 @@ const CustomButton: React.FC<Props> = ({
       className={cx("basic", className)}
       onClick={clicked}
     >
-      {loading?(<div className={cx("spinner")} ><Spinner/></div>):(<div>{content}</div>)}
+      {loading?(<div className={cx("spinner")} ><Spinner/></div>):(<div>Button: {content}</div>)}
       
     </button>
   );
