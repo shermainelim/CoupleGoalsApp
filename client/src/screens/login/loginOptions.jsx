@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const LoginOptions = () => {
   const cx = classNames.bind(styles);
   const navigate = useNavigate();
-
+//login
   return (
     <div className={cx("register-container")}>
       <div className="register-title"> Login Options</div>
