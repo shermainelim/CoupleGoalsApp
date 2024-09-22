@@ -63,7 +63,7 @@ const Welcome = () => {
       <CustomButton
         className="resident-btn"
         testId="resident"
-        content="Create a Couple Space"
+        content="Register a Couple Space"
         clicked={() => {
           navigate("/register");
         }}

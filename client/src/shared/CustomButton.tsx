@@ -10,6 +10,7 @@ interface Props {
   clicked: () => void;
   className: string;
   loading?: boolean;
+  testBool?: boolean;
 }
 
 const CustomButton: React.FC<Props> = ({
@@ -18,6 +19,7 @@ const CustomButton: React.FC<Props> = ({
   clicked,
   className,
   loading,
+  testBool,
 }) => {
   const cx = classNames.bind(styles);
 
