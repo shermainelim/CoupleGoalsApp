@@ -2,19 +2,13 @@ Test
 
 # CoupleGoalsReact
 
-# Video Demo (Junior Dev SG Programme Presentation 2023)
-https://github.com/shermainelim/CoupleGoalsReact/assets/65886071/7fe159f1-ce00-4f87-a0a8-c5459c6f249b
-
-# Presentation Slides
-[JDSG- CoupleGoals.pdf](https://github.com/shermainelim/CoupleGoalsReact/files/15284148/JDSG-.CoupleGoals.pdf)
-
 Frontend (netlify) : https://couplegoals.netlify.app/
 
 Backend (heroku) : - removed due to updated cost - 
 
-GitLab DevOps : [https://gitlab.com/shermainelim](https://gitlab.com/shermainelim/CoupleGoalsMobile)
+GitLab DevOps : 
 
-Transforming Web to Mobile React Native : https://github.com/shermainelim/CoupleGoalsMobile 
+Transforming Web to Mobile React Native : 
 
 Notes : https://www.conventionalcommits.org/en/v1.0.0/
 
