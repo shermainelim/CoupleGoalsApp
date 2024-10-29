@@ -45,9 +45,9 @@ Deployment: Apple Appstore. (Shermaine)
 
 Infra and devops:
 
-Notion : https://www.notion.so/CoupleGoals-Board-c00bfa36ad1b4fa0895499c17f6b135a
+Notion : 
 
-Github Repo: https://github.com/shermainelim/CoupleGoals
+Github Repo: 
 
 Features :
 
