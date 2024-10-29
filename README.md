@@ -2,7 +2,7 @@ Test
 
 # CoupleGoalsReact
 
-Frontend (netlify) : https://couplegoals.netlify.app/
+Frontend (netlify) : 
 
 Backend (heroku) : - removed due to updated cost - 
 
