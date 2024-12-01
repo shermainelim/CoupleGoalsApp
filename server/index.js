@@ -16,10 +16,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 const db = mysql.createPool({
-  host: "us-cdbr-east-06.cleardb.net",
-  user: "b2ce4a45c067ae",
-  password: "2e2f1c52",
-  database: "heroku_4762ecdc0006081",
+  host: "localhost",
+  user: "root",
+  password: "password",
+  database: "couplegoals",
 });
 
 const triggerEmail = async (email, username) => {
@@ -126,7 +126,7 @@ app.post("/goalDone", (req, res) => {
  const status = req.body.status;
 
   db.query(
-    "UPDATE heroku_4762ecdc0006081.goals SET status = ? WHERE spaceName = ? AND id = ?",
+    "UPDATE couplegoals.goals SET status = ? WHERE spaceName = ? AND id = ?",
     [status, spaceName, id],
   );
   res.send({message: "Goal done"});
@@ -142,7 +142,7 @@ app.post("/changePasswordSecond",async (req, res) => {
   const hash1Change = bcrypt.hashSync(confirmPassword, saltRounds);
 
   db.query(
-    "UPDATE heroku_4762ecdc0006081.space SET secondPersonPassword = ? WHERE secondPersonEmail = ?",
+    "UPDATE couplegoals.space SET secondPersonPassword = ? WHERE secondPersonEmail = ?",
     [hash1Change, secondPersonEmail],
   );
 
@@ -165,7 +165,7 @@ app.post("/changePassword",async (req, res) => {
   const hash1Change = bcrypt.hashSync(confirmPassword, saltRounds);
 
   db.query(
-    "UPDATE heroku_4762ecdc0006081.space SET firstPersonPassword = ? WHERE firstPersonEmail = ?",
+    "UPDATE couplegoals.space SET firstPersonPassword = ? WHERE firstPersonEmail = ?",
     [hash1Change, firstPersonEmail],
   );
 
@@ -189,7 +189,7 @@ app.post("/forgetPasswordSecond",async (req, res) => {
   const hash1Change = bcrypt.hashSync(randNoString, saltRoundsNew);
 
   db.query(
-    "UPDATE heroku_4762ecdc0006081.space SET secondPersonPassword = ? WHERE secondPersonEmail = ?",
+    "UPDATE couplegoals.space SET secondPersonPassword = ? WHERE secondPersonEmail = ?",
     [hash1Change, firstPersonEmail],
   );
 
@@ -214,7 +214,7 @@ app.post("/forgetPassword",async (req, res) => {
   const hashChangeForget = bcrypt.hashSync(randNoString,  saltRoundsNew);
 
   db.query(
-    "UPDATE heroku_4762ecdc0006081.space SET firstPersonPassword = ? WHERE firstPersonEmail = ?",
+    "UPDATE couplegoals.space SET firstPersonPassword = ? WHERE firstPersonEmail = ?",
     [hashChangeForget, firstPersonEmail],
   );
 
@@ -237,7 +237,7 @@ app.post("/spaceDelete", async (req, res) => {
   console.log("email", email);
 
   db.query(
-    "DELETE FROM heroku_4762ecdc0006081.space WHERE spaceName = ?",
+    "DELETE FROM couplegoals.space WHERE spaceName = ?",
     [spaceName],
   );
 
@@ -259,7 +259,7 @@ app.post("/financeDelete", (req, res) => {
 
 
   db.query(
-    "DELETE FROM heroku_4762ecdc0006081.finance WHERE spaceName = ? AND id = ?",
+    "DELETE FROM couplegoals.finance WHERE spaceName = ? AND id = ?",
     [spaceName, id ],
   );
   res.send({message: "Finance tracker deleted"});
@@ -274,7 +274,7 @@ app.post("/goalDelete", (req, res) => {
 
 
   db.query(
-    "DELETE FROM heroku_4762ecdc0006081.goals WHERE spaceName = ? AND id = ?",
+    "DELETE FROM couplegoals.goals WHERE spaceName = ? AND id = ?",
     [spaceName, id ],
   );
   res.send({message: "Goal deleted"});
@@ -293,7 +293,7 @@ app.post("/financePost", (req, res) => {
  const endGoal = req.body.endGoal;
 
   db.query(
-    "INSERT INTO heroku_4762ecdc0006081.finance ( spaceName, id , title, description, startGoal, currentSaved, endGoal) VALUES (?,?,?,?,?,?,?)",
+    "INSERT INTO couplegoals.finance ( spaceName, id , title, description, startGoal, currentSaved, endGoal) VALUES (?,?,?,?,?,?,?)",
     [spaceName, id , title, desc, startGoal, currentSaved, endGoal],
   );
   res.send({message: "Finance tracker posted"});
@@ -307,7 +307,7 @@ app.post("/contributionBackPost", (req, res) => {
  const current = req.body.currentSaved
 
   db.query(
-    "UPDATE heroku_4762ecdc0006081.finance SET currentSaved = ? WHERE spaceName = ? AND id = ?",
+    "UPDATE couplegoals.finance SET currentSaved = ? WHERE spaceName = ? AND id = ?",
     [current, spaceName, id],
   );
   res.send({message: "Financial savings updated"});
@@ -322,7 +322,7 @@ app.post("/goalPost", (req, res) => {
  const status = req.body.status;
 
   db.query(
-    "INSERT INTO heroku_4762ecdc0006081.goals ( spaceName, id, title, status) VALUES (?,?,?,?)",
+    "INSERT INTO couplegoals.goals ( spaceName, id, title, status) VALUES (?,?,?,?)",
     [spaceName, id , title, status],
   );
   res.send({message: "Goal posted"});
@@ -334,7 +334,7 @@ app.post("/fetchFinance", (req, res) => {
   const spaceName = req.body.spaceName;
 
   db.query(
-    "SELECT spaceName, id, title, description, startGoal, currentSaved, endGoal FROM heroku_4762ecdc0006081.finance WHERE spaceName = ?",
+    "SELECT spaceName, id, title, description, startGoal, currentSaved, endGoal FROM couplegoals.finance WHERE spaceName = ?",
     [spaceName],
     (err, result) => {
 
@@ -351,7 +351,7 @@ app.post("/fetchGoal", (req, res) => {
   const spaceName = req.body.spaceName;
 
   db.query(
-    "SELECT * FROM heroku_4762ecdc0006081.goals WHERE spaceName = ?",
+    "SELECT * FROM couplegoals.goals WHERE spaceName = ?",
     [spaceName],
     (err, result) => {
       
@@ -369,7 +369,7 @@ app.post("/checkUnique", (req, res) => {
 
 
   db.query(
-    "SELECT * from heroku_4762ecdc0006081.space WHERE spaceName = ?",
+    "SELECT * from couplegoals.space WHERE spaceName = ?",
     [spaceName],
     (err, result) => {
    
@@ -407,7 +407,7 @@ app.post("/register", (req, res) => {
   const hash2 = bcrypt.hashSync(secondPersonPassword, saltRounds);
 
   db.query(
-    "SELECT * from heroku_4762ecdc0006081.space WHERE spaceName = ?",
+    "SELECT * from couplegoals.space WHERE spaceName = ?",
     [spaceName],
     (err, result) => {
       if (err) {
@@ -421,7 +421,7 @@ app.post("/register", (req, res) => {
         //space name not taken
         
     db.query(
-      "INSERT INTO heroku_4762ecdc0006081.space ( id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, firstPersonBirthday,secondPersonName, secondPersonEmail, secondPersonPassword , secondPersonBirthday, anniDate) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+      "INSERT INTO couplegoals.space ( id, spaceName, firstPersonName, firstPersonEmail, firstPersonPassword, firstPersonBirthday,secondPersonName, secondPersonEmail, secondPersonPassword , secondPersonBirthday, anniDate) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
       [
         id, spaceName, firstPersonName, firstPersonEmail, hash1, firstPersonBirthday,secondPersonName, secondPersonEmail, hash2 , secondPersonBirthday, anniDate
       ]
@@ -439,7 +439,7 @@ app.post("/loginFirstPerson", (req, res) => {
   const firstPersonPassword = req.body.firstPersonPassword;
 
   db.query(
-    "SELECT * FROM heroku_4762ecdc0006081.space WHERE spaceName = ? and firstPersonEmail = ?",
+    "SELECT * FROM couplegoals.space WHERE spaceName = ? and firstPersonEmail = ?",
     [spaceName, firstPersonEmail],
     (err, result) => {
       if (result.length > 0) {
@@ -481,7 +481,7 @@ app.post("/loginSecondPerson", (req, res) => {
 
 
   db.query(
-    "SELECT * FROM heroku_4762ecdc0006081.space WHERE spaceName = ? and secondPersonEmail = ?",
+    "SELECT * FROM couplegoals.space WHERE spaceName = ? and secondPersonEmail = ?",
     [spaceName, secondPersonEmail],
     (err, result) => {
    
