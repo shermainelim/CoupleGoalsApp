@@ -366,23 +366,23 @@ app.post("/fetchGoal", (req, res) => {
 app.post("/checkUnique", (req, res) => {
  
   const spaceName = req.body.spaceName;
+  res.send({ message: "unique" });
 
-
-  db.query(
-    "SELECT * from couplegoals.space WHERE spaceName = ?",
-    [spaceName],
-    (err, result) => {
+  // db.query(
+  //   "SELECT * from couplegoals.space WHERE spaceName = ?",
+  //   [spaceName],
+  //   (err, result) => {
    
-      if (result.length !== 0) {
+  //     if (result.length !== 0) {
        
-        res.send({ message: "taken" });
-      } else {
+  //       res.send({ message: "taken" });
+  //     } else {
        
-        res.send({ message: "unique" });
-        //space name not taken
-      }
-    }
-  );
+  //       res.send({ message: "unique" });
+  //       //space name not taken
+  //     }
+  //   }
+  // );
 });
 
 //register couples
