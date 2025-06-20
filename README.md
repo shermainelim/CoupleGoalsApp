@@ -1,4 +1,8 @@
-Test
+# Video Demo (Junior Dev SG Programme Presentation 2023)
+https://github.com/shermainelim/CoupleGoalsReact/assets/65886071/7fe159f1-ce00-4f87-a0a8-c5459c6f249b
+
+# Presentation Slides
+[JDSG- CoupleGoals.pdf](https://github.com/shermainelim/CoupleGoalsReact/files/15284148/JDSG-.CoupleGoals.pdf)
 
 # CoupleGoalsReact
 
