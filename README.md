@@ -6,7 +6,7 @@ https://github.com/shermainelim/CoupleGoalsReact/assets/65886071/7fe159f1-ce00-4
 
 # CoupleGoalsReact
 
-Frontend (netlify) : couplegoalsapp.netlify.app 
+Frontend (netlify) : [couplegoalsapp.netlify.app ](https://couplegoalsapp.netlify.app/)
 
 Backend (heroku) : - removed due to updated cost - 
 
